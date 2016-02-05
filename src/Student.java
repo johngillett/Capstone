@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Student {
 
 	int id;
-	
+	double satisfactionScore; //to gauge how many top choices are placed
 	Course[] prefs;
 	int indexOfNextCourseToCheck;
 	

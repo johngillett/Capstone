@@ -1,10 +1,15 @@
+import java.util.*;
 
 public class GreedyScheduler {
 
-	public static void greedySchedule(Student[] students, Course[] courses)
+	public static void greedyScheduleByPref(Student[] students, Course[] courses)
 	{
+		ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
+		ArrayList<Student> placedStudents = new ArrayList<Student>(); 
 		
-		for(Student st: students)
+		while(studentsToPlace.size() != 0){
+
+		for(Student st: studentsToPlace)
 		{
 			Course[] prefs = st.prefs;
 			
@@ -14,6 +19,7 @@ public class GreedyScheduler {
 				{
 					prefs[i].addStudent(st);
 					st.courses.add(prefs[i]);
+					//if()
 					st.indexOfNextCourseToCheck = i+1;
 					break;
 				}
@@ -21,9 +27,12 @@ public class GreedyScheduler {
 			}
 				
 		}
+		}
 		
 		
 	}
+	
+	//greedyScheduleByStudent
 	
 	
 	
