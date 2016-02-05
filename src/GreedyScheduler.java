@@ -1,38 +1,70 @@
-import java.util.*;
+//import java.util.*;
 
 public class GreedyScheduler {
 
 	public static void greedyScheduleByPref(Student[] students, Course[] courses)
 	{
-		ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
-		ArrayList<Student> placedStudents = new ArrayList<Student>(); 
+		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
+		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
 		
-		while(studentsToPlace.size() != 0){
+		for(int y = 0; y< 4;y++){
 
-		for(Student st: studentsToPlace)
-		{
+			for(Student st: students)
+			{
 			Course[] prefs = st.prefs;
 			
-			for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
-			{
-				if(prefs[i].hasRoom()) //&& schedule is compatible
+				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
-					prefs[i].addStudent(st);
-					st.courses.add(prefs[i]);
-					//if()
-					st.indexOfNextCourseToCheck = i+1;
-					break;
+				
+					if(prefs[i].hasRoom()) //&& schedule is compatible
+					{
+						prefs[i].addStudent(st);
+						st.courses.add(prefs[i]);
+						st.indexOfNextCourseToCheck = i+1;
+						break;
+					}
+				
+				
 				}
 				
 			}
-				
-		}
 		}
 		
 		
 	}
 	
 	//greedyScheduleByStudent
+	public static void greedyScheduleByStudent(Student[] students, Course[] courses)
+	{
+		
+
+		for(Student st: students)
+		{
+		Course[] prefs = st.prefs;
+			
+		
+			int numAdded = 0;
+			
+			for(int i = 0; i < prefs.length;i++)
+			{
+				
+				if(prefs[i].hasRoom()) //&& schedule is compatible
+				{
+					prefs[i].addStudent(st);
+					st.courses.add(prefs[i]);
+					numAdded++;
+					
+				}
+				
+				if(numAdded == 4)
+					break;
+				
+			}
+				
+		}
+	}
+		
+		
 	
 	
 	
