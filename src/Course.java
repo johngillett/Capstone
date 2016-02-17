@@ -4,7 +4,7 @@ public class Course {
 
 	int courseID;
 	
-	Day[] schedule;
+	ArrayList<Day> schedule;
 	
 	ArrayList<Student> students;
 	
@@ -13,10 +13,10 @@ public class Course {
 	
 	int curSize;
 	
-	public Course(int id, Day[] sch, int min, int max)
+	public Course(int id, ArrayList<Day> schedule, int min, int max)
 	{
 		this.courseID = id;
-		this.schedule = sch;
+		this.schedule = schedule;
 		
 		this.minSize = min;
 		this.maxSize = max;
