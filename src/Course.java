@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Course {
 
+	String title;
+	
 	int courseID;
 	
 	ArrayList<Day> schedule;
@@ -13,8 +15,10 @@ public class Course {
 	
 	int curSize;
 	
-	public Course(int id, ArrayList<Day> schedule, int min, int max)
+	public Course(String title, int id, ArrayList<Day> schedule, int min, int max)
 	{
+		this.title = title;
+		
 		this.courseID = id;
 		this.schedule = schedule;
 		
@@ -34,6 +38,16 @@ public class Course {
 	{
 	curSize++;	
 	students.add(stud);	
+	}
+	
+	public String getTitle()
+	{
+		return this.title;
+	}
+	
+	public int getID()
+	{
+		return this.courseID;
 	}
 	
 }

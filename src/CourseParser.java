@@ -18,12 +18,14 @@ public class CourseParser {
 		//skip first line
 		bufRead.readLine();	
 			
+		int x = 0;
+		
 			//Line Format:
 			//0		1	2	3		4		5		6	7	8	9		10		11	12			13			14		15		16			17		18		19		20
 			//Dept, Crs, Sc, Title, Limit, Enrld, W/L, CO, Type, Units, Days, Times, Facil ID, Instructor, Notes, Component, Comb Sect, Acad Org, Term, Session, Career
-			while ( (nextLine = bufRead.readLine()) != null)
+			while ( (nextLine = bufRead.readLine()) != null && x < 40)
 			{   
-				
+				x++;
 			    String[] courseData = nextLine.split(",");
 			    //System.out.println("Course: "+courseData[3]);
 			    
@@ -42,22 +44,11 @@ public class CourseParser {
 			   		continue;	
 			   
 			    
-			   // System.out.println(timeData[0]+", "+timeData[1]);
-			  
-			    int startTime = 0;
-			    int endTime = 0;
-			    
+			    //System.out.println(timeData[0]+", "+timeData[1]);
+			
 			    //parse times
-			    //String[] startData = timeData[0].split(".");
-			    //String[] endData = timeData[1].split(".");
-			    
-			    //System.out.println(startData.length);
-				
-			    startTime = (int)(Double.parseDouble(timeData[0])* 100);
-			    endTime = (int)(Double.parseDouble(timeData[1])* 100);
-			    
-			    //startTime = (Integer.parseInt(startData[0]) * 100) + (Integer.parseInt(startData[1]));
-			    //endTime = (Integer.parseInt(endData[0]) * 100) + (Integer.parseInt(endData[1]));
+			   	int startTime = (int)(Double.parseDouble(timeData[0])* 100);
+			    int endTime = (int)(Double.parseDouble(timeData[1])* 100);
 			    
 			    //parse Days
 			   	if(dayData.charAt(1) != '_')
@@ -72,13 +63,20 @@ public class CourseParser {
 			   		schedule.add(new Day(Day.Slot.F,startTime,endTime));   
 			   	
 			  
+			   	if(courseID >= 1 && title.equals(toReturn.get(toReturn.size()-1).getTitle()))
+				    continue;
+			   	
 			    //Course(int id, Day[] sch, int min, int max)
-			    Course toAdd = new Course(courseID,schedule,0,maxSize);
+			    Course toAdd = new Course(title,courseID,schedule,0,10);
 			    toReturn.add(toAdd);
 			 	
-			    System.out.println(dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
+			    System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
 			    
 			    
+			    
+			    //if(courseID >= 2 && title.equals(toReturn.get(toReturn.size()-2).getTitle()))
+			    //	continue;
+			    	
 			    courseID++;
 			}
 		

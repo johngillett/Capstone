@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 //import java.util.*;
 
 public class GreedyScheduler {
 
-	public static void greedyScheduleByPref(Student[] students, Course[] courses)
+	public static void greedyScheduleByPref(ArrayList<Student> students, ArrayList<Course> courses)
 	{
 		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
 		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
@@ -19,7 +21,8 @@ public class GreedyScheduler {
 					if(prefs[i].hasRoom()) //&& schedule is compatible
 					{
 						prefs[i].addStudent(st);
-						st.courses.add(prefs[i]);
+						
+						st.enrollInCourse(prefs[i]);
 						st.indexOfNextCourseToCheck = i+1;
 						break;
 					}
@@ -28,13 +31,15 @@ public class GreedyScheduler {
 				}
 				
 			}
+			
 		}
+		
 		
 		
 	}
 	
 	//greedyScheduleByStudent
-	public static void greedyScheduleByStudent(Student[] students, Course[] courses)
+	public static void greedyScheduleByStudent(ArrayList<Student> students, ArrayList<Course> courses)
 	{
 		
 
@@ -51,7 +56,7 @@ public class GreedyScheduler {
 				if(prefs[i].hasRoom()) //&& schedule is compatible
 				{
 					prefs[i].addStudent(st);
-					st.courses.add(prefs[i]);
+					st.enrollInCourse(prefs[i]);
 					numAdded++;
 					
 				}

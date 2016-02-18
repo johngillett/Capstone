@@ -8,8 +8,17 @@ public class Driver {
 
 		ArrayList<Course> courses =  CourseParser.parseCourses();
 		
+		ArrayList<Student> students = StudentGenerator.generateStudents(80, courses);
+		
+		//GreedyScheduler.greedyScheduleByStudent(students, courses);
+		GreedyScheduler.greedyScheduleByStudent(students, courses);
+		
+		for(Student stud : students)
+			System.out.println(stud.toString());
 		
 		
 	}
 
+	
+	
 }
