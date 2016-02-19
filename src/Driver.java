@@ -6,16 +6,19 @@ public class Driver {
 		// TODO Auto-generated method stub
 
 
-		ArrayList<Course> courses =  CourseParser.parseCourses();
+		ArrayList<Course> courses =  CourseParser.parseCourses(100);
 		
-		ArrayList<Student> students = StudentGenerator.generateStudents(80, courses);
+		ArrayList<Student> students = StudentGenerator.generateStudents(250, courses);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		GreedyScheduler.greedyScheduleByStudent(students, courses);
+		GreedyScheduler.greedyScheduleByPref(students, courses);
 		
 		for(Student stud : students)
 			System.out.println(stud.toString());
 		
+//		System.out.println(courses.get(18).isCompatible(courses.get(3)));
+//		System.out.println(courses.get(18));
+//		System.out.println(courses.get(3));
 		
 	}
 

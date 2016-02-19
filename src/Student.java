@@ -43,6 +43,20 @@ public class Student {
 	
 	
 	}
+	
+	//checks if course has no conflicts with student's schedule
+	public boolean fitsInSchedule(Course courseToCheck)
+	{	
+		for(Course course: courses)
+		{
+			if(!course.isCompatible(courseToCheck))
+			{
+				System.out.println(course.title + " conflicts with " + courseToCheck.title);
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public String toString()
 	{

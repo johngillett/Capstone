@@ -18,7 +18,7 @@ public class GreedyScheduler {
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
 				
-					if(prefs[i].hasRoom()) //&& schedule is compatible
+					if(prefs[i].hasRoom() && st.fitsInSchedule(prefs[i])) 
 					{
 						prefs[i].addStudent(st);
 						
@@ -53,7 +53,7 @@ public class GreedyScheduler {
 			for(int i = 0; i < prefs.length;i++)
 			{
 				
-				if(prefs[i].hasRoom()) //&& schedule is compatible
+				if(prefs[i].hasRoom() && st.fitsInSchedule(prefs[i])) //&& schedule is compatible
 				{
 					prefs[i].addStudent(st);
 					st.enrollInCourse(prefs[i]);

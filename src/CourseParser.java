@@ -2,10 +2,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CourseParser {
 
-	public static ArrayList<Course> parseCourses()
+	public static ArrayList<Course> parseCourses(int numCourses)
 	{
 		ArrayList<Course> toReturn = new ArrayList<Course>();
 
@@ -17,15 +20,12 @@ public class CourseParser {
 		
 		//skip first line
 		bufRead.readLine();	
-			
-		int x = 0;
 		
 			//Line Format:
 			//0		1	2	3		4		5		6	7	8	9		10		11	12			13			14		15		16			17		18		19		20
 			//Dept, Crs, Sc, Title, Limit, Enrld, W/L, CO, Type, Units, Days, Times, Facil ID, Instructor, Notes, Component, Comb Sect, Acad Org, Term, Session, Career
-			while ( (nextLine = bufRead.readLine()) != null && x < 40)
+			while ( (nextLine = bufRead.readLine()) != null)
 			{   
-				x++;
 			    String[] courseData = nextLine.split(",");
 			    //System.out.println("Course: "+courseData[3]);
 			    
@@ -70,7 +70,7 @@ public class CourseParser {
 			    Course toAdd = new Course(title,courseID,schedule,0,10);
 			    toReturn.add(toAdd);
 			 	
-			    System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
+			    //System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
 			    
 			    
 			    
@@ -90,11 +90,18 @@ public class CourseParser {
 		
 		
 		
+		Collections.shuffle(toReturn);
+		System.out.println(toReturn.size());
+		ArrayList<Course> reallyReturn = new ArrayList<Course>();
 		
-		
-		return toReturn;
+		for(int i = 0; i < numCourses; i ++ )
+		{
+			reallyReturn.add(toReturn.get(i));
+		}
+		System.out.println(reallyReturn.size());
+		return reallyReturn;
 	}
 	
-	
+	 
 	
 }
