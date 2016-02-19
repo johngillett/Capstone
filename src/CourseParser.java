@@ -67,7 +67,7 @@ public class CourseParser {
 				    continue;
 			   	
 			    //Course(int id, Day[] sch, int min, int max)
-			    Course toAdd = new Course(title,courseID,schedule,0,10);
+			    Course toAdd = new Course(title,courseID,schedule,0,Constants.COURSE_SEATS);
 			    toReturn.add(toAdd);
 			 	
 			    //System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);

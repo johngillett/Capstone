@@ -9,7 +9,7 @@ public class GreedyScheduler {
 		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
 		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
 		
-		for(int y = 0; y< 4;y++){
+		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++){
 
 			for(Student st: students)
 			{
@@ -61,7 +61,7 @@ public class GreedyScheduler {
 					
 				}
 				
-				if(numAdded == 4)
+				if(numAdded == Constants.STUD_COURSE_LIMIT)
 					break;
 				
 			}
