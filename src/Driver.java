@@ -5,8 +5,6 @@ public class Driver {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-
-
 		ArrayList<Course> courses =  CourseParser.parseCourses(Constants.TOT_COURSES);
 		
 		ArrayList<Student> students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courses);
@@ -36,14 +34,9 @@ public class Driver {
 		
 		}
 	
-		
-		
-//		System.out.println(courses.get(18).isCompatible(courses.get(3)));
-//		System.out.println(courses.get(18));
-//		System.out.println(courses.get(3));
-		
+
 	}
 
-	
-	
+
+
 }

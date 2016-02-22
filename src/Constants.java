@@ -13,5 +13,4 @@ public class Constants {
 	
 	static final int COURSE_SEATS = 10;
 	
-	
 }
