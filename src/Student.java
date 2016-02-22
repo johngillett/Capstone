@@ -22,25 +22,28 @@ public class Student {
 	
 	}
 
-	
+	//adds course to student's schedule and updates satisfaction score
 	public void enrollInCourse(Course c)
 	{
 	courses.add(c);	
 	
-	int scoreToAdd = 0;
+	int newScore = 0;
 	
-	for(int i = 0; i < prefs.length;i++)
+	for(int i = 0; i < prefs.length; i++)
 	{
-		if(prefs[i].getID() == c.getID())
-			scoreToAdd = (int) Math.pow(2,i+1);
+		for(Course co : courses)
+		{
+			if(co.getID() == prefs[i].getID())	
+				newScore += (int) Math.pow(2,i+1);
+		}
 	}
 	
-	if(satisfactionScore == Integer.MAX_VALUE)
-		satisfactionScore = scoreToAdd;
-	else
-		satisfactionScore += scoreToAdd;
+	if(courses.size() < 4)
+	{
+		newScore += (4 - courses.size()) * Math.pow(2, 9);
+	}
 	
-	
+	this.satisfactionScore = newScore;
 	
 	}
 	
