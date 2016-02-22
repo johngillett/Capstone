@@ -11,9 +11,7 @@ public class StudentGenerator {
 		for(int i = 0; i < numStudents;i++)
 		{
 			
-			Random rand = new Random();
-			
-			Course[] prefs = new Course[8];
+			Course[] prefs = new Course[Constants.NUM_PREFS];
 			
 			int[] toShuffle = new int[courses.size()];
 			
@@ -22,7 +20,7 @@ public class StudentGenerator {
 		
 			shuffleArray(toShuffle);
 			
-			for(int y = 0; y < 8; y ++)
+			for(int y = 0; y < Constants.NUM_PREFS; y ++)
 				prefs[y] = courses.get(toShuffle[y]);
 		
 			students.add(new Student(i,prefs));

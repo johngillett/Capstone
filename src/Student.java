@@ -8,6 +8,8 @@ public class Student {
 	int indexOfNextCourseToCheck;
 	
 	ArrayList<Course> courses;
+
+	ArrayList<Day> schedule;
 	
 	public Student(int id, Course[] prefs)
 	{
@@ -20,41 +22,59 @@ public class Student {
 	
 	this.indexOfNextCourseToCheck = 0;
 	
+	this.schedule = new ArrayList<Day>();
+	
 	}
 
-	
+	//adds course to student's schedule and updates satisfaction score
 	public void enrollInCourse(Course c)
 	{
 	courses.add(c);	
 	
-	int scoreToAdd = 0;
+	int newScore = 0;
 	
-	for(int i = 0; i < prefs.length;i++)
+	for(int i = 0; i < prefs.length; i++)
 	{
-		if(prefs[i].getID() == c.getID())
-			scoreToAdd = (int) Math.pow(2,i+1);
+		for(Course co : courses)
+		{
+			if(co.isSameCourse(prefs[i]))	
+				newScore += (int) Math.pow(2,i+1);
+		}
 	}
 	
-	if(satisfactionScore == Integer.MAX_VALUE)
-		satisfactionScore = scoreToAdd;
-	else
-		satisfactionScore += scoreToAdd;
+	if(courses.size() < 4)
+	{
+		newScore += (4 - courses.size()) * Math.pow(2, 9);
+	}
 	
-	
+	this.satisfactionScore = newScore;
 	
 	}
 	
 	//checks if course has no conflicts with student's schedule
-	public boolean fitsInSchedule(Course courseToCheck)
+	public boolean addIfFitsInSchedule(Course courseToCheck)
 	{	
-		for(Course course: courses)
+		for(Day day1 : schedule)
 		{
-			if(!course.isCompatible(courseToCheck))
+			for(Day day2 : courseToCheck.schedule)
 			{
-				System.out.println(course.title + " conflicts with " + courseToCheck.title);
-				return false;
+				//if course falls on same day
+				if(day1.day.equals(day2.day))
+				{
+					//if one course starts & ends before another, then it is compatible, otherwise it isn't
+					if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
+						return false;
+				}
 			}
 		}
+		
+		if(courseToCheck.hasLab)
+		{
+			
+			
+		}
+		
+		
 		return true;
 	}
 

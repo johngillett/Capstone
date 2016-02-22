@@ -1,15 +1,16 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 //import java.util.*;
 
 public class GreedyScheduler {
 
-	public static void greedyScheduleByPref(ArrayList<Student> students, ArrayList<Course> courses)
+	public static void greedyScheduleByPref(ArrayList<Student> students)
 	{
 		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
 		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
 		
-		for(int y = 0; y< 4;y++){
+		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++){
 
 			for(Student st: students)
 			{
@@ -18,7 +19,7 @@ public class GreedyScheduler {
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
 				
-					if(prefs[i].hasRoom() && st.fitsInSchedule(prefs[i])) 
+					if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) 
 					{
 						prefs[i].addStudent(st);
 						
@@ -39,7 +40,7 @@ public class GreedyScheduler {
 	}
 	
 	//greedyScheduleByStudent
-	public static void greedyScheduleByStudent(ArrayList<Student> students, ArrayList<Course> courses)
+	public static void greedyScheduleByStudent(ArrayList<Student> students)
 	{
 		
 
@@ -53,7 +54,7 @@ public class GreedyScheduler {
 			for(int i = 0; i < prefs.length;i++)
 			{
 				
-				if(prefs[i].hasRoom() && st.fitsInSchedule(prefs[i])) //&& schedule is compatible
+				if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) //&& schedule is compatible
 				{
 					prefs[i].addStudent(st);
 					st.enrollInCourse(prefs[i]);
@@ -61,7 +62,7 @@ public class GreedyScheduler {
 					
 				}
 				
-				if(numAdded == 4)
+				if(numAdded == Constants.STUD_COURSE_LIMIT)
 					break;
 				
 			}
@@ -70,7 +71,40 @@ public class GreedyScheduler {
 	}
 		
 		
-	
+	public static void greedyScheduleByPrefRandomized(ArrayList<Student> students)
+	{
+		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
+		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
+		
+		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++){
+
+			for(Student st: students)
+			{
+			Course[] prefs = st.prefs;
+			
+				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
+				{
+				
+					if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) 
+					{
+						prefs[i].addStudent(st);
+						
+						st.enrollInCourse(prefs[i]);
+						st.indexOfNextCourseToCheck = i+1;
+						break;
+					}
+				
+				
+				}
+				
+			}
+			Collections.shuffle(students);
+			
+		}
+		
+		
+		
+	}
 	
 	
 }

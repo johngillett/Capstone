@@ -16,8 +16,7 @@ public class CourseParser {
 		FileReader input = new FileReader("courses.txt");
 		BufferedReader bufRead = new BufferedReader(input);
 		String nextLine = null;
-		int courseID = 0;
-		
+	
 		//skip first line
 		bufRead.readLine();	
 		
@@ -35,6 +34,9 @@ public class CourseParser {
 			
 			    int maxSize = Integer.parseInt(courseData[4]);
 			    
+			    if(maxSize == 0)
+			    	continue;
+			    
 			    ArrayList<Day> schedule = new ArrayList<Day>();
 			    String dayData = courseData[10];
 			    String[] timeData = (courseData[11].split("- "));
@@ -43,12 +45,14 @@ public class CourseParser {
 			   	if(timeData[0].equals("-"))
 			   		continue;	
 			   
-			    
-			    //System.out.println(timeData[0]+", "+timeData[1]);
-			
+			   	
+			    //System.out.println(Double.parseDouble(timeData[1]));
+			   	
 			    //parse times
-			   	int startTime = (int)(Double.parseDouble(timeData[0])* 100);
-			    int endTime = (int)(Double.parseDouble(timeData[1])* 100);
+			   	int startTime = Integer.parseInt(timeData[0].substring(0,2)+timeData[0].substring(3,5));
+			    int endTime = Integer.parseInt(timeData[1].substring(0,2)+timeData[1].substring(3,5));
+			    
+			    
 			    
 			    //parse Days
 			   	if(dayData.charAt(1) != '_')
@@ -62,12 +66,65 @@ public class CourseParser {
 			   	if(dayData.charAt(5) != '_')
 			   		schedule.add(new Day(Day.Slot.F,startTime,endTime));   
 			   	
-			  
-			   	if(courseID >= 1 && title.equals(toReturn.get(toReturn.size()-1).getTitle()))
-				    continue;
+			   	//parse char Identifiers
+			   	String dep = courseData[0];
+			   
+			   	int cNum = Integer.parseInt(courseData[1].trim());
+			   	String sectID = courseData[2];
 			   	
-			    //Course(int id, Day[] sch, int min, int max)
-			    Course toAdd = new Course(title,courseID,schedule,0,10);
+			   	int prevID = toReturn.size()-1;
+			   	
+			   	if(prevID >= 0)
+			   	{
+				   	Course prev = toReturn.get(toReturn.size()-1);
+				   	
+				   	//Check if course has multiple meeting times
+				   	if(prev.isSameCourse(dep, cNum) && prev.isSameSection(sectID))
+				   	{
+				   		prev.addMeetingTime(schedule);
+				   		continue;
+				   	}
+				   	
+				   	if(prev.isSameCourse(dep, cNum) && sectID.length() == 2)
+				   	{
+				   		if(prev.isSameSection(sectID.substring(0,1)))
+				   		{
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
+						    prev.addLab(newLab);
+						    continue;
+				   		}
+				   		else
+				   		{
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
+						    
+				   			ArrayList<Course> coursesWithSameLab = new ArrayList<Course>();
+				   			
+				   			Course toCheck = prev;
+				   			
+				   			while(toCheck.isSameCourse(dep, cNum))
+				   			{
+				   				coursesWithSameLab.add(toCheck);
+				   				
+				   				prevID--;
+				   				toCheck = toReturn.get(prevID);
+				   			}
+				   			
+				   			for(Course cs: coursesWithSameLab)
+				   			{
+				   				cs.addLab(newLab);
+				   			}
+				   			
+				   			continue;
+				   		}
+				   		
+				   		
+				   	}
+				   	
+				   	
+			   	}
+			   	
+			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max)
+			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
 			    toReturn.add(toAdd);
 			 	
 			    //System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
@@ -77,7 +134,6 @@ public class CourseParser {
 			    //if(courseID >= 2 && title.equals(toReturn.get(toReturn.size()-2).getTitle()))
 			    //	continue;
 			    	
-			    courseID++;
 			}
 		
 		bufRead.close();
@@ -88,17 +144,18 @@ public class CourseParser {
 			e.printStackTrace();
 		} 
 		
-		
+		if(Constants.PARSE_ALL_COURSES)
+			return toReturn;
 		
 		Collections.shuffle(toReturn);
-		System.out.println(toReturn.size());
+		//System.out.println(toReturn.size());
 		ArrayList<Course> reallyReturn = new ArrayList<Course>();
 		
 		for(int i = 0; i < numCourses; i ++ )
 		{
 			reallyReturn.add(toReturn.get(i));
 		}
-		System.out.println(reallyReturn.size());
+		//System.out.println(reallyReturn.size());
 		return reallyReturn;
 	}
 	

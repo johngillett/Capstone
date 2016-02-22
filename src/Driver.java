@@ -6,15 +6,37 @@ public class Driver {
 		// TODO Auto-generated method stub
 
 
-		ArrayList<Course> courses =  CourseParser.parseCourses(100);
+
+		ArrayList<Course> courses =  CourseParser.parseCourses(Constants.TOT_COURSES);
 		
-		ArrayList<Student> students = StudentGenerator.generateStudents(250, courses);
+		ArrayList<Student> students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courses);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
 		
-		for(Student stud : students)
-			System.out.println(stud.toString());
+		//double avgScore = 0;
+		
+//		for(Student stud : students)
+//		{
+//			System.out.println(stud.toString());
+//			avgScore += stud.satisfactionScore;
+//		}
+//		
+//		avgScore = avgScore / students.size();
+//		
+//		System.out.println("Average Score: "+avgScore);
+//		
+		for(Course cour : courses)
+		{
+			System.out.println(cour.toString());
+			
+			if(cour.hasLab)
+				cour.printLabs();
+		
+		}
+	
+		
 		
 //		System.out.println(courses.get(18).isCompatible(courses.get(3)));
 //		System.out.println(courses.get(18));

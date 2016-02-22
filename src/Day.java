@@ -17,4 +17,9 @@ public class Day {
 	this.endTime = end;	
 	}
 	
+	public String toString()
+	{
+		return this.day + ": "+this.startTime+"-"+this.endTime;
+	}
+	
 }
