@@ -3,15 +3,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.HashMap;
+//import java.util.Random;
+//import java.util.concurrent.ThreadLocalRandom;
 
 public class CourseParser {
 
-	public static ArrayList<Course> parseCourses(int numCourses)
+	public static HashMap<String,ArrayList<Course>> parseCourses(ArrayList<Course> courses,int numCourses)
 	{
-		ArrayList<Course> toReturn = new ArrayList<Course>();
-
+		ArrayList<Course> courseList = new ArrayList<Course>();
+		
 		try {			
 		FileReader input = new FileReader("courses.txt");
 		BufferedReader bufRead = new BufferedReader(input);
@@ -72,11 +73,12 @@ public class CourseParser {
 			   	int cNum = Integer.parseInt(courseData[1].trim());
 			   	String sectID = courseData[2];
 			   	
-			   	int prevID = toReturn.size()-1;
+			   	int prevID = courseList.size()-1;
 			   	
+			   	//If We're not on the first line
 			   	if(prevID >= 0)
 			   	{
-				   	Course prev = toReturn.get(toReturn.size()-1);
+				   	Course prev = courseList.get(courseList.size()-1);
 				   	
 				   	//Check if course has multiple meeting times
 				   	if(prev.isSameCourse(dep, cNum) && prev.isSameSection(sectID))
@@ -85,14 +87,17 @@ public class CourseParser {
 				   		continue;
 				   	}
 				   	
+				   	//Check if this is a Lab
 				   	if(prev.isSameCourse(dep, cNum) && sectID.length() == 2)
 				   	{
+				   		//Section Specific Lab
 				   		if(prev.isSameSection(sectID.substring(0,1)))
 				   		{
 				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
 						    prev.addLab(newLab);
 						    continue;
 				   		}
+				   		//Class specific Lab
 				   		else
 				   		{
 				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
@@ -106,7 +111,7 @@ public class CourseParser {
 				   				coursesWithSameLab.add(toCheck);
 				   				
 				   				prevID--;
-				   				toCheck = toReturn.get(prevID);
+				   				toCheck = courseList.get(prevID);
 				   			}
 				   			
 				   			for(Course cs: coursesWithSameLab)
@@ -125,15 +130,10 @@ public class CourseParser {
 			   	
 			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max)
 			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
-			    toReturn.add(toAdd);
+			    courseList.add(toAdd);
 			 	
 			    //System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
-			    
-			    
-			    
-			    //if(courseID >= 2 && title.equals(toReturn.get(toReturn.size()-2).getTitle()))
-			    //	continue;
-			    	
+
 			}
 		
 		bufRead.close();
@@ -145,18 +145,37 @@ public class CourseParser {
 		} 
 		
 		if(Constants.PARSE_ALL_COURSES)
-			return toReturn;
+		{	
+			numCourses = courseList.size();
+		}
+		else
+		{
+		Collections.shuffle(courseList);
+		}
 		
-		Collections.shuffle(toReturn);
 		//System.out.println(toReturn.size());
-		ArrayList<Course> reallyReturn = new ArrayList<Course>();
+		HashMap<String,ArrayList<Course>> toReturn = new HashMap<String,ArrayList<Course>>();
 		
 		for(int i = 0; i < numCourses; i ++ )
 		{
-			reallyReturn.add(toReturn.get(i));
+			Course curC = courseList.get(i);
+			String curID = curC.getID();
+			
+			if(!toReturn.containsKey(curID))
+			{
+			toReturn.put(curID, new ArrayList<Course>());
+			toReturn.get(curID).add(curC);
+			courses.add(curC);
+			}
+			else
+			{
+			toReturn.get(curID).add(curC);	
+			}
+			//toReturn.add(courseList.get(i));
 		}
 		//System.out.println(reallyReturn.size());
-		return reallyReturn;
+		
+		return toReturn;
 	}
 	
 	 

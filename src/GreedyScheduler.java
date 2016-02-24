@@ -1,33 +1,46 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 //import java.util.*;
 
 public class GreedyScheduler {
 
-	public static void greedyScheduleByPref(ArrayList<Student> students)
+	public static void greedyScheduleByPref(ArrayList<Student> students,HashMap<String,ArrayList<Course>> courses)
 	{
-		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
-		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
 		
-		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++){
+		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++)
+		{
 
 			for(Student st: students)
 			{
-			Course[] prefs = st.prefs;
+			String[] prefs = st.prefs;
 			
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
-				
-					if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) 
+					ArrayList<Course> prefCourses = courses.get(prefs[i]);
+					
+					boolean addedCourse = false;
+					
+					for(Course prefCourse : prefCourses)
 					{
-						prefs[i].addStudent(st);
+						if(!prefCourse.hasRoom())
+							continue;
 						
-						st.enrollInCourse(prefs[i]);
-						st.indexOfNextCourseToCheck = i+1;
-						break;
+						if(st.addIfFitsInSchedule(prefCourse)) 
+						{
+							st.indexOfNextCourseToCheck = i+1;
+							addedCourse = true;
+							break;
+						}
+						else
+							continue;
+						
+					
 					}
-				
+					
+					if(addedCourse)
+						break;
 				
 				}
 				
@@ -40,71 +53,71 @@ public class GreedyScheduler {
 	}
 	
 	//greedyScheduleByStudent
-	public static void greedyScheduleByStudent(ArrayList<Student> students)
-	{
-		
-
-		for(Student st: students)
-		{
-		Course[] prefs = st.prefs;
-			
-		
-			int numAdded = 0;
-			
-			for(int i = 0; i < prefs.length;i++)
-			{
-				
-				if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) //&& schedule is compatible
-				{
-					prefs[i].addStudent(st);
-					st.enrollInCourse(prefs[i]);
-					numAdded++;
-					
-				}
-				
-				if(numAdded == Constants.STUD_COURSE_LIMIT)
-					break;
-				
-			}
-				
-		}
-	}
-		
-		
-	public static void greedyScheduleByPrefRandomized(ArrayList<Student> students)
-	{
-		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
-		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
-		
-		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++){
-
-			for(Student st: students)
-			{
-			Course[] prefs = st.prefs;
-			
-				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
-				{
-				
-					if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) 
-					{
-						prefs[i].addStudent(st);
-						
-						st.enrollInCourse(prefs[i]);
-						st.indexOfNextCourseToCheck = i+1;
-						break;
-					}
-				
-				
-				}
-				
-			}
-			Collections.shuffle(students);
-			
-		}
+//	public static void greedyScheduleByStudent(ArrayList<Student> students)
+//	{
+//		
+//
+//		for(Student st: students)
+//		{
+//		Course[] prefs = st.prefs;
+//			
+//		
+//			int numAdded = 0;
+//			
+//			for(int i = 0; i < prefs.length;i++)
+//			{
+//				
+//				if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) //&& schedule is compatible
+//				{
+//					prefs[i].addStudent(st);
+//					st.enrollInCourse(prefs[i]);
+//					numAdded++;
+//					
+//				}
+//				
+//				if(numAdded == Constants.STUD_COURSE_LIMIT)
+//					break;
+//				
+//			}
+//				
+//		}
+//	}
 		
 		
-		
-	}
+//	public static void greedyScheduleByPrefRandomized(ArrayList<Student> students)
+//	{
+//		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
+//		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
+//		
+//		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++){
+//
+//			for(Student st: students)
+//			{
+//			Course[] prefs = st.prefs;
+//			
+//				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
+//				{
+//				
+//					if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) 
+//					{
+//						prefs[i].addStudent(st);
+//						
+//						st.enrollInCourse(prefs[i]);
+//						st.indexOfNextCourseToCheck = i+1;
+//						break;
+//					}
+//				
+//				
+//				}
+//				
+//			}
+//			Collections.shuffle(students);
+//			
+//		}
+//		
+//		
+//		
+//	}
 	
 	
 }
