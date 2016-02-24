@@ -1,11 +1,11 @@
 
 public class Constants {
 
-	static final int NUM_STUDENTS = 250;
+	static final int NUM_STUDENTS = 600;
 	
 	static final boolean PARSE_ALL_COURSES = true;
 	
-	static final int TOT_COURSES = 100;
+	static final int TOT_COURSES = 40;
 	
 	static final int STUD_COURSE_LIMIT = 4;
 	

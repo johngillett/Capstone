@@ -12,6 +12,8 @@ public class Course {
 	
 	boolean hasLab;
 	
+	boolean isLab;
+	
 	ArrayList<Course> labs;
 	
 	ArrayList<Day> schedule;
@@ -43,7 +45,7 @@ public class Course {
 		this.labs = new ArrayList<Course>();
 		
 		this.hasLab = false;
-		
+		this.isLab = false;
 	}
 	
 	public boolean hasRoom()
@@ -53,6 +55,7 @@ public class Course {
 	
 	public void addLab(Course c)
 	{
+	c.isLab = true;
 	labs.add(c);
 	hasLab = true;
 	}
@@ -111,6 +114,11 @@ public class Course {
 	return this.dept.equals(dept) && this.courseNum == cN;
 	}
 	
+	public boolean isSameCourse(String id)
+	{
+	return id.equals(this.dept+this.courseNum);
+	}
+	
 	public boolean isSameSection(String sectID)
 	{
 	return this.sectionID.equals(sectID);
@@ -121,11 +129,25 @@ public class Course {
 	return this.dept+this.courseNum;
 	}
 	
+	public String getSectionID()
+	{
+	return this.sectionID;
+	}
+	
 	public void addMeetingTime(ArrayList<Day> d)
 	{
 		schedule.addAll(d);
 	}
 	
+	public boolean isLab()
+	{
+		return this.isLab;
+	}
+	
+	public ArrayList<Course> getLabs()
+	{
+		return this.labs;
+	}
 	
 	//This toString method doesn't account for 
 	//possibly different start and end times on different days
@@ -140,7 +162,7 @@ public class Course {
 		{
 			toReturn += d.toString()+" ";
 		}
-		return toReturn +", "+title; 
+		return toReturn +", "+title+ ", # Enrolled: "+this.curSize+"/"+this.maxSize; 
 	}
 	
 }
