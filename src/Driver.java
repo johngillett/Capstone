@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Driver {
 	
 	static ArrayList<Course> courseList;
 	
@@ -19,8 +18,8 @@ public class Driver {
 		students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		GreedyScheduler.greedyScheduleByPref(students, courses);
-		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
+		//GreedyScheduler.greedyScheduleByPref(students, courses);
+		GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
 		
 		
 		printStudents();
@@ -53,7 +52,20 @@ public class Driver {
 	{
 		for(Course cour : courseList)
 		{
+			System.out.println(stud.toString());
+			avgScore += stud.satisfactionScore;
+		}
+		
+		avgScore = avgScore / students.size();
+		
+		System.out.println("Average Score: "+avgScore);
 			
+	}
+	
+	static void printCourses()
+	{
+		for(Course cour : courseList)
+		{
 			System.out.println(cour.toString());
 			
 			if(cour.hasLab)

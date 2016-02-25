@@ -24,10 +24,8 @@ public class GreedyScheduler {
 					
 					for(Course prefCourse : prefCourses)
 					{
-						if(!prefCourse.hasRoom())
-							continue;
 						
-						if(st.addIfFitsInSchedule(prefCourse)) 
+						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
 						{
 							st.indexOfNextCourseToCheck = i+1;
 							addedCourse = true;
@@ -84,40 +82,47 @@ public class GreedyScheduler {
 //	}
 		
 		
-//	public static void greedyScheduleByPrefRandomized(ArrayList<Student> students)
-//	{
-//		//ArrayList<Student> studentsToPlace = new ArrayList<Student>(Arrays.asList(students));	
-//		//ArrayList<Student> placedStudents = new ArrayList<Student>(); 
-//		
-//		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++){
-//
-//			for(Student st: students)
-//			{
-//			Course[] prefs = st.prefs;
-//			
-//				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
-//				{
-//				
-//					if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) 
-//					{
-//						prefs[i].addStudent(st);
-//						
-//						st.enrollInCourse(prefs[i]);
-//						st.indexOfNextCourseToCheck = i+1;
-//						break;
-//					}
-//				
-//				
-//				}
-//				
-//			}
-//			Collections.shuffle(students);
-//			
-//		}
-//		
-//		
-//		
-//	}
-	
+	public static void greedyScheduleByPrefRandomized(ArrayList<Student> students,HashMap<String,ArrayList<Course>> courses)
+	{
+		
+		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++)
+		{
+
+			for(Student st: students)
+			{
+			String[] prefs = st.prefs;
+			
+				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
+				{
+					ArrayList<Course> prefCourses = courses.get(prefs[i]);
+					
+					boolean addedCourse = false;
+					
+					for(Course prefCourse : prefCourses)
+					{
+						
+						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
+						{
+							st.indexOfNextCourseToCheck = i+1;
+							addedCourse = true;
+							break;
+						}
+						else
+							continue;
+						
+					
+					}
+					
+					if(addedCourse)
+						break;
+				
+				}
+				
+			}
+			
+			Collections.shuffle(students);
+			
+		}
+		
 	
 }
