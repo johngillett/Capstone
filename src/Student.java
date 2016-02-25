@@ -138,6 +138,15 @@ public class Student {
 		enrollInCourse(courseToCheck);
 		return true;
 	}
+	
+	public boolean hasCourse(String courseID)
+	{
+		for(Course course : courses)
+		{
+			if(courseID.equals(course.getID())) return true;
+		}
+		return false;
+	}
 
 	public String toString()
 	{

@@ -25,7 +25,10 @@ public class Driver {
 		
 		printStudents();
 		printCourses();
-	
+		
+		int[] prefCount = getPrefCount(students);
+		
+		BarChartMaker.makeBarChart(prefCount); 
 
 	}
 
@@ -56,6 +59,33 @@ public class Driver {
 			if(cour.hasLab)
 				cour.printLabs();
 		}	
+		
+	}
+	
+	static int[] getPrefCount(ArrayList<Student> students)
+	{
+		int[] prefCount = new int[Constants.NUM_PREFS];
+		
+		for(int i = 0; i <prefCount.length; i++)
+		{
+			for(Student stu : students)
+			{
+				String prefID = stu.prefs[i];
+				if(stu.hasCourse(prefID))
+					{
+						prefCount[i]  += 1;
+					}
+			}
+				
+		}
+		
+		//Optimal printing of info
+		for(int i = 0; i <prefCount.length; i++)
+		{
+			System.out.println("There are " + prefCount[i] + " students in their preference " + i + " class.");
+		}
+		
+		return prefCount;
 		
 	}
 	
