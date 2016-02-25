@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-public class Driver {
 	
 	static ArrayList<Course> courseList;
 	
@@ -51,7 +49,20 @@ public class Driver {
 	{
 		for(Course cour : courseList)
 		{
+			System.out.println(stud.toString());
+			avgScore += stud.satisfactionScore;
+		}
+		
+		avgScore = avgScore / students.size();
+		
+		System.out.println("Average Score: "+avgScore);
 			
+	}
+	
+	static void printCourses()
+	{
+		for(Course cour : courseList)
+		{
 			System.out.println(cour.toString());
 			
 			if(cour.hasLab)

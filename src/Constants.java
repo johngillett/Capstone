@@ -3,7 +3,7 @@ public class Constants {
 
 	static final int NUM_STUDENTS = 600;
 	
-	static final boolean PARSE_ALL_COURSES = true;
+	static final boolean PARSE_ALL_COURSES = false;
 	
 	static final int TOT_COURSES = 40;
 	
