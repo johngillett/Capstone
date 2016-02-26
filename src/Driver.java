@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-	
+	public class Driver
+	{
+		
 	static ArrayList<Course> courseList;
-	
 	static HashMap<String,ArrayList<Course>> courses;
-	
-	static ArrayList<Student> students;
+	static ArrayList<Student> students;	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -48,19 +48,6 @@ import java.util.HashMap;
 			
 	}
 	
-	static void printCourses()
-	{
-		for(Course cour : courseList)
-		{
-			System.out.println(stud.toString());
-			avgScore += stud.satisfactionScore;
-		}
-		
-		avgScore = avgScore / students.size();
-		
-		System.out.println("Average Score: "+avgScore);
-			
-	}
 	
 	static void printCourses()
 	{
@@ -100,5 +87,6 @@ import java.util.HashMap;
 		return prefCount;
 		
 	}
+	
 	
 }
