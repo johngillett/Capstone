@@ -25,7 +25,7 @@ public class Course {
 	
 	int curSize;
 	
-	public Course(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max)
+	public Course(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize)
 	{
 		this.title = title;
 		
@@ -38,6 +38,7 @@ public class Course {
 		
 		this.minSize = min;
 		this.maxSize = max;
+		this.curSize = curSize;
 		
 		this.students = new ArrayList<Student>();
 		this.curSize = 0;

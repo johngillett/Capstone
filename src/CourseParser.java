@@ -22,8 +22,8 @@ public class CourseParser {
 		bufRead.readLine();	
 		
 			//Line Format:
-			//0		1	2	3		4		5		6	7	8	9		10		11	12			13			14		15		16			17		18		19		20
-			//Dept, Crs, Sc, Title, Limit, Enrld, W/L, CO, Type, Units, Days, Times, Facil ID, Instructor, Notes, Component, Comb Sect, Acad Org, Term, Session, Career
+			//0		1	 2	 3	4		5	6	7	8	9		10		11	12			13			14		15		16			17		18		19		20
+			//Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Component,Notes,Term,Session
 			while ( (nextLine = bufRead.readLine()) != null)
 			{   
 			    String[] courseData = nextLine.split(",");
@@ -34,6 +34,8 @@ public class CourseParser {
 			    //System.out.println("Working on: "+title);
 			
 			    int maxSize = Integer.parseInt(courseData[5]);
+			    
+			    int curSize =  Integer.parseInt(courseData[6]);
 			    
 			    if(maxSize == 0)
 			    	continue;
@@ -93,14 +95,14 @@ public class CourseParser {
 				   		//Section Specific Lab
 				   		if(prev.isSameSection(sectID.substring(0,1)))
 				   		{
-				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize);
 						    prev.addLab(newLab);
 						    continue;
 				   		}
 				   		//Class specific Lab
 				   		else
 				   		{
-				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize);
 						    
 				   			ArrayList<Course> coursesWithSameLab = new ArrayList<Course>();
 				   			
@@ -129,7 +131,7 @@ public class CourseParser {
 			   	}
 			   	
 			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max)
-			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,Constants.COURSE_SEATS);
+			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize);
 			    courseList.add(toAdd);
 			 	
 			    //System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
