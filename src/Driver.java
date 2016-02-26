@@ -18,17 +18,18 @@ import java.util.HashMap;
 		students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		//GreedyScheduler.greedyScheduleByPref(students, courses);
-		GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
+		GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
 		
 		
 		printStudents();
-		printCourses();
+		//printCourses();
 		
-		int[] prefCount = getPrefCount(students);
+		//int[] prefCount = getPrefCount(students);
+		int[] satCount = getLinearSatCount(students);
 		
-		BarChartMaker.makeBarChart(prefCount); 
-
+		//BarChartMaker.makeBarChartPrefs(prefCount); 
+		BarChartMaker.makeBarChartScores(satCount);
 	}
 
 	static void printStudents()
@@ -85,6 +86,20 @@ import java.util.HashMap;
 		}
 		
 		return prefCount;
+		
+	}
+	
+	static int[] getLinearSatCount(ArrayList<Student> students)
+	{
+		int[] satCount = new int[Constants.MAX_SAT_LINEAR-Constants.MIN_SAT_LINEAR];
+		
+
+			for(Student stu : students)
+			{
+				satCount[(int) (stu.satisfactionScore - Constants.MIN_SAT_LINEAR)] += 1;
+			}
+		
+		return satCount;
 		
 	}
 	

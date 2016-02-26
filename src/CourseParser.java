@@ -29,18 +29,18 @@ public class CourseParser {
 			    String[] courseData = nextLine.split(",");
 			    //System.out.println("Course: "+courseData[3]);
 			    
-			    String title = courseData[3];
+			    String title = courseData[4];
 			    
 			    //System.out.println("Working on: "+title);
 			
-			    int maxSize = Integer.parseInt(courseData[4]);
+			    int maxSize = Integer.parseInt(courseData[5]);
 			    
 			    if(maxSize == 0)
 			    	continue;
 			    
 			    ArrayList<Day> schedule = new ArrayList<Day>();
-			    String dayData = courseData[10];
-			    String[] timeData = (courseData[11].split("- "));
+			    String dayData = courseData[11];
+			    String[] timeData = (courseData[12].split("- "));
 			    
 				//Skip classes with no schedule
 			   	if(timeData[0].equals("-"))
@@ -68,10 +68,10 @@ public class CourseParser {
 			   		schedule.add(new Day(Day.Slot.F,startTime,endTime));   
 			   	
 			   	//parse char Identifiers
-			   	String dep = courseData[0];
+			   	String dep = courseData[1];
 			   
-			   	int cNum = Integer.parseInt(courseData[1].trim());
-			   	String sectID = courseData[2];
+			   	int cNum = Integer.parseInt(courseData[2].trim());
+			   	String sectID = courseData[3];
 			   	
 			   	int prevID = courseList.size()-1;
 			   	

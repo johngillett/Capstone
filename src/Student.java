@@ -16,8 +16,15 @@ public class Student {
 	this.id = id;
 	this.prefs = prefs;
 		
-	this.satisfactionScore = Integer.MAX_VALUE;
-	
+	//this.satisfactionScore = Integer.MAX_VALUE;
+	if(Constants.SAT == Constants.SAT_SCALE.Linear)
+		{
+			this.satisfactionScore = (Constants.NUM_PREFS+1)*Constants.STUD_COURSE_LIMIT;
+		}
+	if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+	{
+		this.satisfactionScore = Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
+	}
 	this.courses = new ArrayList<Course>();	
 	
 	this.indexOfNextCourseToCheck = 0;
@@ -52,14 +59,28 @@ public class Student {
 			if(co.isSameCourse(prefs[i]))	
 			{
 				classCount++;
-				newScore += (int) Math.pow(2,i+1);
+				if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+				{
+					newScore += (int) Math.pow(2,i+1);
+				}
+				else if(Constants.SAT == Constants.SAT_SCALE.Linear)
+				{
+					newScore += i+1;
+				}
 			}
 		}
 	}
 	
 	if(classCount < 4)
 	{
-		newScore += (4 - classCount) * Math.pow(2, 9);
+		if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+		{
+			newScore += (4 - classCount) * Math.pow(2, (Constants.NUM_PREFS+1));
+		}
+		else if(Constants.SAT == Constants.SAT_SCALE.Linear)
+		{
+			newScore += (4 - classCount) * (Constants.NUM_PREFS+1);
+		}
 	}
 	
 	this.satisfactionScore = newScore;
