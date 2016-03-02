@@ -180,6 +180,47 @@ public class CourseParser {
 		return toReturn;
 	}
 	
+	
+	//using modified excel sheet to update course totals to exclude freshmen enrolled
+	public static HashMap<String,ArrayList<Course>> updateEnrollmentToals(HashMap<String,ArrayList<Course>> courses)
+	{
+		try
+		{
+			FileReader input = new FileReader("freshman_counts.txt");
+			BufferedReader bufRead = new BufferedReader(input);
+			String nextLine = null;
+		
+			//skip first line
+			bufRead.readLine();	
+			
+			//Line Format:
+			//0		         1	             2	 
+			//Main Class,  Class Section,  Total
+			
+			while ( (nextLine = bufRead.readLine()) != null)
+			{   
+				String[] courseData = nextLine.split(",");
+				String mainClass = courseData[0];
+				String classSection = courseData[1];
+				int total = Integer.parseInt(courseData[2]);
+				
+				//if classSection is empty, we're counting course totals 
+				//use this info for generating prefs
+				
+				//else we're counting section totals
+				
+			}
+		bufRead.close();
+		input.close();
+		}
+		
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return courses;
+	}
 	 
 	
 }

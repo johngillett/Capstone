@@ -18,18 +18,20 @@ import java.util.HashMap;
 		students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByPref(students, courses);
 		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
 		
 		
-		printStudents();
+		//printStudents();
 		//printCourses();
 		
 		//int[] prefCount = getPrefCount(students);
-		int[] satCount = getLinearSatCount(students);
+		//int[] satCount = getLinearSatCount(students);
 		
 		//BarChartMaker.makeBarChartPrefs(prefCount); 
-		BarChartMaker.makeBarChartScores(satCount);
+		//BarChartMaker.makeBarChartScores(satCount);
+		HashMap<Integer, Student> students = new HashMap<Integer,Student>();
+		students = FreshmanParser.parseFreshmen();
 	}
 
 	static void printStudents()
@@ -79,7 +81,7 @@ import java.util.HashMap;
 				
 		}
 		
-		//Optimal printing of info
+		//Optional printing of info
 		for(int i = 0; i <prefCount.length; i++)
 		{
 			System.out.println("There are " + prefCount[i] + " students in their preference " + i + " class.");
