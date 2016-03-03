@@ -7,6 +7,7 @@ import java.util.HashMap;
 	static ArrayList<Course> courseList;
 	static HashMap<String,ArrayList<Course>> courses;
 	static ArrayList<Student> students;	
+	static HashMap<String, Integer> courseCounts;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -14,8 +15,10 @@ import java.util.HashMap;
 		courseList = new ArrayList<Course>();
 		
 		courses =  CourseParser.parseCourses(courseList,Constants.TOT_COURSES);
+		courseCounts = CourseParser.updateEnrollmentTotals(courses);
+		//printCourseCounts();
 		
-		students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
+		//students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
 		//GreedyScheduler.greedyScheduleByPref(students, courses);
@@ -32,6 +35,10 @@ import java.util.HashMap;
 		//BarChartMaker.makeBarChartScores(satCount);
 		HashMap<Integer, Student> students = new HashMap<Integer,Student>();
 		students = FreshmanParser.parseFreshmen();
+		
+	
+		printCourses();
+		
 	}
 
 	static void printStudents()
@@ -61,6 +68,16 @@ import java.util.HashMap;
 			if(cour.hasLab)
 				cour.printLabs();
 		}	
+		
+	}
+	
+	static void printCourseCounts()
+	{
+		for(HashMap.Entry<String, Integer> c : courseCounts.entrySet()){
+			String id = c.getKey();
+			int count = c.getValue();
+			System.out.println("Course "+ id + " has "+ count + " freshmen");
+		}		
 		
 	}
 	

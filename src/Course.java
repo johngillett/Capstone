@@ -41,7 +41,6 @@ public class Course {
 		this.curSize = curSize;
 		
 		this.students = new ArrayList<Student>();
-		this.curSize = 0;
 		
 		this.labs = new ArrayList<Course>();
 		
@@ -96,8 +95,6 @@ public class Course {
 				}
 			}
 		}
-		
-	
 		
 		//found no conflicts
 		return true;

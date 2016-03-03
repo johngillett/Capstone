@@ -37,6 +37,8 @@ public class CourseParser {
 			    
 			    int curSize =  Integer.parseInt(courseData[6]);
 			    
+			    //System.out.println("The course size of " + title + " is " + curSize);
+			    
 			    if(maxSize == 0)
 			    	continue;
 			    
@@ -182,8 +184,11 @@ public class CourseParser {
 	
 	
 	//using modified excel sheet to update course totals to exclude freshmen enrolled
-	public static HashMap<String,ArrayList<Course>> updateEnrollmentToals(HashMap<String,ArrayList<Course>> courses)
+	//also return how many freshman are in each course
+	public static HashMap<String,Integer> updateEnrollmentTotals(HashMap<String,ArrayList<Course>> courses)
 	{
+		// key is course ID, value is how many freshmen are in the course
+		HashMap<String,Integer> courseCounts = new HashMap<String, Integer>();
 		try
 		{
 			FileReader input = new FileReader("freshman_counts.txt");
@@ -196,6 +201,8 @@ public class CourseParser {
 			//Line Format:
 			//0		         1	             2	 
 			//Main Class,  Class Section,  Total
+			// CHEM 110,CHEM 110 A,30
+			//,CHEM 110 B,28
 			
 			while ( (nextLine = bufRead.readLine()) != null)
 			{   
@@ -206,8 +213,60 @@ public class CourseParser {
 				
 				//if classSection is empty, we're counting course totals 
 				//use this info for generating prefs
+				if(classSection.isEmpty())
+				{
+					String[] mainClassArray = mainClass.split(" ");
+					String id = mainClassArray[0]+mainClassArray[1];
+					courseCounts.put(id, total);
+				}
 				
 				//else we're counting section totals
+				else
+				{
+					String[] classSectionArray = classSection.split(" ");
+					String id = classSectionArray[0]+classSectionArray[1];
+					String sectionID = classSectionArray[2];
+					//System.out.println(id + " " + sectionID);
+					
+					//if their courses show up in our courses HashMap
+					if(courses.containsKey(id))
+					{
+						//find the course with this (dept+courseNum)
+						ArrayList<Course> coursesToCheck = courses.get(id);
+						
+						//if this is a lab
+						if(sectionID.length()==2)
+						{
+							//find the course(s) that have this class as a lab			
+							for(Course c : coursesToCheck)
+							{
+								for(Course lab : c.getLabs())
+								{
+									if (lab.sectionID.equals(sectionID))
+									{
+										lab.curSize = lab.curSize - total;
+									}
+								}
+							}
+						}
+						
+						//if this is a normal class section
+						else
+						{
+							//find the course with this section
+							for(Course c : coursesToCheck)
+							{
+								if(c.sectionID.equals(sectionID))
+								{
+									//subtract away the freshmen
+									c.curSize = c.curSize - total;
+								}
+							}
+						}
+					}
+					
+///	
+				}
 				
 			}
 		bufRead.close();
@@ -219,7 +278,7 @@ public class CourseParser {
 			e.printStackTrace();
 		} 
 		
-		return courses;
+		return courseCounts;
 	}
 	 
 	

@@ -36,9 +36,7 @@ public class FreshmanParser {
 			    	//System.out.println("Student with id " +id+ " was added");
 			    	freshmen.put(id, newStudent);
 			    }
-			    
-
-//			   	
+			    			   	
 			}
 		
 		bufRead.close();
