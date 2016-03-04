@@ -188,7 +188,7 @@ public class CourseParser {
 	public static HashMap<String,Integer> updateEnrollmentTotals(HashMap<String,ArrayList<Course>> courses)
 	{
 		// key is course ID, value is how many freshmen are in the course
-		HashMap<String,Integer> courseCounts = new HashMap<String, Integer>();
+		HashMap<String,Integer> freshmenCourseCounts = new HashMap<String, Integer>();
 		try
 		{
 			FileReader input = new FileReader("freshman_counts.txt");
@@ -217,7 +217,7 @@ public class CourseParser {
 				{
 					String[] mainClassArray = mainClass.split(" ");
 					String id = mainClassArray[0]+mainClassArray[1];
-					courseCounts.put(id, total);
+					freshmenCourseCounts.put(id, total);
 				}
 				
 				//else we're counting section totals
@@ -278,7 +278,7 @@ public class CourseParser {
 			e.printStackTrace();
 		} 
 		
-		return courseCounts;
+		return freshmenCourseCounts;
 	}
 	 
 	

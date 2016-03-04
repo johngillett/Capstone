@@ -6,8 +6,9 @@ import java.util.HashMap;
 		
 	static ArrayList<Course> courseList;
 	static HashMap<String,ArrayList<Course>> courses;
-	static ArrayList<Student> students;	
-	static HashMap<String, Integer> courseCounts;
+	//static ArrayList<Student> students;	
+	static HashMap<Integer, Student> students;
+	static HashMap<String, Integer> freshmenCourseCounts;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -15,15 +16,21 @@ import java.util.HashMap;
 		courseList = new ArrayList<Course>();
 		
 		courses =  CourseParser.parseCourses(courseList,Constants.TOT_COURSES);
-		courseCounts = CourseParser.updateEnrollmentTotals(courses);
+		freshmenCourseCounts = CourseParser.updateEnrollmentTotals(courses);
+		
+		students = FreshmanParser.parseFreshmen();
+		
+		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
+		
 		//printCourseCounts();
+		//System.out.println("Number of chem students is " + freshmenCourseCounts.get("CHEM110"));
 		
 		//students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		//GreedyScheduler.greedyScheduleByPref(students, courses);
+		GreedyScheduler.greedyScheduleByPref(students, courses);
 		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
-		
+		//System.out.println(courseList.get(0).curSize);
 		
 		//printStudents();
 		//printCourses();
@@ -33,30 +40,39 @@ import java.util.HashMap;
 		
 		//BarChartMaker.makeBarChartPrefs(prefCount); 
 		//BarChartMaker.makeBarChartScores(satCount);
-		HashMap<Integer, Student> students = new HashMap<Integer,Student>();
-		students = FreshmanParser.parseFreshmen();
 		
 	
-		printCourses();
-		
+		//printCourses();
+		//printFreshmenCourseCountTotal();
 	}
 
-	static void printStudents()
+	static void printFreshmenCourseCountTotal()
 	{
-		
-		double avgScore = 0;
-		
-		for(Student stud : students)
-		{
-			System.out.println(stud.toString());
-			avgScore += stud.satisfactionScore;
-		}
-		
-		avgScore = avgScore / students.size();
-		
-		System.out.println("Average Score: "+avgScore);
-			
+		int totalCount = 0;
+		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
+			int count = c.getValue();
+			totalCount += count;
+		}	
+		System.out.println("The total number is" + totalCount);
 	}
+	
+	//doesn't work because assumes students are an arrayList
+//	static void printStudents()
+//	{
+//		
+//		double avgScore = 0;
+//		
+//		for(Student stud : students)
+//		{
+//			System.out.println(stud.toString());
+//			avgScore += stud.satisfactionScore;
+//		}
+//		
+//		avgScore = avgScore / students.size();
+//		
+//		System.out.println("Average Score: "+avgScore);
+//			
+//	}
 	
 	
 	static void printCourses()
@@ -73,7 +89,7 @@ import java.util.HashMap;
 	
 	static void printCourseCounts()
 	{
-		for(HashMap.Entry<String, Integer> c : courseCounts.entrySet()){
+		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
 			String id = c.getKey();
 			int count = c.getValue();
 			System.out.println("Course "+ id + " has "+ count + " freshmen");

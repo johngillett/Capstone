@@ -6,16 +6,16 @@ import java.util.HashMap;
 
 public class GreedyScheduler {
 
-	public static void greedyScheduleByPref(ArrayList<Student> students,HashMap<String,ArrayList<Course>> courses)
+	public static void greedyScheduleByPref(HashMap<Integer,Student> students,HashMap<String,ArrayList<Course>> courses)
 	{
 		
 		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++)
 		{
 
-			for(Student st: students)
-			{
+			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student st = entry.getValue();
 			String[] prefs = st.prefs;
-			
+			System.out.println("Working on student " + st.id);
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
 					ArrayList<Course> prefCourses = courses.get(prefs[i]);
@@ -24,7 +24,7 @@ public class GreedyScheduler {
 					
 					for(Course prefCourse : prefCourses)
 					{
-						
+						System.out.println("\t"+ prefCourse);
 						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
 						{
 							st.indexOfNextCourseToCheck = i+1;
@@ -82,14 +82,13 @@ public class GreedyScheduler {
 //	}
 		
 		
-	public static void greedyScheduleByPrefRandomized(ArrayList<Student> students,HashMap<String,ArrayList<Course>> courses)
+	public static void greedyScheduleByPrefRandomized(HashMap<Integer,Student> students,HashMap<String,ArrayList<Course>> courses)
 	{
 		
 		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++)
 		{
-
-			for(Student st: students)
-			{
+			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student st = entry.getValue();
 			String[] prefs = st.prefs;
 			
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
@@ -120,7 +119,9 @@ public class GreedyScheduler {
 				
 			}
 			
-			Collections.shuffle(students);
+			//MUST FIND WAY TO RANDOMIZE HASHMAP!!!
+			//Worst case: make hashmap into ArrayList
+			//Collections.shuffle(students);
 			
 		}
 		
