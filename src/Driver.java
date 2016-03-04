@@ -21,6 +21,7 @@ import java.util.HashMap;
 		students = FreshmanParser.parseFreshmen();
 		
 		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
+		//PreferenceGenerator.generateRanPrefs(students, courseList);
 		
 		//printCourseCounts();
 		//System.out.println("Number of chem students is " + freshmenCourseCounts.get("CHEM110"));
@@ -35,10 +36,10 @@ import java.util.HashMap;
 		//printStudents();
 		//printCourses();
 		
-		//int[] prefCount = getPrefCount(students);
-		//int[] satCount = getLinearSatCount(students);
+		int[] prefCount = getPrefCount(students);
+		int[] satCount = getLinearSatCount(students);
 		
-		//BarChartMaker.makeBarChartPrefs(prefCount); 
+		BarChartMaker.makeBarChartPrefs(prefCount); 
 		//BarChartMaker.makeBarChartScores(satCount);
 		
 	
@@ -97,14 +98,14 @@ import java.util.HashMap;
 		
 	}
 	
-	static int[] getPrefCount(ArrayList<Student> students)
+	static int[] getPrefCount(HashMap<Integer,Student> students)
 	{
 		int[] prefCount = new int[Constants.NUM_PREFS];
 		
 		for(int i = 0; i <prefCount.length; i++)
 		{
-			for(Student stu : students)
-			{
+			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+				Student stu = entry.getValue();
 				String prefID = stu.prefs[i];
 				if(stu.hasCourse(prefID))
 					{
@@ -124,13 +125,13 @@ import java.util.HashMap;
 		
 	}
 	
-	static int[] getLinearSatCount(ArrayList<Student> students)
+	static int[] getLinearSatCount(HashMap<Integer,Student> students)
 	{
 		int[] satCount = new int[Constants.MAX_SAT_LINEAR-Constants.MIN_SAT_LINEAR];
 		
 
-			for(Student stu : students)
-			{
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student stu = entry.getValue();
 				satCount[(int) (stu.satisfactionScore - Constants.MIN_SAT_LINEAR)] += 1;
 			}
 		
