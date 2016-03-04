@@ -39,8 +39,8 @@ import java.util.HashMap;
 		int[] prefCount = getPrefCount(students);
 		int[] satCount = getLinearSatCount(students);
 		
-		BarChartMaker.makeBarChartPrefs(prefCount); 
-		//BarChartMaker.makeBarChartScores(satCount);
+		//BarChartMaker.makeBarChartPrefs(prefCount); 
+		BarChartMaker.makeBarChartScores(satCount);
 		
 	
 		//printCourses();
@@ -118,7 +118,7 @@ import java.util.HashMap;
 		//Optional printing of info
 		for(int i = 0; i <prefCount.length; i++)
 		{
-			System.out.println("There are " + prefCount[i] + " students in their preference " + i + " class.");
+			System.out.println("There are " + prefCount[i] + " students in their preference " + (i+1) + " class.");
 		}
 		
 		return prefCount;

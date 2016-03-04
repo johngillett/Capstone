@@ -48,6 +48,7 @@ public class Course {
 		this.isLab = false;
 	}
 	
+
 	public boolean hasRoom()
 	{
 		return curSize < maxSize;

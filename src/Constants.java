@@ -1,6 +1,7 @@
 
 public class Constants {
 
+	
 	static final int NUM_STUDENTS = 600;
 	
 	static final boolean PARSE_ALL_COURSES = true;
@@ -22,4 +23,7 @@ public class Constants {
 	
 	static final int MIN_SAT_GEOMETRIC = 30;
 	static final int MAX_SAT_GEOMETRIC = (int) Math.pow(2,9);
+	
+	static final float POP_SCALE_FACTOR = 0f;
+	
 }
