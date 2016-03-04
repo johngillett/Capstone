@@ -15,7 +15,7 @@ public class GreedyScheduler {
 			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
 			Student st = entry.getValue();
 			String[] prefs = st.prefs;
-			System.out.println("Working on student " + st.id);
+			//System.out.println("Working on student " + st.id);
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
 					ArrayList<Course> prefCourses = courses.get(prefs[i]);
@@ -24,7 +24,7 @@ public class GreedyScheduler {
 					
 					for(Course prefCourse : prefCourses)
 					{
-						System.out.println("\t"+ prefCourse);
+						//System.out.println("\t"+ prefCourse);
 						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
 						{
 							st.indexOfNextCourseToCheck = i+1;

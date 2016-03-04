@@ -217,7 +217,10 @@ public class CourseParser {
 				{
 					String[] mainClassArray = mainClass.split(" ");
 					String id = mainClassArray[0]+mainClassArray[1];
-					freshmenCourseCounts.put(id, total);
+					if(courses.containsKey(id))
+					{
+						freshmenCourseCounts.put(id, total);
+					}
 				}
 				
 				//else we're counting section totals
