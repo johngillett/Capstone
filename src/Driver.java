@@ -55,8 +55,7 @@ import java.util.HashMap;
 		//int[] satCount = getLinearSatCount(students);
 		
 		//BarChartMaker.makeBarChartPrefs(prefCount); 
-		//BarChartMaker.makeBarChartScores(satCount);
-		
+		//BarChartMaker.makeBarChartScores(satCount);	
 	
 		//printCourses();
 		//printFreshmenCourseCountTotal();
