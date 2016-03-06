@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Student {
 
 	int id;
-	double satisfactionScore; //to gauge how many top choices are placed
+	int satisfactionScore; //to gauge how many top choices are placed
 	String[] prefs;
 	int indexOfNextCourseToCheck;
 	
@@ -23,7 +24,7 @@ public class Student {
 		}
 	if(Constants.SAT == Constants.SAT_SCALE.Geometric)
 	{
-		this.satisfactionScore = Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
+		this.satisfactionScore = (int)Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
 	}
 	this.courses = new ArrayList<Course>();	
 	
@@ -160,6 +161,75 @@ public class Student {
 		return true;
 	}
 	
+	//checks if course has no conflicts with student's schedule
+	public boolean fitsInSchedule(Course courseToCheck)
+	{	
+		for(Day day1 : schedule)
+		{
+			for(Day day2 : courseToCheck.schedule)
+			{
+				//if course falls on same day
+				if(day1.day.equals(day2.day))
+				{
+					//if one course starts & ends before another, then it is compatible, otherwise it isn't
+					if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
+						return false;
+				}
+			}
+		}
+		
+		
+		if(courseToCheck.hasLab)
+		{
+			ArrayList<Course> labs = courseToCheck.getLabs();
+			
+			boolean foundLab = false;
+			
+			for(Course lab : labs)
+			{
+				if(!lab.hasRoom())
+					continue;
+				
+				boolean noConflicts = true;	
+				
+				for(Day day1 : schedule)
+				{
+					for(Day day2 : lab.schedule)
+					{
+						//if course falls on same day
+						if(day1.day.equals(day2.day))
+						{
+							//if one course starts & ends before another, then it is compatible, otherwise it isn't
+							if(((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
+							{	
+							noConflicts = false;
+							break;
+							}
+						}
+					
+					}
+					
+					if(!noConflicts)
+						break;
+					
+				}		
+				if(noConflicts)
+				{	
+					foundLab = true;
+					break;
+				}
+				
+				
+			}
+			
+			if(!foundLab)
+				return false;
+			
+		}
+		
+		return true;
+	}
+	
 	public boolean hasCourse(String courseID)
 	{
 		for(Course course : courses)
@@ -169,6 +239,34 @@ public class Student {
 		return false;
 	}
 
+	public String[] getRemainingCompPrefs(HashMap<String,ArrayList<Course>> courses)
+	{
+		ArrayList<String> toBuild = new ArrayList<String>();
+		
+		for(String id : this.prefs)
+		{
+			if(this.hasCourse(id))
+				continue;
+			
+			ArrayList<Course> curPrefSections = courses.get(id);
+			
+			for(Course c : curPrefSections)
+			{
+				if(fitsInSchedule(c))
+				{
+					toBuild.add(id);
+					break;
+				}
+				
+			}
+			
+			
+		}
+		String[] toReturn = new String[toBuild.size()];
+		toReturn =toBuild.toArray(toReturn);
+		return toReturn;
+	}
+	
 	public String toString()
 	{
 		String toReturn = "Student: "+id+", Prefs: ";

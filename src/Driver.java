@@ -23,23 +23,38 @@ import java.util.HashMap;
 		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
 		//PreferenceGenerator.generateRanPrefs(students, courseList);
 		
+		GreedyScheduler.greedyScheduleByPref(students, courses);
+		
+		System.out.println(students.get(5075409).toString());
+		String[] prefs = students.get(5075409).getRemainingCompPrefs(courses);
+
+		for(String s : prefs)
+			System.out.print(s+",");
+		
+		
+		//Simulated Annealing:
+		//SimAnnealingScheduler.Schedule(students, courses);
+		
+		
+		
+		
 		//printCourseCounts();
 		//System.out.println("Number of chem students is " + freshmenCourseCounts.get("CHEM110"));
 		
 		//students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
 		
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByPref(students, courses);
 		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
 		//System.out.println(courseList.get(0).curSize);
 		
 		//printStudents();
 		//printCourses();
 		
-		int[] prefCount = getPrefCount(students);
-		int[] satCount = getLinearSatCount(students);
+		//int[] prefCount = getPrefCount(students);
+		//int[] satCount = getLinearSatCount(students);
 		
-		BarChartMaker.makeBarChartPrefs(prefCount); 
+		//BarChartMaker.makeBarChartPrefs(prefCount); 
 		//BarChartMaker.makeBarChartScores(satCount);
 		
 	
@@ -118,7 +133,7 @@ import java.util.HashMap;
 		//Optional printing of info
 		for(int i = 0; i <prefCount.length; i++)
 		{
-			System.out.println("There are " + prefCount[i] + " students in their preference " + i + " class.");
+			System.out.println("There are " + prefCount[i] + " students in their preference " + (i+1) + " class.");
 		}
 		
 		return prefCount;
