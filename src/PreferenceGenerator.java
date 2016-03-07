@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,17 +10,44 @@ public class PreferenceGenerator {
 
 	public static void generatePopPrefs(HashMap<String, Integer> freshmenCourseCounts, HashMap<Integer,Student> students)
 	{
+		double averagePop = 0;
+		
+		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
+			int count = c.getValue();
+			averagePop += count;
+		}	
+		
+		averagePop = averagePop/freshmenCourseCounts.size();
+
 		TreeMap<Integer, String> map = new TreeMap<Integer, String>();
-				
+		
 		int currLowerBound = 0;
+		
+		//Create structure and assign popularity 
 		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
 			String id = c.getKey();
 			int count = c.getValue();
 			
+			if(count >= averagePop)
+			{
+				int toAdd =(int)(count * Constants.POP_SCALE_FACTOR);
+				count += toAdd;
+			}
+			else 
+			{
+				int toAdd =(int)(count * Constants.POP_SCALE_FACTOR);
+				count -= toAdd;
+				
+				if(count < 1)
+					count = 1;
+				
+			}
+			
+			averagePop += count;
+	
 			map.put(currLowerBound, id);
 			currLowerBound += count;
 		}	
-		
 		
 		//random number generator makes random key
 		Random rand = new Random();
