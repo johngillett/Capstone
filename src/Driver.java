@@ -33,10 +33,7 @@ import java.util.HashMap;
 		
 		
 		//Simulated Annealing:
-		SimAnnealingScheduler.Schedule(students, courses);
-		
-		
-		
+		SimAnnealingScheduler.Schedule(students, courses);		
 		
 		//printCourseCounts();
 		//System.out.println("Number of chem students is " + freshmenCourseCounts.get("CHEM110"));
@@ -55,8 +52,7 @@ import java.util.HashMap;
 		//int[] satCount = getLinearSatCount(students);
 		
 		//BarChartMaker.makeBarChartPrefs(prefCount); 
-		//BarChartMaker.makeBarChartScores(satCount);
-		
+		//BarChartMaker.makeBarChartScores(satCount);	
 	
 		//printCourses();
 		//printFreshmenCourseCountTotal();

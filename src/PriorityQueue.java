@@ -66,7 +66,8 @@ public class PriorityQueue {
 		assert (heap.size() > 0);
 				
 		Student element = heap.get(0).element;
-		//int priority = heap.get(0).priority;
+
+		int priority = heap.get(0).priority;
 
 		// remove element from hash map
 		location.remove(element);	
@@ -252,8 +253,7 @@ public class PriorityQueue {
 		int r = right(curr);
 		int swap_index;
 
-		while(hasTwoChildren(curr)) {
-			
+		while(hasTwoChildren(curr)) {			
 			if(isMax)
 			swap_index = (heap.get(l).priority > heap.get(r).priority) ? l : r;
 			else
@@ -265,6 +265,11 @@ public class PriorityQueue {
 				break;
 			}
 			else if(!isMax && heap.get(curr).priority <= heap.get(swap_index).priority){
+			swap_index = (heap.get(l).priority > heap.get(r).priority) ? l : r;
+			
+			// swap_index now holds the index of the child with the numerically smallest priority value			
+
+			if(heap.get(curr).priority >= heap.get(swap_index).priority) {
 				break;
 			}
 			else{
@@ -307,7 +312,6 @@ public class PriorityQueue {
 			swap(curr, p);
 			curr = p;
 			p = parent(curr);
-		}
 		}
 		else
 		{
