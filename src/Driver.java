@@ -15,31 +15,40 @@ import java.util.HashMap;
 		
 		courseList = new ArrayList<Course>();
 		
+		//Generate Courses
 		courses =  CourseParser.parseCourses(courseList,Constants.TOT_COURSES);
 		freshmenCourseCounts = CourseParser.updateEnrollmentTotals(courses);
 		
+		//Generate students
 		students = FreshmanParser.parseFreshmen();
 		
+		//Generate Preferences
 		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
 		//PreferenceGenerator.generateRanPrefs(students, courseList);
-		
-		//printCourseCounts();
-		//System.out.println("Number of chem students is " + freshmenCourseCounts.get("CHEM110"));
-		
-		//students = StudentGenerator.generateStudents(Constants.NUM_STUDENTS, courseList);
-		
-		//GreedyScheduler.greedyScheduleByStudent(students, courses);
+				
+		//Preliminary Greedy Schedule
 		GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByStudent(students, courses);
 		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
 		//System.out.println(courseList.get(0).curSize);
+				
 		
-		//printStudents();
-		//printCourses();
+		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
+		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
 		
-		int[] prefCount = getPrefCount(students);
-		int[] satCount = getLinearSatCount(students);
+		printCourseData();
 		
-		BarChartMaker.makeBarChartPrefs(prefCount); 
+		//Simulated Annealing:
+		int finalScore = SimAnnealingScheduler.Schedule(students, courses);
+		
+		System.out.println("Started with: "+startingScore+", ended up with "+finalScore);
+	
+		printCourseData();
+		
+		//int[] prefCount = getPrefCount(students);
+		//int[] satCount = getLinearSatCount(students);
+		
+		//BarChartMaker.makeBarChartPrefs(prefCount); 
 		//BarChartMaker.makeBarChartScores(satCount);
 		
 	
@@ -88,6 +97,21 @@ import java.util.HashMap;
 		
 	}
 	
+	static void printCourseData()
+	{
+		int totStudents = 0;
+		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
+			ArrayList<Course> sections = entry.getValue();
+			
+			for(Course section : sections)
+				totStudents += section.curSize;
+			
+		}
+		
+		System.out.println("Found "+totStudents+" in courses");
+		
+	}
+	
 	static void printCourseCounts()
 	{
 		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
@@ -118,7 +142,7 @@ import java.util.HashMap;
 		//Optional printing of info
 		for(int i = 0; i <prefCount.length; i++)
 		{
-			System.out.println("There are " + prefCount[i] + " students in their preference " + i + " class.");
+			System.out.println("There are " + prefCount[i] + " students in their preference " + (i+1) + " class.");
 		}
 		
 		return prefCount;

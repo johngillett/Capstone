@@ -1,7 +1,8 @@
 
 public class Constants {
 
-	static final int NUM_STUDENTS = 600;
+	
+	static final int NUM_STUDENTS = 652;
 	
 	static final boolean PARSE_ALL_COURSES = true;
 	
@@ -22,4 +23,12 @@ public class Constants {
 	
 	static final int MIN_SAT_GEOMETRIC = 30;
 	static final int MAX_SAT_GEOMETRIC = (int) Math.pow(2,9);
+	
+	static final float POP_SCALE_FACTOR = 0f;
+	
+	//Simulated Annealing
+	static final int LINEAR_OBJ_THRESHOLD = ((NUM_PREFS * 4)-4) * (NUM_STUDENTS/4); // multiplied by # students
+	static final int GEOMETRIC_OBJ_THRESHOLD = (int)((Math.pow(2,NUM_PREFS) + Math.pow(2, NUM_PREFS-1) + Math.pow(2, NUM_PREFS-2) + Math.pow(2, NUM_PREFS-3) + Math.pow(2, NUM_PREFS-4))* NUM_STUDENTS);
+	
+	
 }

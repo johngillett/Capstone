@@ -48,6 +48,7 @@ public class Course {
 		this.isLab = false;
 	}
 	
+
 	public boolean hasRoom()
 	{
 		return curSize < maxSize;
@@ -72,6 +73,12 @@ public class Course {
 	{
 	curSize++;	
 	students.add(stud);	
+	}
+	
+	public void removeStudent(Student stud)
+	{
+	curSize--;
+	students.remove(stud);
 	}
 	
 	public String getTitle()

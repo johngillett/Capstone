@@ -7,6 +7,7 @@ import java.util.HashMap;
 //import java.util.Random;
 //import java.util.concurrent.ThreadLocalRandom;
 
+
 public class CourseParser {
 
 	public static HashMap<String,ArrayList<Course>> parseCourses(ArrayList<Course> courses,int numCourses)
@@ -132,7 +133,7 @@ public class CourseParser {
 				   	
 			   	}
 			   	
-			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max)
+			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize)
 			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize);
 			    courseList.add(toAdd);
 			 	

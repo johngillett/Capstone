@@ -93,11 +93,11 @@ public class GreedyScheduler {
 			
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
-					ArrayList<Course> prefCourses = courses.get(prefs[i]);
+					ArrayList<Course> prefSections = courses.get(prefs[i]);
 					
 					boolean addedCourse = false;
 					
-					for(Course prefCourse : prefCourses)
+					for(Course prefCourse : prefSections)
 					{
 						
 						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
