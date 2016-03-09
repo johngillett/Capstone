@@ -33,31 +33,51 @@ import java.util.HashMap;
 		//System.out.println(courseList.get(0).curSize);
 				
 		//printCourses();
-		printCourseData();
-		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
-		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
-		
+		//printCourseData();
+//		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
+//		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
+//		
 		//printCourseData();
 		
 		//Simulated Annealing:
-		int finalScore = SimAnnealingScheduler.Schedule(students, courses);
+		//int finalScore = SimAnnealingScheduler.Schedule(students, courses);
 		
-		System.out.println("Started with: "+startingScore+", ended up with "+finalScore);
+		//System.out.println("Started with: "+startingScore+", ended up with "+finalScore);
 	
-		printCourseData();
+		//printCourseData();
 		//printCourses();
 		//printStudents();
-		//int[] prefCount = getPrefCount(students);
-		//int[] satCount = getLinearSatCount(students);
-		
-		//BarChartMaker.makeBarChartPrefs(prefCount); 
-		//BarChartMaker.makeBarChartScores(satCount);
-		
-	
+		getGraphs();
+		System.out.println("There were " + getNumOfFailedStudents() + " students with less than four classes.");
+		double percent =  ((double) getNumOfFailedStudents())/students.size();
+		System.out.println("Percentage of students with less than four classes: "+ percent );
 		//printCourses();
 		//printFreshmenCourseCountTotal();
 	}
 
+	static void getGraphs()
+	{
+		int[] prefCount = getPrefCount(students);
+		int[] satCount = getLinearSatCount(students);
+		
+		BarChartMaker.makeBarChartPrefs(prefCount); 
+		BarChartMaker.makeBarChartScores(satCount);
+	}
+	
+	static int getNumOfFailedStudents()
+	{
+		int numFailed = 0;
+		for(HashMap.Entry<Integer, Student> st : students.entrySet())
+		{
+			Student student = st.getValue();
+			if(student.getClassCount()<Constants.STUD_COURSE_LIMIT)
+			{
+				numFailed ++;
+			}
+		}
+		return numFailed;
+	}
+	
 	static void printFreshmenCourseCountTotal()
 	{
 		int totalCount = 0;

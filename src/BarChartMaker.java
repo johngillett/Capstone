@@ -9,13 +9,13 @@ import org.jfree.ui.RefineryUtilities;
 
 public class BarChartMaker extends ApplicationFrame
 {
-   public BarChartMaker( String applicationTitle , String chartTitle, int[] prefCount, int toAdd )
+   public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, int[] prefCount, int toAdd )
    {
       super( applicationTitle );        
       JFreeChart barChart = ChartFactory.createBarChart(
          chartTitle,           
-         "Preference ID",            
-         "Number of Students",            
+         xAxis,            
+         yAxis,            
          createDataset(prefCount, toAdd),          
          PlotOrientation.VERTICAL,           
          true, true, false);
@@ -59,7 +59,7 @@ public class BarChartMaker extends ApplicationFrame
    }
    public static void makeBarChartPrefs(int[] prefCount)
    {
-      BarChartMaker chart = new BarChartMaker("Preference Placements", "Number of Students Placed in Each Preference", prefCount,1);
+      BarChartMaker chart = new BarChartMaker("Preference Placements", "Number of Students Placed in Each Preference", "Preference ID", "Number of Students", prefCount,1);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
@@ -67,7 +67,7 @@ public class BarChartMaker extends ApplicationFrame
    
    public static void makeBarChartScores(int[] satCount)
    {
-      BarChartMaker chart = new BarChartMaker("Distribution of Satisfaction Scores", "Number of Students with Each Satisfaction Score", satCount,Constants.MIN_SAT_LINEAR);
+      BarChartMaker chart = new BarChartMaker("Distribution of Satisfaction Scores", "Number of Students with Each Satisfaction Score", "Satisfaction Score", "Number of Students",satCount,Constants.MIN_SAT_LINEAR);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
