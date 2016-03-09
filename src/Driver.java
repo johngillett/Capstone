@@ -34,17 +34,17 @@ import java.util.HashMap;
 				
 		//printCourses();
 		//printCourseData();
-//		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
-//		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
-//		
-		//printCourseData();
+		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
+		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
+		
+		printCourseData();
 		
 		//Simulated Annealing:
-		//int finalScore = SimAnnealingScheduler.Schedule(students, courses);
+		int finalScore = SimAnnealingScheduler.Schedule(students, courses);
 		
-		//System.out.println("Started with: "+startingScore+", ended up with "+finalScore);
+		System.out.println("Started with: "+startingScore+", ended up with "+finalScore);
 	
-		//printCourseData();
+		printCourseData();
 		//printCourses();
 		//printStudents();
 		getGraphs();
@@ -53,15 +53,21 @@ import java.util.HashMap;
 		System.out.println("Percentage of students with less than four classes: "+ percent );
 		//printCourses();
 		//printFreshmenCourseCountTotal();
+		Student st = students.get(5049399);
+		
+		System.out.println(st);
 	}
 
 	static void getGraphs()
 	{
+		if(Constants.SAT == Constants.SAT_SCALE.Linear)
+		{
+			int[] satCount = getLinearSatCount(students);
+			BarChartMaker.makeBarChartScores(satCount);
+		}
 		int[] prefCount = getPrefCount(students);
-		int[] satCount = getLinearSatCount(students);
-		
 		BarChartMaker.makeBarChartPrefs(prefCount); 
-		BarChartMaker.makeBarChartScores(satCount);
+		
 	}
 	
 	static int getNumOfFailedStudents()

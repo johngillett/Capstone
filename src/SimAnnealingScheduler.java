@@ -75,17 +75,19 @@ public class SimAnnealingScheduler {
 				
 				while(!studentsHeap.isEmpty())
 				{
+					//stu1 is entering a higher preferred course by replacing stu2
+					
 					//The preference number of the course we'd be swapping the student into 
-					int toRepPrefPos = studToCheck.getPrefNumber(pref.getID());
+					int stu1PrefEntering = studToCheck.getPrefNumber(pref.getID());
 					//the preference number of the course we would be taking toRep from to make the swap. 9 if he doesn't have a full course load 
-					int toRepFromPrefPos = studToCheck.getLastEnrolledPrefNumber();
+					int stu1PrefLeaving = studToCheck.getLastEnrolledPrefNumber();
 					
 					//the preference number of the course we'd be taking this student out of 
-					int toBeRepPrefPos = studInCourse.getPrefNumber(pref.getID());
+					int stu2PrefLeaving = studInCourse.getPrefNumber(pref.getID());
 					//The preference number of the course we can schedule the replaced student into if we make the swap, 9 if there is none.
-					int repToPrefPos = getNextPreferredCourseAfterPotentialSwap(studInCourse,toBeRepPrefPos);
+					int stu2PrefEntering = getNextPreferredCourseAfterPotentialSwap(studInCourse,stu2PrefLeaving);
 					
-					int netChange = netChangeFromReplacingStudent(toRepFromPrefPos,toRepPrefPos,toBeRepPrefPos,repToPrefPos);
+					int netChange = netChangeFromReplacingStudent(stu1PrefLeaving,stu1PrefEntering,stu2PrefLeaving,stu2PrefEntering);
 					
 					if(netChange < 0) // || probability(netChange);
 					{
@@ -95,7 +97,7 @@ public class SimAnnealingScheduler {
 					
 					//replaces stud2 with stud1 in Course
 					//replaceStudentInCourse(Student stud1, int stud1From, Student stud2, int stud2To, Course course)
-					replaceStudentInCourse(studToCheck,toRepFromPrefPos,studInCourse,repToPrefPos,pref);
+					replaceStudentInCourse(studToCheck,stu1PrefLeaving,studInCourse,stu2PrefEntering,pref);
 					return Schedule(students,currTotalSatScore);
 						
 					}
