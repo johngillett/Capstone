@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Day {
+public class Day{
 
 	enum Slot{M,T,W,Th,F};
 	

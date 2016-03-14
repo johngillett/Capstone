@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Course {
+public class Course{
 
 	String title;
 	
@@ -48,6 +49,7 @@ public class Course {
 		this.isLab = false;
 	}
 	
+
 	public boolean hasRoom()
 	{
 		return curSize < maxSize;
@@ -69,9 +71,21 @@ public class Course {
 	}
 	
 	public void addStudent(Student stud)
-	{
+	{		
 	curSize++;	
 	students.add(stud);	
+	
+		//if(curSize > this.maxSize)
+		//{
+		//	System.out.println("Over the limit!");
+		//	Thread.dumpStack();	
+		//}
+	}
+	
+	public void removeStudent(Student stud)
+	{
+	curSize--;
+	students.remove(stud);
 	}
 	
 	public String getTitle()
@@ -160,7 +174,14 @@ public class Course {
 		{
 			toReturn += d.toString()+" ";
 		}
-		return toReturn +", "+title+ ", # Enrolled: "+this.curSize+"/"+this.maxSize; 
+		return toReturn +", "+title+ ", # Enrolled: "+this.curSize+"/"+this.maxSize+", with "+this.students.size()+" freshmen.";
+		
+	}
+
+
+	public boolean hasStudent(Student stud2) {
+		// TODO Auto-generated method stub
+		return this.students.contains(stud2);
 	}
 	
 }

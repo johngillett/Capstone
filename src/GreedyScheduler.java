@@ -82,22 +82,29 @@ public class GreedyScheduler {
 //	}
 		
 		
-	public static void greedyScheduleByPrefRandomized(HashMap<Integer,Student> students,HashMap<String,ArrayList<Course>> courses)
+	public static void greedyScheduleByPrefRandomized(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> courses)
 	{
+		
+		ArrayList<Student> students = new ArrayList<Student>();
+		
+		for(HashMap.Entry<Integer, Student> entry : inStudents.entrySet()){
+			Student st = entry.getValue();
+			students.add(st);
+		}
+		
 		
 		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++)
 		{
-			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
-			Student st = entry.getValue();
+			for(Student st : students){
 			String[] prefs = st.prefs;
 			
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
-					ArrayList<Course> prefCourses = courses.get(prefs[i]);
+					ArrayList<Course> prefSections = courses.get(prefs[i]);
 					
 					boolean addedCourse = false;
 					
-					for(Course prefCourse : prefCourses)
+					for(Course prefCourse : prefSections)
 					{
 						
 						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
@@ -119,9 +126,7 @@ public class GreedyScheduler {
 				
 			}
 			
-			//MUST FIND WAY TO RANDOMIZE HASHMAP!!!
-			//Worst case: make hashmap into ArrayList
-			//Collections.shuffle(students);
+			Collections.shuffle(students);
 			
 		}
 		
