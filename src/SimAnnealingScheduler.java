@@ -250,8 +250,11 @@ public class SimAnnealingScheduler {
 	}
 	
 	//Checks if the algorithm has succeeded yet or not
+	//Takes into account max possible satisfaction score and min temperature  
 	private static boolean conditionIsMet()
 	{
+		if(temp <= Constants.MIN_TEMP) return true;
+		
 		if(Constants.SAT == Constants.SAT_SCALE.Linear)
 		{
 			if(bestSol.getScore() < Constants.LINEAR_OBJ_THRESHOLD)
@@ -284,7 +287,7 @@ public class SimAnnealingScheduler {
 		return r < prob;	
 	}
 	
-	//returns the net change to the overal satisfaction score if two students were to change courses
+	//returns the net change to the overall satisfaction score if two students were to change courses
 	private static int netChangeFromReplacingStudent(int stud1From, int stud1To, int stud2From, int stud2To)
 	{
 		//System.out.println("Checking if swapping stud1 from pref num: "+stud1From+" to "+stud1To+ " and stud2 from pref num: "+stud2From+" to "+stud2To);
