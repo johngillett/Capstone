@@ -81,6 +81,19 @@ public class PreferenceGenerator {
 		}
 		
 
+		writeCurrentPrefs(students);
+	}
+	
+	public static void getStandardPrefs(HashMap<Integer,Student> students)
+	{
+		
+		
+		
+	}
+	
+	private static void writeCurrentPrefs(HashMap<Integer,Student> students)
+	{
+		
 		
 	}
 	

@@ -341,6 +341,9 @@ public class Student{
 	{
 		ArrayList<Course> toBuild = new ArrayList<Course>();
 		
+		String idToSkip = "";
+		
+		//if they have a full courseload, then we need to ignore their least preferred course
 		if(this.getClassCount() >= Constants.STUD_COURSE_LIMIT)
 		{
 
@@ -356,6 +359,7 @@ public class Student{
 					if(prefs[i].equals(c.getID()))
 					{
 					IgnorePrefCourse(i+1);
+					idToSkip = prefs[i];
 					break outerLoop;
 					}
 				}
@@ -364,9 +368,10 @@ public class Student{
 			
 		}
 		
+		//finding non-enrolled preferred courses that are compatible with their schedule
 		for(String id : this.prefs)
 		{
-			if(this.hasCourse(id))
+			if(this.hasCourse(id) || idToSkip == id)
 				continue;
 			
 			ArrayList<Course> curPrefSections = hashCourses.get(id);
