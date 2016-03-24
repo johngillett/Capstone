@@ -94,7 +94,7 @@ public class Course{
 	}
 	
 	
-	public boolean isCompatible(Course course)
+	private boolean isCompatible(Course course)
 	{
 		for(Day dayCourse1 : schedule)
 		{

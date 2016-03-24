@@ -27,12 +27,14 @@ public class Constants {
 	static final float POP_SCALE_FACTOR = 0f;
 	
 	//Simulated Annealing
-	static final int LINEAR_OBJ_THRESHOLD = (int) (((NUM_PREFS * 4)-4) * ((double)NUM_STUDENTS/2.5f)); // multiplied by # students
+	//static final int LINEAR_OBJ_THRESHOLD = (int) (((NUM_PREFS * 4)-4) * ((double)NUM_STUDENTS/2.5f)); // multiplied by # students
+	static final int LINEAR_OBJ_THRESHOLD = 6520;
+	
 	static final int GEOMETRIC_OBJ_THRESHOLD = (int)((Math.pow(2,NUM_PREFS) + Math.pow(2, NUM_PREFS-1) + Math.pow(2, NUM_PREFS-2) + Math.pow(2, NUM_PREFS-3) + Math.pow(2, NUM_PREFS-4))* ((double)NUM_STUDENTS/8.5f)); 
 	
 	static final float INIT_TEMP_VAL = 1f;
 	static final float TEMP_SCALE_FACTOR = .9f;
-	static final float MIN_TEMP = 0.1f;
+	static final float MIN_TEMP = 0.01f;
 	static final int ITERS_BEFORE_TEMP_SCALE = 1000;
 	
 }
