@@ -26,7 +26,7 @@ import java.util.HashMap;
 		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
 	
 		PreferenceGenerator.getStandardPrefs(students);
-		
+
 		//PreferenceGenerator.generateRanPrefs(students, courseList);
 				
 		//Preliminary Greedy Schedule
