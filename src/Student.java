@@ -7,10 +7,16 @@ public class Student{
 	int id;
 	int satisfactionScore; //to gauge how many top choices are placed
 	String[] prefs;
+	
+	private String[] semPrefs;
+	private String[] regPrefs;
+	
 	int indexOfNextCourseToCheck;
 	
 	ArrayList<Course> courses;
 
+	ArrayList<String> lockedCourses;
+	
 	ArrayList<Day> schedule;
 	
 	ArrayList<Course> toIgnore;
@@ -31,6 +37,8 @@ public class Student{
 		this.satisfactionScore = (int)Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
 	}
 	this.courses = new ArrayList<Course>();	
+	
+	this.lockedCourses = new ArrayList<String>();
 	
 	this.indexOfNextCourseToCheck = 0;
 	
@@ -99,7 +107,7 @@ public class Student{
 		}
 	}
 	
-	if(classCount < 4)
+	if(classCount < Constants.STUD_COURSE_LIMIT)
 	{
 		if(Constants.SAT == Constants.SAT_SCALE.Geometric)
 		{
@@ -341,6 +349,9 @@ public class Student{
 	{
 		ArrayList<Course> toBuild = new ArrayList<Course>();
 		
+		String idToSkip = "";
+		
+		//if they have a full courseload, then we need to ignore their least preferred course
 		if(this.getClassCount() >= Constants.STUD_COURSE_LIMIT)
 		{
 
@@ -350,12 +361,15 @@ public class Student{
 			outerLoop:
 			for(int i = prefs.length-1; i >= 0;i--)
 			{
+				if(Student.isNullPrerence(prefs[i]))
+					continue;
 				
 				for(Course c : ourCourses)
 				{
-					if(prefs[i].equals(c.getID()))
+					if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
 					{
 					IgnorePrefCourse(i+1);
+					idToSkip = prefs[i];
 					break outerLoop;
 					}
 				}
@@ -364,9 +378,10 @@ public class Student{
 			
 		}
 		
+		//finding non-enrolled preferred courses that are compatible with their schedule
 		for(String id : this.prefs)
 		{
-			if(this.hasCourse(id))
+			if(this.hasCourse(id) || idToSkip == id)
 				continue;
 			
 			ArrayList<Course> curPrefSections = hashCourses.get(id);
@@ -406,10 +421,10 @@ public class Student{
 		return toReturn;
 	}
 
-	//Returns the preference number of the given course, if the student does not list it as a preference returns 9
+	//Returns the preference number of the given course, if the student does not list it as a preference returns 
 	public int getPrefNumber(String courseID) {
 		// TODO Auto-generated method stub
-		int toReturn = 9;
+		int toReturn = Constants.NUM_PREFS+1;
 		int curIndex = 1;
 		
 		for(String id: this.prefs)
@@ -428,7 +443,7 @@ public class Student{
 	public int getLastEnrolledPrefNumber()
 	{
 		if(this.getClassCount() < Constants.STUD_COURSE_LIMIT)
-			return 9;
+			return (Constants.NUM_PREFS+1);
 		
 		for(int i = prefs.length-1; i >= 0;i--)
 		{
@@ -436,12 +451,11 @@ public class Student{
 			{
 				if(c.getID().equals(prefs[i]))
 						return i+1;
-				
 			}
 			
 		}
 		
-		return 9;
+		return Constants.NUM_PREFS+1;
 	}
 	
 	public void IgnorePrefCourse(int toMask) {
@@ -480,7 +494,43 @@ public class Student{
 
 	
 
-	
+	public String prefsToString()
+	{
+		String toReturn = "";
+		
+		for(String s: this.prefs)
+			toReturn += ", "+s;
+		
+		return toReturn;
+		
+	}
 
+	public boolean courseNotLocked(String id)
+	{
+		if(id.equals(Constants.NULL_PREF))
+			return true;
+		
+		for(String lid : lockedCourses)
+		{
+			if(lid.equals(id))
+				return false;
+			
+		}
+		return true;
+	}
+	
+	public void lockCourses()
+	{
+		this.lockedCourses = new ArrayList<String>();
+		
+		for(Course c: this.courses)
+			lockedCourses.add(c.getID());
+		
+	}
+	
+	public static boolean isNullPrerence(String name)
+	{
+		return name.equals(Constants.NULL_PREF);
+	}
 	
 }

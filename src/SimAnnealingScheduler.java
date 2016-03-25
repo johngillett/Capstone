@@ -13,7 +13,7 @@ public class SimAnnealingScheduler {
 	
 	private static Random rand;
 	
-	public static Solution Schedule(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
+	public static Solution ScheduleBiased(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
 	{
 		courses = inCourses;
 		studentsMap = inStudents;
@@ -27,18 +27,40 @@ public class SimAnnealingScheduler {
 		
 		temp = Constants.INIT_TEMP_VAL;
 		
-		PriorityQueue studentsHeap = constructMaxHeapOfAllStudents();
-		
-		System.out.println("Num of students: "+studentsHeap.size());
-		
-		Schedule();
+		ScheduleBiased();
 		//ScheduleRecursively(studentsHeap,totalSatScore,1);
 		
 		return bestSol;
 	}
 	
-	    //Non-Recursive method
-		private static void Schedule()
+	public static Solution ScheduleUnbiased(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
+	{
+		courses = inCourses;
+		studentsMap = inStudents;
+		
+		rand = new Random();
+		
+		int totalSatScore = getTotalSatScore(studentsMap);
+		
+		//Create initial best score
+		bestSol = new Solution(inCourses,inStudents,totalSatScore);
+		
+		temp = Constants.INIT_TEMP_VAL;
+		
+		ScheduleUnbiased();
+		
+		//Lock Current Placed courses
+		//Swap Students to RegCourses Mode
+		
+		//ScheduleUnbiased();
+		
+		//ScheduleRecursively(studentsHeap,totalSatScore,1);
+		
+		return bestSol;
+	}
+	
+	    //Heuristic Approach (less random) method
+		private static void ScheduleBiased()
 		{
 	        PriorityQueue students;// = constructMaxHeapOfAllStudents();
 			
@@ -75,6 +97,7 @@ public class SimAnnealingScheduler {
 							continue;
 						}
 						
+						prefLoop:
 						for(Course pref : prefs)
 						{
 							
@@ -107,11 +130,11 @@ public class SimAnnealingScheduler {
 								int netChange = netChangeFromReplacingStudent(stu1PrefLeaving,stu1PrefEntering,stu2PrefLeaving,stu2PrefEntering);
 								
 								//If the change was good or our temperature allows it 
-								if(netChange < 0|| makeChangeAnyway(netChange)) 
+								if(netChange < 0 || makeChangeAnyway(netChange)) 
 								{
 								currTotalSatScore += netChange;	
 								
-								System.out.println("Made net change: "+netChange+", new score:"+currTotalSatScore);	
+								//System.out.println("Made net change: "+netChange+", new score:"+currTotalSatScore);	
 								
 								//Update Best Solution if necessary
 								if(currTotalSatScore < bestSol.getScore())
@@ -127,6 +150,109 @@ public class SimAnnealingScheduler {
 								
 								studInCourse = studentsHeap.topElement();
 								studentsHeap.pop();
+							}
+						}
+						studToCheck = students.topElement();
+						students.pop();
+					}
+				}
+				temp *= Constants.TEMP_SCALE_FACTOR;
+				System.out.println("\tNew Temperature: "+temp);
+			}
+			return;
+		}
+	
+
+	    //Random Approach method
+		private static void ScheduleUnbiased()
+		{
+	        PriorityQueue students;// = constructMaxHeapOfAllStudents();
+			
+	        int currTotalSatScore = bestSol.getScore();
+	        
+	        //mainCondition:
+			while(!conditionIsMet())
+			{
+				students = constructMaxHeapOfAllStudents();
+				
+				mLoop:
+				for(int m = 0; m < Constants.ITERS_BEFORE_TEMP_SCALE; m++)
+				{
+					//System.out.println("Starting out with a score of "+currTotalSatScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD+"!");
+					
+					if(students.isEmpty())
+						break;
+					
+					Student studToCheck = students.topElement();
+					students.pop();
+				
+					while(!students.isEmpty())
+					{
+					
+						//Get Array of all course sections from Student's pref List that are compatible and not enrolled & ignoring the 4th course if there is one 
+						Course[] prefs = studToCheck.getRemainingCompPrefs(courses);	
+						
+						if(prefs == null)
+						{
+							System.out.println("No other possible choices!");
+							studToCheck = students.topElement();
+							System.out.println("switching to: "+studToCheck.id);
+							students.pop();
+							continue;
+						}
+						
+						prefLoop:
+						for(Course pref : prefs)
+						{
+							
+							//Get students in order of satisfaction score 
+							//PriorityQueue studentsHeap = constructStudentHeapFromCourse(pref);
+							ArrayList<Student> studentsList = constructArrayListFromCourse(pref);
+							
+							
+							//Course may be filled with non-freshmen
+							if(studentsList.isEmpty())
+							{
+								//System.out.println("Skip!");
+								continue;
+							}
+							
+							Student studInCourse = removeRandomStudent(studentsList);
+							while(!studentsList.isEmpty())
+							{
+									
+								//The preference number of the course we'd be swapping the student into 
+								int stu1PrefEntering = studToCheck.getPrefNumber(pref.getID());
+								//the preference number of the course we would be taking toRep from to make the swap. 9 if he doesn't have a full course load 
+								int stu1PrefLeaving = studToCheck.getLastEnrolledPrefNumber();
+								
+								//the preference number of the course we'd be taking this student out of 
+								int stu2PrefLeaving = studInCourse.getPrefNumber(pref.getID());
+								//The preference number of the course we can schedule the replaced student into if we make the swap, 9 if there is none.
+								int stu2PrefEntering = getNextPreferredCourseAfterPotentialSwap(studInCourse,stu2PrefLeaving);
+								
+								int netChange = netChangeFromReplacingStudent(stu1PrefLeaving,stu1PrefEntering,stu2PrefLeaving,stu2PrefEntering);
+								
+								//If the change was good or our temperature allows it 
+								if(netChange < 0 || makeChangeAnyway(netChange)) 
+								{
+								currTotalSatScore += netChange;	
+								
+								//System.out.println("Made net change: "+netChange+", new score:"+currTotalSatScore);	
+								
+								//Update Best Solution if necessary
+								if(currTotalSatScore < bestSol.getScore())
+									bestSol = new Solution(courses,studentsMap,currTotalSatScore);
+								
+								//System.out.println("Sending "+studToCheck.id +" from pref "+toRepFromPrefPos+" to "+toRepPrefPos+" and student "+studInCourse.id+" from "+toBeRepPrefPos+" to "+repToPrefPos);
+								
+								//replaces stud2 with stud1 in Course
+								//replaceStudentInCourse(Student stud1, int stud1From, Student stud2, int stud2To, Course course)
+								replaceStudentInCourse(studToCheck,stu1PrefLeaving,studInCourse,stu2PrefEntering,pref);
+								continue mLoop;
+								}
+								
+								studInCourse = removeRandomStudent(studentsList);
 								
 							}
 						}
@@ -142,112 +268,8 @@ public class SimAnnealingScheduler {
 			}
 			return;
 		}
-			
-	//Recursive method
-	private static void ScheduleRecursively(PriorityQueue students, int currTotalSatScore, int iter)
-	{
-        //outerloop:
-		//System.out.println("Starting out with a score of "+currTotalSatScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD+"!");
-		
-			//If Current total is less than threshold, return
-			if(Constants.SAT == Constants.SAT_SCALE.Linear)
-			{
-				if(bestSol.getScore() < Constants.LINEAR_OBJ_THRESHOLD)
-					return;
-			}
-			else
-			{
-				if(bestSol.getScore() < Constants.GEOMETRIC_OBJ_THRESHOLD)
-					return;
-			}
-		
-		//Update Temp if necessary
-		if(iter > Constants.ITERS_BEFORE_TEMP_SCALE)
-		{
-			iter = 0;
-			temp *= Constants.TEMP_SCALE_FACTOR;
-		}
 		
 		
-		students = constructMaxHeapOfAllStudents();
-		
-		Student studToCheck = students.topElement();
-		students.pop();
-		
-		while(!students.isEmpty())
-		{
-			
-			//Get Array of all course sections from Student's pref List that are compatible and not enrolled & ignoring the 4th course if there is one 
-			Course[] prefs = studToCheck.getRemainingCompPrefs(courses);	
-			
-			if(prefs == null)
-			{
-				System.out.println("No other possible choices!");
-				studToCheck = students.topElement();
-				System.out.println("switching to: "+studToCheck.id);
-				students.pop();
-				continue;
-			}
-			
-			for(Course pref : prefs)
-			{
-				
-				//Get students in order of satisfaction score 
-				PriorityQueue studentsHeap = constructStudentHeapFromCourse(pref);
-				
-				//Course may be filled with non-freshmen
-				if(studentsHeap.isEmpty())
-					continue;
-				
-				Student studInCourse = studentsHeap.topElement();
-				studentsHeap.pop();
-				
-				while(!studentsHeap.isEmpty())
-				{
-					//The preference number of the course we'd be swapping the student into 
-					int toRepPrefPos = studToCheck.getPrefNumber(pref.getID());
-					//the preference number of the course we would be taking toRep from to make the swap. 9 if he doesn't have a full course load 
-					int toRepFromPrefPos = studToCheck.getLastEnrolledPrefNumber();
-					
-					//the preference number of the course we'd be taking this student out of 
-					int toBeRepPrefPos = studInCourse.getPrefNumber(pref.getID());
-					//The preference number of the course we can schedule the replaced student into if we make the swap, 9 if there is none.
-					int repToPrefPos = getNextPreferredCourseAfterPotentialSwap(studInCourse,toBeRepPrefPos);
-					
-					int netChange = netChangeFromReplacingStudent(toRepFromPrefPos,toRepPrefPos,toBeRepPrefPos,repToPrefPos);
-					
-					//If the change was good or our temperature allows it 
-					if(netChange < 0 || makeChangeAnyway(netChange)) 
-					{
-					currTotalSatScore += netChange;	
-					
-					//Update Best Solution if necessary
-					if(currTotalSatScore < bestSol.getScore())
-						bestSol = new Solution(courses,studentsMap,currTotalSatScore);
-					
-					//System.out.println("Sending "+studToCheck.id +" from pref "+toRepFromPrefPos+" to "+toRepPrefPos+" and student "+studInCourse.id+" from "+toBeRepPrefPos+" to "+repToPrefPos);
-					
-					//replaces stud2 with stud1 in Course
-					//replaceStudentInCourse(Student stud1, int stud1From, Student stud2, int stud2To, Course course)
-					replaceStudentInCourse(studToCheck,toRepFromPrefPos,studInCourse,repToPrefPos,pref);
-					ScheduleRecursively(students,currTotalSatScore,iter+1);
-					return;	
-					}
-					
-					studInCourse = studentsHeap.topElement();
-					studentsHeap.pop();
-					
-				}
-				
-				
-			}
-			
-			studToCheck = students.topElement();
-			students.pop();
-		}
-		
-		return;
-	}
 	
 	//Checks if the algorithm has succeeded yet or not
 	//Takes into account max possible satisfaction score and min temperature  
@@ -280,7 +302,7 @@ public class SimAnnealingScheduler {
 		
 		//if(netChange == 0)
 		//	return false; // skip every time
-		//	return r < .2f; //skip 20% of the time
+		//	return r < .15f; //skip 85% of the time
 		
 		//System.out.println("Probability of making change anyway: "+prob);
 
@@ -316,7 +338,7 @@ public class SimAnnealingScheduler {
 	{
 		
 		//Unenroll stud1 from original course if there is one
-		if(stud1From != 9)
+		if(stud1From != (Constants.NUM_PREFS+1))
 		{
 			stud1.unenrollFromPrefCourse(stud1From);
 		}
@@ -326,7 +348,7 @@ public class SimAnnealingScheduler {
 	
 		boolean foundCourse= true;
 		//Enroll stud2 
-		if(stud2To != 9)
+		if(stud2To != (Constants.NUM_PREFS+1))
 		{
 		if(stud2.hasCourse(stud2.prefs[stud2To-1]))
 			System.out.println("Trying to place student into class they already have!");	
@@ -354,7 +376,7 @@ public class SimAnnealingScheduler {
 			
 		//System.out.println("Attempting to add student...");
 		if(!stud1.addIfFitsInSchedule(course))
-			System.out.println("couldnt add student??");
+			System.out.println("\tcouldnt add student?? "+stud1From+" to "+stud1.getPrefNumber(course.getID()));
 		
 	}
 	
@@ -362,14 +384,14 @@ public class SimAnnealingScheduler {
 	private static int getNextPreferredCourseAfterPotentialSwap(Student toCheck, int toMask) {
 		// TODO Auto-generated method stub
 		
-		int toReturn = 9;
+		int toReturn = Constants.NUM_PREFS+1;
 		
 		toCheck.IgnorePrefCourse(toMask);
 		
 		//check following preferred courses 
-		for(int i = toMask; i< toCheck.prefs.length;i++)
+		for(int i = 0; i< toCheck.prefs.length;i++)
 		{
-			if(toCheck.hasCourse(toCheck.prefs[i]))
+			if(toCheck.hasCourse(toCheck.prefs[i]) || i == (toMask-1))
 				continue;
 			
 			ArrayList<Course> sections = courses.get(toCheck.prefs[i]);
@@ -436,6 +458,46 @@ public class SimAnnealingScheduler {
 			
 			return studentsHeap;
 	}
+	
+	private static ArrayList<Student> constructArrayListOfAllStudents()
+	{
+		ArrayList<Student> toReturn = new ArrayList<Student>(); 
+		for(HashMap.Entry<Integer, Student> entry : studentsMap.entrySet())
+		{
+				Student stud = entry.getValue();
+				toReturn.add(stud);
+		}
+		
+		return toReturn;
+		
+	}
+	
+	private static ArrayList<Student> constructArrayListFromCourse(Course section)
+	{
+		//declare Min Q
+		ArrayList<Student> toReturn = new ArrayList<Student>(); 
+		
+		for(Student stud : section.students)
+			toReturn.add(stud);
+		
+		//if(toReturn.isEmpty())
+		//	System.out.println("No students found in course: "+section.toString());
+		return toReturn;
+	}
+	
+	
+	private static Student removeRandomStudent(ArrayList<Student> studs)
+	{
+		Student toReturn;
+		
+		int index = rand.nextInt(studs.size());
+		
+		toReturn = studs.get(index);
+		studs.remove(toReturn);
+		
+		return toReturn;
+	}
+	
 	
 }
 

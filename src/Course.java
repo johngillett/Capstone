@@ -1,4 +1,4 @@
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
 public class Course{
@@ -26,7 +26,10 @@ public class Course{
 	
 	int curSize;
 	
-	public Course(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize)
+	private 
+	boolean isSeminar;
+	
+	public Course(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar)
 	{
 		this.title = title;
 		
@@ -47,6 +50,8 @@ public class Course{
 		
 		this.hasLab = false;
 		this.isLab = false;
+		
+		this.isSeminar = isSeminar;
 	}
 	
 
@@ -94,7 +99,7 @@ public class Course{
 	}
 	
 	
-	public boolean isCompatible(Course course)
+	private boolean isCompatible(Course course)
 	{
 		for(Day dayCourse1 : schedule)
 		{
@@ -183,5 +188,11 @@ public class Course{
 		// TODO Auto-generated method stub
 		return this.students.contains(stud2);
 	}
+	
+	public boolean isSeminar()
+	{
+	return this.isSeminar;	
+	}
+	
 	
 }

@@ -13,27 +13,6 @@ import java.util.HashMap;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		/*
-		 * Hey Anna! Hope you're having a good break.
-		 * 
-		 * Things I've changed:
-		 * -Added the temperature probability to the SimAnneal Scheduler. Check the makeChangeAnyway() function for more comments.
-		 * -Added the Solution class. This is now what the scheduler returns. I've made some comments there with info as well. 
-		 * -Added a few new constants. I think they should be clear as to what they do.
-		 * -After implementing the above, the scheduler consistently had stack overflow errors, so I re-wrote it all non-recursively! 
-		 * 		I tried to model it as closely to the pseudo-code we showed in our presentation. 
-		 * 
-		 * Issues:
-		 * -Currently the scheduler makes many many many repeated changes with a net change of 0. I'm not sure how we should handle this.
-		 * -Occasionally a replacement is made and stud1 is unable to be added into the new course. This shouldn't be possible, yet its happening. 
-		 * 
-		 * Notes:
-		 * -Its hard to tell but it seems the algorithm works a little better when using the Geometric scale. 
-		 * 
-		 * Text me any time if you have questions about the changes I made! 
-		 * 
-		 */
-		
 		courseList = new ArrayList<Course>();
 		
 		//Generate Courses
@@ -44,14 +23,16 @@ import java.util.HashMap;
 		students = FreshmanParser.parseFreshmen();
 		
 		//Generate Preferences
-		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
+		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
+	
+		PreferenceGenerator.getStandardPrefs(students);
+		
 		//PreferenceGenerator.generateRanPrefs(students, courseList);
 				
 		//Preliminary Greedy Schedule
 		GreedyScheduler.greedyScheduleByPref(students, courses);
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
 		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
-		//System.out.println(courseList.get(0).curSize);
 				
 		//printCourses();
 		printCourseData();
@@ -65,7 +46,7 @@ import java.util.HashMap;
 		//printCourseData();
 		
 		//Simulated Annealing:
-		Solution sol = SimAnnealingScheduler.Schedule(students, courses);
+		Solution sol = SimAnnealingScheduler.ScheduleUnbiased(students, courses);
 		
 		System.out.println("Started with: "+startingScore+", ended up with "+sol.getScore());
 	
@@ -73,8 +54,9 @@ import java.util.HashMap;
 		
 		//getGraphs();
 	
+		printStudents();
 		//printCourses();
-		//printFreshmenCourseCountTotal();
+		printFreshmenCourseCountTotal();
 	}
 
 	static void getGraphs()
@@ -96,7 +78,7 @@ import java.util.HashMap;
 			int count = c.getValue();
 			totalCount += count;
 		}	
-		System.out.println("The total number is" + totalCount);
+		//System.out.println("The total number is " + totalCount);
 	}
 	
 	//doesn't work because assumes students are an arrayList
@@ -105,14 +87,25 @@ import java.util.HashMap;
 		
 		double avgScore = 0;
 		
+		int numStudsWithoutFullCourseLoad = 0;
+
+		//System.out.println("Students without full course load: ");
 		for(HashMap.Entry<Integer, Student> c : students.entrySet()){
 			Student stud = c.getValue();
-			System.out.println(stud.toString());
+			
+			if(stud.getClassCount() < Constants.STUD_COURSE_LIMIT)
+			{	
+				//System.out.println("\t"+stud.toString());
+				numStudsWithoutFullCourseLoad++;
+			}
+			
+			//System.out.println(stud.toString());
 			avgScore += stud.satisfactionScore;
 		}
 		
 		avgScore = avgScore / students.size();
 		
+		System.out.println("Number of students without full course load: "+numStudsWithoutFullCourseLoad);
 		System.out.println("Average Score: "+avgScore);
 			
 	}

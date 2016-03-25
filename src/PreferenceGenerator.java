@@ -1,8 +1,16 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.TreeMap;
 
@@ -81,6 +89,83 @@ public class PreferenceGenerator {
 		}
 		
 
+		writeCurrentPrefs(students);
+	}
+	
+	public static void getStandardPrefs(HashMap<Integer,Student> students)
+	{
+
+		File f = new File("standardStudentsInfo.txt");
+		
+		try {
+			Scanner sc = new Scanner(f);
+			
+			while(sc.hasNextLine())
+			{
+				String stud = sc.nextLine();
+				
+				String[] parsedLine = stud.split(", ");
+				
+				int studID = Integer.parseInt(parsedLine[0]);
+				
+				String[] newprefs = new String[Constants.NUM_PREFS];
+				
+				for(int i = 1; i <= Constants.NUM_PREFS;i++)
+				{
+					newprefs[i-1] = parsedLine[i];
+				}
+				
+				Student toChange = students.get(studID);
+				
+				toChange.prefs = newprefs;
+				
+				//System.out.println(studID+toChange.prefsToString());
+				
+				
+			}
+			
+			
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	private static void writeCurrentPrefs(HashMap<Integer,Student> students)
+	{
+		
+		File f = new File("currentStudentsInfo.txt");
+		
+		if(!f.exists())
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+			
+			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+				Student stud = entry.getValue();
+				writer.write(stud.id+stud.prefsToString());
+				writer.newLine();
+			}
+			
+			
+			writer.close();
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

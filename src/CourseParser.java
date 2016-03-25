@@ -22,8 +22,10 @@ public class CourseParser {
 		//skip first line
 		bufRead.readLine();	
 		
+		int  numSSIs = 0;
+		
 			//Line Format:
-			//0		1	 2	 3	4		5	6	7	8	9		10		11	12			13			14		15		16			17		18		19		20
+			//0		1	 2	 3	4		5	6	7	  8	   9  10	11	12	 13			14		15		16			17		18		19		20
 			//Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Component,Notes,Term,Session
 			while ( (nextLine = bufRead.readLine()) != null)
 			{   
@@ -57,9 +59,7 @@ public class CourseParser {
 			    //parse times
 			   	int startTime = Integer.parseInt(timeData[0].substring(0,2)+timeData[0].substring(3,5));
 			    int endTime = Integer.parseInt(timeData[1].substring(0,2)+timeData[1].substring(3,5));
-			    
-			    
-			    
+			   
 			    //parse Days
 			   	if(dayData.charAt(1) != '_')
 			   		schedule.add(new Day(Day.Slot.M,startTime,endTime));
@@ -98,14 +98,14 @@ public class CourseParser {
 				   		//Section Specific Lab
 				   		if(prev.isSameSection(sectID.substring(0,1)))
 				   		{
-				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize);
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,false);
 						    prev.addLab(newLab);
 						    continue;
 				   		}
 				   		//Class specific Lab
 				   		else
 				   		{
-				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize);
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,false);
 						    
 				   			ArrayList<Course> coursesWithSameLab = new ArrayList<Course>();
 				   			
@@ -133,14 +133,21 @@ public class CourseParser {
 				   	
 			   	}
 			   	
+			   	boolean isSeminar = courseData[8].equals("SSI");
+			   	
+			   	if(isSeminar)
+			   		numSSIs++;
+			   	
 			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize)
-			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize);
+			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,isSeminar);
 			    courseList.add(toAdd);
 			 	
 			    //System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
 
 			}
 		
+		System.out.println("# Seminars: " +numSSIs);	
+			
 		bufRead.close();
 		input.close();
 		
