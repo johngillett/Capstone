@@ -20,6 +20,7 @@ public class Student{
 	ArrayList<Day> schedule;
 	
 	ArrayList<Course> toIgnore;
+	boolean hasAdvisingCourse;
 	
 	//New Constructor
 	public Student(int id, String[] prefs)
@@ -46,6 +47,8 @@ public class Student{
 	
 	toIgnore = new ArrayList<Course>();
 	
+	this.hasAdvisingCourse = false;
+	
 	
 	}
 
@@ -68,6 +71,25 @@ public class Student{
 //		this.
 //		
 //	}
+	
+	//adds advising course into student's schedule
+	public void enrollInAdvisingCourse(Course c)
+	{
+		courses.add(c);	
+		this.hasAdvisingCourse = true;
+	
+		//Add class to Student's schedule
+		for(Day cDay: c.schedule)
+		{
+			this.schedule.add(cDay);
+		}
+	}
+	
+	public boolean hasAdvisingCourse()
+	{
+		return this.hasAdvisingCourse;
+	}
+	
 	
 	//adds course to student's schedule and updates satisfaction score
 	public void enrollInCourse(Course c)

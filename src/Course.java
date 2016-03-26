@@ -28,8 +28,9 @@ public class Course{
 	
 	private 
 	boolean isSeminar;
+	boolean isAdvising;
 	
-	public Course(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar)
+	public Course(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar, boolean isAdvising)
 	{
 		this.title = title;
 		
@@ -52,6 +53,7 @@ public class Course{
 		this.isLab = false;
 		
 		this.isSeminar = isSeminar;
+		this.isAdvising = isAdvising;
 	}
 	
 
@@ -184,14 +186,19 @@ public class Course{
 	}
 
 
-	public boolean hasStudent(Student stud2) {
-		// TODO Auto-generated method stub
+	public boolean hasStudent(Student stud2) 
+	{
 		return this.students.contains(stud2);
 	}
 	
 	public boolean isSeminar()
 	{
-	return this.isSeminar;	
+		return this.isSeminar;	
+	}
+	
+	public boolean isAdvising()
+	{
+		return this.isAdvising;
 	}
 	
 	

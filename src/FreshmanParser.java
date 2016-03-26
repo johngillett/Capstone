@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class FreshmanParser {
 	
-	public static HashMap<Integer,Student> parseFreshmen()
+	public static HashMap<Integer,Student> parseFreshmen(HashMap<String,ArrayList<Course>> courses)
 	{
 		HashMap<Integer, Student> freshmen = new HashMap<Integer,Student>();
 		
@@ -19,6 +19,9 @@ public class FreshmanParser {
 		//skip first line
 		bufRead.readLine();	
 		
+		//number of students with advising courses
+		int numAdvisees = 0;
+		
 			//Line Format:
 			//0	   1  
 			//ID   Class
@@ -28,6 +31,7 @@ public class FreshmanParser {
 			{   
 			    String[] data = nextLine.split(",");
 			    
+			    //create student
 			    int id = Integer.parseInt(data[0]);
 			    if (!freshmen.containsKey(id))
 			    {
@@ -36,8 +40,42 @@ public class FreshmanParser {
 			    	//System.out.println("Student with id " +id+ " was added");
 			    	freshmen.put(id, newStudent);
 			    }
+			    
+			    //find advising course
+			    String[] course = data[1].split(" ");
+			    //course[0] = subject, course[1] = space, course[2] = courseNum, course[3] = section
+			    String courseID = course[0]+course[2];
+			    String section = course[3];
+			    
+			    //if this course was actually in our spreadsheet
+			    if(courses.containsKey(courseID))
+			    {
+				    ArrayList<Course> possibleCourses = courses.get(courseID);
+				    
+				    for(Course courseSec : possibleCourses)
+				    {
+				    	if(courseSec.getSectionID().equals(section))
+				    	{
+				    		if (courseSec.isAdvising())
+				    		{
+				    			
+				    			//System.out.println(courseSec.getTitle() + " is " + data[0] + "'s advising course");
+				    			Student currStudent = freshmen.get(id);
+				    			if(!currStudent.hasCourse(courseSec.getID()))
+				    			{
+				    				currStudent.enrollInAdvisingCourse(courseSec);
+				    				System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
+				    				numAdvisees ++;
+				    			}
+				    		}
+				    	}
+				    }
+			    }
+
 			    			   	
 			}
+			
+		System.out.println("The number of students in an advising course is " + numAdvisees);
 		
 		bufRead.close();
 		input.close();

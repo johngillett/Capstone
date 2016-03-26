@@ -15,21 +15,22 @@ public class CourseParser {
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		
 		try {			
-		FileReader input = new FileReader("courses.txt");
+		FileReader input = new FileReader("courses_with_advising.txt");
 		BufferedReader bufRead = new BufferedReader(input);
 		String nextLine = null;
 	
 		//skip first line
 		bufRead.readLine();	
 		
-		int  numSSIs = 0;
+		//int  numSSIs = 0;
 		
 			//Line Format:
-			//0		1	 2	 3	4		5	6	7	  8	   9  10	11	12	 13			14		15		16			17		18		19		20
-			//Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Component,Notes,Term,Session
+			//0		1	 2	 3	4	5	   6	7	  8	   9  10	11	12	 13		14		15		   16	17		18		19		20
+			//Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Component,Notes,Term,Session,Advising, Nothing
 			while ( (nextLine = bufRead.readLine()) != null)
 			{   
 			    String[] courseData = nextLine.split(",");
+			    
 			    //System.out.println("Course: "+courseData[3]);
 			    
 			    String title = courseData[4];
@@ -98,14 +99,14 @@ public class CourseParser {
 				   		//Section Specific Lab
 				   		if(prev.isSameSection(sectID.substring(0,1)))
 				   		{
-				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,false);
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,false,false);
 						    prev.addLab(newLab);
 						    continue;
 				   		}
 				   		//Class specific Lab
 				   		else
 				   		{
-				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,false);
+				   			Course newLab = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,false,false);
 						    
 				   			ArrayList<Course> coursesWithSameLab = new ArrayList<Course>();
 				   			
@@ -134,19 +135,28 @@ public class CourseParser {
 			   	}
 			   	
 			   	boolean isSeminar = courseData[8].equals("SSI");
+			   	boolean isAdvising = false;
 			   	
-			   	if(isSeminar)
-			   		numSSIs++;
+			   	//if the isAdvising field is filled in
+			   	if (courseData.length == 19)
+			   	{
+			   		isAdvising = (courseData[18].equals("Y"));
+			   	}
+
+			   	//if(isAdvising) System.out.println(title+ " is an advising course");
 			   	
-			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize)
-			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,isSeminar);
+			   	//if(isSeminar)
+			   		//numSSIs++;
+			   	
+			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar, boolean isAdvising)
+			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,isSeminar,isAdvising);
 			    courseList.add(toAdd);
 			 	
 			    //System.out.println(courseID+", "+dayData+", "+timeData[0]+"-"+timeData[1]+", "+title);
 
 			}
 		
-		System.out.println("# Seminars: " +numSSIs);	
+		//System.out.println("# Seminars: " +numSSIs);	
 			
 		bufRead.close();
 		input.close();
