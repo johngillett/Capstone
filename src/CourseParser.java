@@ -25,8 +25,8 @@ public class CourseParser {
 		//int  numSSIs = 0;
 		
 			//Line Format:
-			//0		1	 2	 3	4	5	   6	7	  8	   9  10	11	12	 13		14		15		   16	17		18		19		20
-			//Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Component,Notes,Term,Session,Advising, Nothing
+			//0		     1	 2	 3	4	  5	     6	  7	  8	   9  10	11	 12	   13		14		  15     16	   17			
+			//Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Component,Term,Session,Advising
 			while ( (nextLine = bufRead.readLine()) != null)
 			{   
 			    String[] courseData = nextLine.split(",");
@@ -138,9 +138,9 @@ public class CourseParser {
 			   	boolean isAdvising = false;
 			   	
 			   	//if the isAdvising field is filled in
-			   	if (courseData.length == 19)
+			   	if (courseData.length == 18)
 			   	{
-			   		isAdvising = (courseData[18].equals("Y"));
+			   		isAdvising = (courseData[17].equals("Y"));
 			   	}
 
 			   	//if(isAdvising) System.out.println(title+ " is an advising course");
@@ -157,7 +157,13 @@ public class CourseParser {
 			}
 		
 		//System.out.println("# Seminars: " +numSSIs);	
-			
+		
+		//Hard-code in BUS 101 as an advising class:
+		ArrayList<Day> schedule = new ArrayList<Day>();
+		Course toAdd = new Course("Business Leadership Seminar","BUS","A",101,schedule,0,30, 23,false,true);	
+		courseList.add(toAdd);
+		
+		
 		bufRead.close();
 		input.close();
 		

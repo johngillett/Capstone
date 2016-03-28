@@ -37,8 +37,8 @@ public class FreshmanParser {
 			    {
 			    	//create a student with no preferences
 			    	Student newStudent = new Student(id, new String[Constants.NUM_PREFS]);
-			    	//System.out.println("Student with id " +id+ " was added");
 			    	freshmen.put(id, newStudent);
+			    	//System.out.println("Student with id " +id+ " was added");
 			    }
 			    
 			    //find advising course
@@ -51,20 +51,22 @@ public class FreshmanParser {
 			    if(courses.containsKey(courseID))
 			    {
 				    ArrayList<Course> possibleCourses = courses.get(courseID);
-				    
+				    //for all sections
 				    for(Course courseSec : possibleCourses)
 				    {
+				    	//if we found the section the student is in
 				    	if(courseSec.getSectionID().equals(section))
 				    	{
 				    		if (courseSec.isAdvising())
 				    		{
-				    			
 				    			//System.out.println(courseSec.getTitle() + " is " + data[0] + "'s advising course");
 				    			Student currStudent = freshmen.get(id);
-				    			if(!currStudent.hasCourse(courseSec.getID()))
+				    			//if(!currStudent.hasCourse(courseSec.getID()))
+				    			if(!currStudent.hasAdvisingCourse())
 				    			{
 				    				currStudent.enrollInAdvisingCourse(courseSec);
-				    				System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
+				    				currStudent.hasAdvisingCourse = true;
+				    				//System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
 				    				numAdvisees ++;
 				    			}
 				    		}
@@ -76,6 +78,18 @@ public class FreshmanParser {
 			}
 			
 		System.out.println("The number of students in an advising course is " + numAdvisees);
+		
+		//finding students without an advising course
+		int numStu = 0;
+		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
+			Student stud = c.getValue();
+			if(stud.getClassCount() == 0){
+				numStu++;
+				System.out.println(stud);
+			}
+		}
+		System.out.println("There " + numStu + " students without advising classes");
+			
 		
 		bufRead.close();
 		input.close();
