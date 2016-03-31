@@ -11,7 +11,6 @@ import java.util.HashMap;
 	static HashMap<String, Integer> freshmenCourseCounts;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		courseList = new ArrayList<Course>();
 		
@@ -22,41 +21,41 @@ import java.util.HashMap;
 		//Generate students
 		students = FreshmanParser.parseFreshmen(courses);
 		
-//		//Generate Preferences
-//		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
-//	
-//		PreferenceGenerator.getStandardPrefs(students);
-//
-//		//PreferenceGenerator.generateRanPrefs(students, courseList);
-//				
-//		//Preliminary Greedy Schedule
-//		GreedyScheduler.greedyScheduleByPref(students, courses);
-//		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-//		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
-//				
-//		//printCourses();
-//		printCourseData();
-//		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
-//		
-//		if(Constants.SAT == Constants.SAT_SCALE.Linear)
-//		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
-//		else
-//		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.GEOMETRIC_OBJ_THRESHOLD);
-//			
-//		//printCourseData();
-//		
-//		//Simulated Annealing:
-//		Solution sol = SimAnnealingScheduler.ScheduleUnbiased(students, courses);
-//		
-//		System.out.println("Started with: "+startingScore+", ended up with "+sol.getScore());
-//	
-//		printCourseData();
-//		
-//		//getGraphs();
-//	
-//		printStudents();
-//		//printCourses();
-//		printFreshmenCourseCountTotal();
+		//Generate Preferences
+		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
+	
+		PreferenceGenerator.getStandardPrefs(students);
+
+		//PreferenceGenerator.generateRanPrefs(students, courseList);
+				
+		//Preliminary Greedy Schedule
+		GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByStudent(students, courses);
+		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
+				
+		//printCourses();
+		printCourseData();
+		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
+		
+		if(Constants.SAT == Constants.SAT_SCALE.Linear)
+		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
+		else
+		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.GEOMETRIC_OBJ_THRESHOLD);
+			
+		//printCourseData();
+		
+		//Simulated Annealing:
+		Solution sol = SimAnnealingScheduler.ScheduleUnbiased(students, courses);
+		
+		System.out.println("Started with: "+startingScore+", ended up with "+sol.getScore());
+	
+		printCourseData();
+		
+		//getGraphs();
+	
+		printStudents();
+		//printCourses();
+		printFreshmenCourseCountTotal();
 	}
 
 	static void getGraphs()

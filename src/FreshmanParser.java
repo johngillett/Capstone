@@ -20,7 +20,7 @@ public class FreshmanParser {
 		bufRead.readLine();	
 		
 		//number of students with advising courses
-		int numAdvisees = 0;
+		//int numAdvisees = 0;
 		
 			//Line Format:
 			//0	   1  
@@ -43,7 +43,6 @@ public class FreshmanParser {
 			    
 			    //find advising course
 			    String[] course = data[1].split(" ");
-			    //course[0] = subject, course[1] = space, course[2] = courseNum, course[3] = section
 			    String courseID = course[0]+course[2];
 			    String section = course[3];
 			    
@@ -66,8 +65,9 @@ public class FreshmanParser {
 				    			{
 				    				currStudent.enrollInAdvisingCourse(courseSec);
 				    				currStudent.hasAdvisingCourse = true;
+				    				currStudent.lockCourses();
 				    				//System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
-				    				numAdvisees ++;
+				    				//numAdvisees ++;
 				    			}
 				    		}
 				    	}
@@ -77,18 +77,20 @@ public class FreshmanParser {
 			    			   	
 			}
 			
-		System.out.println("The number of students in an advising course is " + numAdvisees);
+		//System.out.println("The number of students in an advising course is " + numAdvisees);
 		
 		//finding students without an advising course
+		//for now, remove these students
 		int numStu = 0;
 		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
 			Student stud = c.getValue();
 			if(stud.getClassCount() == 0){
 				numStu++;
-				System.out.println(stud);
+				//System.out.println(stud);
+				freshmen.remove(stud);
 			}
 		}
-		System.out.println("There " + numStu + " students without advising classes");
+		//System.out.println("There " + numStu + " students without advising classes");
 			
 		
 		bufRead.close();
