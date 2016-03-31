@@ -39,7 +39,7 @@ Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Co
 8062,BIOL, 111,CC,Unity of Life,16,14,0,NS,N,0.00,_____F_,13.00- 15.50,HA-251,LAB,2015 Fall,FUL,
 8063,BIOL, 112,A,Diversity of Life,32,29,0,NS,E,1.00,_M_W_F_,10.00- 10.50,TH-193,LEC,2015 Fall,FUL,Y
 8064,BIOL, 112,AA,Diversity of Life,16,14,0,NS,N,0.00,_M_____,13.00- 15.50,HA-245,LAB,2015 Fall,FUL,
-8065,BIOL, 112,AB,Diversity of Life,16,15,0,NS,N,0.00,__T____,13.00- 15.50,HA-245,LAB,2015 Fall,FUL,Y
+8065,BIOL, 112,AB,Diversity of Life,16,15,0,NS,N,0.00,__T____,13.00- 15.50,HA-245,LAB,2015 Fall,FUL,
 8066,BIOL, 112,AC,Diversity of Life,0,0,0,NS,N,0.00,_______,-,,LAB,2015 Fall,FUL,
 11183,BIOL, 112,B,Diversity of Life,32,29,0,NS,E,1.00,_M_W_F_,10.00- 10.50,TH-383,LEC,2015 Fall,FUL,
 11184,BIOL, 112,BA,Diversity of Life,16,16,0,NS,N,0.00,___W___,13.00- 15.50,HA-245,LAB,2015 Fall,FUL,
@@ -154,8 +154,8 @@ Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Co
 11124,ENGL, 245,A,Shakespeare: Script to Stage,20,16,0,,E,1.00,_M_W_F_,12.00- 12.50,WY-307,LEC,2015 Fall,FUL,
 8170,ENVR, 101,A,Intro to the Environment,32,36,1,,E,1.00,__T_T__,11.00- 12.20,TH-391,LEC,2015 Fall,FUL,Y
 8170,ENVR, 101,A,Intro to the Environment,32,36,1,,E,1.00,__T_T__,11.00- 12.20,TH-391,LEC,2015 Fall,FUL,Y
-8171,ENVR, 101,AA,Intro to the Environment,16,18,1,,N,0.00,__T____,13.30- 16.20,HA-126,LAB,2015 Fall,FUL,Y
-8171,ENVR, 101,AA,Intro to the Environment,16,18,1,,N,0.00,__T____,13.30- 16.20,HA-126,LAB,2015 Fall,FUL,Y
+8171,ENVR, 101,AA,Intro to the Environment,16,18,1,,N,0.00,__T____,13.30- 16.20,HA-126,LAB,2015 Fall,FUL,Y?
+8171,ENVR, 101,AA,Intro to the Environment,16,18,1,,N,0.00,__T____,13.30- 16.20,HA-126,LAB,2015 Fall,FUL,Y?
 8172,ENVR, 101,AB,Intro to the Environment,16,18,0,,N,0.00,____T__,13.00- 15.50,HA-126,LAB,2015 Fall,FUL,
 8172,ENVR, 101,AB,Intro to the Environment,16,18,0,,N,0.00,____T__,13.00- 15.50,HA-126,LAB,2015 Fall,FUL,
 10977,ENVR, 201,A,ENVR Policy Tools & Topics,22,24,0,,E,1.00,_M_____,17.00- 19.50,TH-193,LEC,2015 Fall,FUL,
@@ -181,7 +181,7 @@ Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Co
 10947,FREN, 240,B,French Contemporary Issues,20,10,0,FL,E,1.00,_M_W_F_,11.00- 11.50,WY-208,LEC,2015 Fall,FUL,
 10948,FREN, 300,A,Intro to French Literature,20,12,0,,E,1.00,_M_W_F_,14.00- 14.50,WY-208,LEC,2015 Fall,FUL,
 8166,GEOL, 101,A,Physical Geology,48,48,4,NS,E,1.00,_M_W_F_,10.00- 10.50,TH-391,LEC,2015 Fall,FUL,Y
-8167,GEOL, 101,AA,Physical Geology,16,15,0,NS,N,0.00,__T____,10.00- 11.50,HA-121,LAB,2015 Fall,FUL,Y
+8167,GEOL, 101,AA,Physical Geology,16,15,0,NS,N,0.00,__T____,10.00- 11.50,HA-121,LAB,2015 Fall,FUL,Y?
 8689,GEOL, 101,AB,Physical Geology,16,17,3,NS,N,0.00,___W___,12.00- 13.50,HA-121,LAB,2015 Fall,FUL,
 11153,GEOL, 101,AC,Physical Geology,16,16,2,NS,N,0.00,____T__,10.00- 11.50,HA-121,LAB,2015 Fall,FUL,
 8164,GEOL, 101,B,Physical Geology,16,16,0,NS,E,1.00,_M_W_F_,11.00- 11.50,HA-121,LEC,2015 Fall,FUL,Y
@@ -210,8 +210,8 @@ Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Co
 11091,HIST, 291,A,Modern Africa,12,12,0,HM,E,1.00,_M_W_F_,09.00- 09.50,WY-313,LEC,2015 Fall,FUL,
 11145,HIST, 291,B,Modern Africa,12,10,0,HM,E,1.00,_M_W_F_,13.00- 13.50,TH-193,LEC,2015 Fall,FUL,
 8258,HON, 212,A,Origins of the Modern World,28,17,0,NS,E,1.00,_M_W_F_,12.00- 12.50,TH-153,LEC,2015 Fall,FUL,Y
-8259,HON, 212,AA,Origins of the Modern World,14,5,0,NS,N,0.00,_M_____,13.00- 15.30,TH-153,LAB,2015 Fall,FUL,Y
-8260,HON, 212,AB,Origins of the Modern World,14,12,0,NS,N,0.00,_M_____,15.30- 18.00,TH-153,LAB,2015 Fall,FUL,Y
+8259,HON, 212,AA,Origins of the Modern World,14,5,0,NS,N,0.00,_M_____,13.00- 15.30,TH-153,LAB,2015 Fall,FUL,Y?
+8260,HON, 212,AB,Origins of the Modern World,14,12,0,NS,N,0.00,_M_____,15.30- 18.00,TH-153,LAB,2015 Fall,FUL,Y?
 8261,HON, 214,A,Interrogating Inequality,28,21,0,SL,E,1.00,__T_T__,14.00- 15.20,WY-201,LEC,2015 Fall,FUL,
 8500,HUM, 290,A,Intro to Cinema Studies,22,22,2,AR,E,1.00,__T_T__,15.30- 16.50,WY-109,LEC,2015 Fall,FUL,
 8500,HUM, 290,A,Intro to Cinema Studies,22,22,2,AR,E,1.00,__T____,17.30- 19.30,MC-103,LEC,2015 Fall,FUL,
@@ -353,7 +353,7 @@ Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Co
 8452,PHYS, 121,B,General University Physics,44,29,0,NS,E,1.00,_M___F_,12.00- 12.50,TH-175,LEC,2015 Fall,FUL,Y
 8452,PHYS, 121,B,General University Physics,44,29,0,NS,E,1.00,__T_T__,12.30- 13.20,TH-175,LEC,2015 Fall,FUL,Y
 8453,PHYS, 121,CC,General University Physics,24,0,0,NS,N,0.00,_______,-,,LAB,2015 Fall,FUL,
-8454,PHYS, 121,DD,General University Physics,24,26,0,NS,N,0.00,___W___,13.00- 15.30,HA-135,LAB,2015 Fall,FUL,Y
+8454,PHYS, 121,DD,General University Physics,24,26,0,NS,N,0.00,___W___,13.00- 15.30,HA-135,LAB,2015 Fall,FUL,Y?
 8455,PHYS, 121,EE,General University Physics,24,15,0,NS,N,0.00,____T__,13.00- 15.30,HA-135,LAB,2015 Fall,FUL,
 8456,PHYS, 121,FF,General University Physics,24,27,0,NS,N,0.00,_____F_,14.00- 16.30,HA-135,LAB,2015 Fall,FUL,
 10962,PHYS, 205,A,Physics of Music,16,8,0,NS,E,1.00,_M_W_F_,13.00- 13.50,HA-143,LEC,2015 Fall,FUL,
