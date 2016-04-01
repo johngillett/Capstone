@@ -72,18 +72,6 @@ public class Student{
 //		
 //	}
 	
-	//adds advising course into student's schedule
-	public void enrollInAdvisingCourse(Course c)
-	{
-		courses.add(c);	
-		this.hasAdvisingCourse = true;
-	
-		//Add class to Student's schedule
-		for(Day cDay: c.schedule)
-		{
-			this.schedule.add(cDay);
-		}
-	}
 	
 	public boolean hasAdvisingCourse()
 	{
@@ -161,7 +149,7 @@ public class Student{
 					//if one course starts & ends before another, then it is compatible, otherwise it isn't
 					if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
 					{	
-						//System.out.println("\tMain course conflict!");
+						System.out.println("\tMain course conflict!");
 						return false;
 					}
 				}
@@ -179,8 +167,11 @@ public class Student{
 			
 			for(Course lab : labs)
 			{
-				if(!lab.hasRoom())
+				if(!lab.hasRoom()){
+					//System.out.println("\t No room!");
 					continue;
+				}
+					
 				
 				boolean noConflicts = true;	
 				
@@ -388,7 +379,8 @@ public class Student{
 				
 				for(Course c : ourCourses)
 				{
-					if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
+					//if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
+					if(prefs[i].equals(c.getID()))
 					{
 					IgnorePrefCourse(i+1);
 					idToSkip = prefs[i];

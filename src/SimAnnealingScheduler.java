@@ -263,7 +263,7 @@ public class SimAnnealingScheduler {
 					
 				}
 				temp *= Constants.TEMP_SCALE_FACTOR;
-				System.out.println("\tNew Temperature: "+temp);
+				//System.out.println("\tNew Temperature: "+temp);
 	        	
 			}
 			return;
@@ -474,12 +474,18 @@ public class SimAnnealingScheduler {
 	
 	private static ArrayList<Student> constructArrayListFromCourse(Course section)
 	{
-		//declare Min Q
 		ArrayList<Student> toReturn = new ArrayList<Student>(); 
 		
 		for(Student stud : section.students)
-			toReturn.add(stud);
-		
+		{
+			String sectID = section.getID();
+			if(stud.courseNotLocked(sectID))
+			{
+				toReturn.add(stud);	
+			}
+			
+		}
+			
 		//if(toReturn.isEmpty())
 		//	System.out.println("No students found in course: "+section.toString());
 		return toReturn;

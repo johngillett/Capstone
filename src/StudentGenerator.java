@@ -1,34 +1,54 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class StudentGenerator {
 
-	public static ArrayList<Student> generateStudents(int numStudents, ArrayList<Course> courses)
+	public static HashMap<Integer,Student> generateStudents(ArrayList<Course> advisingCourses)
 	{
-		ArrayList<Student> students = new ArrayList<Student>();
+		HashMap<Integer,Student> students = new HashMap<Integer, Student>();
+		Random rand = new Random();
 		
-		for(int i = 0; i < numStudents;i++)
+		stuLoop:
+		for(int i = 0; i < Constants.NUM_STUDENTS;i++)
 		{
-			
 			String[] prefs = new String[Constants.NUM_PREFS];
+			for(int j= 0; j<prefs.length;j++){
+				prefs[j] = Constants.NULL_PREF;
+			}
+			Student stu = new Student(i,prefs);
+			students.put(i,stu);
 			
-			int[] toShuffle = new int[courses.size()];
 			
-			for(int x = 0; x < courses.size(); x++)
-				toShuffle[x] = x;	
-		
-			shuffleArray(toShuffle);
 			
-			for(int y = 0; y < Constants.NUM_PREFS; y ++)
-				prefs[y] = courses.get(toShuffle[y]).getID();
-		
-			students.add(new Student(i,prefs));
+			boolean flag = true;
+			while(flag)
+			{
+				int num = rand.nextInt(advisingCourses.size());
+				Course c = advisingCourses.get(num);
+				if(c.hasRoom() && stu.addIfFitsInSchedule(c))
+				{
+					stu.hasAdvisingCourse = true;
+					stu.lockCourses();
+					flag = false;
+				}
+			}
 			
+			//for(Course c : advisingCourses)
+/*			{
+				if(c.hasRoom()) 
+				{
+					System.out.println("Course size for " + c.getID() + " is " + c.curSize + " out of " +  c.maxSize);
+
+					//System.out.println("we're in");
+					stu.addIfFitsInSchedule(c);
+					//c.addStudent(stu);
+					continue stuLoop;
+				}
+			}*/
+			System.out.print(" NO! ");
 		}
-		
-		
-		
 		
 		return students;
 	}

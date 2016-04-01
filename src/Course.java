@@ -181,7 +181,7 @@ public class Course{
 		{
 			toReturn += d.toString()+" ";
 		}
-		return toReturn +", "+title+ ", # Enrolled: "+this.curSize+"/"+this.maxSize+", with "+this.students.size()+" freshmen.";
+		return toReturn +", "+title+ ", # Enrolled: "+this.curSize+"/"+this.maxSize+", with "+this.students.size()+" freshmen. Has room: "+this.hasRoom();
 		
 	}
 

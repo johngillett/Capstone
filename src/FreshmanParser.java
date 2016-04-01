@@ -35,8 +35,14 @@ public class FreshmanParser {
 			    int id = Integer.parseInt(data[0]);
 			    if (!freshmen.containsKey(id))
 			    {
-			    	//create a student with no preferences
-			    	Student newStudent = new Student(id, new String[Constants.NUM_PREFS]);
+			    	//create a student with null preferences
+			    	String[] prefs = new String[Constants.NUM_PREFS];
+			    	
+			    	for(int i= 0; i <prefs.length; i++)
+			    	{
+			    		prefs[i] = Constants.NULL_PREF;
+			    	}
+			    	Student newStudent = new Student(id, prefs);
 			    	freshmen.put(id, newStudent);
 			    	//System.out.println("Student with id " +id+ " was added");
 			    }
@@ -53,6 +59,7 @@ public class FreshmanParser {
 				    //for all sections
 				    for(Course courseSec : possibleCourses)
 				    {
+				    	if(!courseSec.hasRoom()) continue;
 				    	//if we found the section the student is in
 				    	if(courseSec.getSectionID().equals(section))
 				    	{
@@ -63,7 +70,13 @@ public class FreshmanParser {
 				    			//if(!currStudent.hasCourse(courseSec.getID()))
 				    			if(!currStudent.hasAdvisingCourse())
 				    			{
-				    				currStudent.enrollInAdvisingCourse(courseSec);
+				  
+				    				boolean flag = currStudent.addIfFitsInSchedule(courseSec);
+				    				if(!flag) {
+				    					System.out.println(flag);
+				    					//System.out.println(courseSec.toString());
+				    				}
+				    				//courseSec.addStudent(currStudent);
 				    				currStudent.hasAdvisingCourse = true;
 				    				currStudent.lockCourses();
 				    				//System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
@@ -82,13 +95,24 @@ public class FreshmanParser {
 		//finding students without an advising course
 		//for now, remove these students
 		int numStu = 0;
+		ArrayList<Integer> freshmenToRemove = new ArrayList<Integer>();
 		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
 			Student stud = c.getValue();
+			int studID = c.getKey();
 			if(stud.getClassCount() == 0){
 				numStu++;
+				freshmenToRemove.add(studID);
 				//System.out.println(stud);
-				freshmen.remove(stud);
+				//freshmen.remove(studID);
+				//System.out.println("does the hashmap contain student "+ stud.id + " ?: " + freshmen.containsKey(studID));
 			}
+		}
+		
+		for(Integer studID : freshmenToRemove)
+		{
+			System.out.println("Student " + studID + " is getting deleted");
+			freshmen.remove(studID);
+			
 		}
 		//System.out.println("There " + numStu + " students without advising classes");
 			

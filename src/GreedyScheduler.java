@@ -9,7 +9,7 @@ public class GreedyScheduler {
 	public static void greedyScheduleByPref(HashMap<Integer,Student> students,HashMap<String,ArrayList<Course>> courses)
 	{
 		
-		for(int y = 0; y< Constants.STUD_COURSE_LIMIT;y++)
+		for(int y = 0; y< Constants.STUD_COURSE_LIMIT-1;y++)
 		{
 
 			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){

@@ -75,7 +75,7 @@ public class PreferenceGenerator {
 					e = map.lowerEntry(random);
 				}
 				String id = e.getValue();
-				if(prefs.contains(id))
+				if(prefs.contains(id) || stud.hasCourse(id))
 				{
 					continue;
 				}

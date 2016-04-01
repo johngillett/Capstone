@@ -6,6 +6,7 @@ import java.util.HashMap;
 		
 	static ArrayList<Course> courseList;
 	static HashMap<String,ArrayList<Course>> courses;
+	static ArrayList<Course> advisingCourses;
 	//static ArrayList<Student> students;	
 	static HashMap<Integer, Student> students;
 	static HashMap<String, Integer> freshmenCourseCounts;
@@ -17,27 +18,30 @@ import java.util.HashMap;
 		//Generate Courses
 		courses =  CourseParser.parseCourses(courseList,Constants.TOT_COURSES);
 		freshmenCourseCounts = CourseParser.updateEnrollmentTotals(courses);
-		
+		setAdvisingCourses();
+		printAdvisingCourses();
+		System.out.println(" ");
 		//Generate students
-		students = FreshmanParser.parseFreshmen(courses);
+		//students = FreshmanParser.parseFreshmen(courses);
+		students = StudentGenerator.generateStudents(advisingCourses);
 		
 		//Generate Preferences
 		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
 	
-		PreferenceGenerator.getStandardPrefs(students);
+		//PreferenceGenerator.getStandardPrefs(students);
 
 		//PreferenceGenerator.generateRanPrefs(students, courseList);
 				
 		//Preliminary Greedy Schedule
-		GreedyScheduler.greedyScheduleByPref(students, courses);
+		//GreedyScheduler.greedyScheduleByPref(students, courses);
 		//GreedyScheduler.greedyScheduleByStudent(students, courses);
 		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
 				
 		//printCourses();
-		printCourseData();
-		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
+		//printCourseData();
+		//int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
 		
-		if(Constants.SAT == Constants.SAT_SCALE.Linear)
+		/*if(Constants.SAT == Constants.SAT_SCALE.Linear)
 		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
 		else
 		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.GEOMETRIC_OBJ_THRESHOLD);
@@ -52,10 +56,27 @@ import java.util.HashMap;
 		printCourseData();
 		
 		//getGraphs();
-	
-		printStudents();
+*/	
+		//printStudents();
+		System.out.println("Number of students is " + students.size());
 		//printCourses();
-		printFreshmenCourseCountTotal();
+		printAdvisingCourses();
+		//printFreshmenCourseCountTotal();
+	}
+	
+	static void setAdvisingCourses()
+	{
+		advisingCourses = new ArrayList<Course>(); 
+		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
+			ArrayList<Course> sections = entry.getValue();
+			for(Course section : sections){
+				if(section.isAdvising){
+					advisingCourses.add(section);
+					//System.out.println(section);
+				}
+			}
+		}
+			
 	}
 
 	static void getGraphs()
@@ -98,7 +119,7 @@ import java.util.HashMap;
 				numStudsWithoutFullCourseLoad++;
 			}
 			
-			//System.out.println(stud.toString());
+			System.out.println(stud.toString());
 			avgScore += stud.satisfactionScore;
 		}
 		
@@ -112,14 +133,19 @@ import java.util.HashMap;
 	
 	static void printCourses()
 	{
-		for(Course cour : courseList)
-		{
-			System.out.println(cour.toString());
+		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
+			ArrayList<Course> sections = entry.getValue();
 			
-			if(cour.hasLab)
-				cour.printLabs();
+			for(Course section : sections)
+				System.out.println(section);
 		}	
-		
+	}
+	
+	static void printAdvisingCourses()
+	{
+		for(Course c: advisingCourses){
+			System.out.println(c);
+		}
 	}
 	
 	static void printCourseData()
