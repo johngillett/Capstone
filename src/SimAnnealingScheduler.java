@@ -47,14 +47,19 @@ public class SimAnnealingScheduler {
 		
 		temp = Constants.INIT_TEMP_VAL;
 		
+		//Schedule Seminars First
+		Driver.setStudentPrefsToSeminar();
+		
 		ScheduleUnbiased();
 		
+		System.out.println("Switching to Regular Courses.");
 		//Lock Current Placed courses
-		//Swap Students to RegCourses Mode
+		lockAllStudentSeminarCourses(inStudents);
+		Driver.setStudentPrefsToRegular();
 		
-		//ScheduleUnbiased();
+		temp = Constants.INIT_TEMP_VAL;
 		
-		//ScheduleRecursively(studentsHeap,totalSatScore,1);
+		ScheduleUnbiased();
 		
 		return bestSol;
 	}
@@ -263,7 +268,7 @@ public class SimAnnealingScheduler {
 					
 				}
 				temp *= Constants.TEMP_SCALE_FACTOR;
-				//System.out.println("\tNew Temperature: "+temp);
+				System.out.println("\tNew Temperature: "+temp);
 	        	
 			}
 			return;
@@ -504,6 +509,26 @@ public class SimAnnealingScheduler {
 		return toReturn;
 	}
 	
+	
+	private static void lockAllStudentSeminarCourses(HashMap<Integer,Student> inStudents)
+	{
+		for(HashMap.Entry<Integer, Student> entry : studentsMap.entrySet())
+		{
+				Student stud = entry.getValue();
+				
+				for(Course c : stud.courses)
+				{
+					if(c.isSeminar())
+					{
+						stud.lockCourse(c.getID());
+						break;
+					}
+					
+				}
+		
+		}	
+	
+	}
 	
 }
 

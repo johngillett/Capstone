@@ -8,8 +8,8 @@ public class Student{
 	int satisfactionScore; //to gauge how many top choices are placed
 	String[] prefs;
 	
-	private String[] semPrefs;
-	private String[] regPrefs;
+	String[] semPrefs;
+	String[] regPrefs;
 	
 	int indexOfNextCourseToCheck;
 	
@@ -38,6 +38,15 @@ public class Student{
 		this.satisfactionScore = (int)Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
 	}
 	this.courses = new ArrayList<Course>();	
+	
+	this.regPrefs = new String[Constants.NUM_PREFS];
+	this.semPrefs = new String[Constants.NUM_PREFS];
+	
+	for(int i = 0; i < Constants.NUM_PREFS;i++)
+	{
+		regPrefs[i] = Constants.NULL_PREF;
+		semPrefs[i] = Constants.NULL_PREF;
+	}
 	
 	this.lockedCourses = new ArrayList<String>();
 	
@@ -93,7 +102,6 @@ public class Student{
 	
 	int newScore = 0;
 	
-	int classCount = 0;
 	
 	for(int i = 0; i < prefs.length; i++)
 	{
@@ -102,9 +110,8 @@ public class Student{
 			if(co.isLab)
 				continue;
 			
-			if(co.isSameCourse(prefs[i]))	
+			if(co.isSameCourse(regPrefs[i]))	
 			{
-				classCount++;
 				if(Constants.SAT == Constants.SAT_SCALE.Geometric)
 				{
 					newScore += (int) Math.pow(2,i+1);
@@ -114,8 +121,22 @@ public class Student{
 					newScore += i+1;
 				}
 			}
+			if(co.isSameCourse(semPrefs[i]))	
+			{
+				if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+				{
+					newScore += (int) Math.pow(2,i+1);
+				}
+				else if(Constants.SAT == Constants.SAT_SCALE.Linear)
+				{
+					newScore += i+1;
+				}
+			}
+			
 		}
 	}
+	
+	int classCount = this.getClassCount();
 	
 	if(classCount < Constants.STUD_COURSE_LIMIT)
 	{
@@ -149,7 +170,7 @@ public class Student{
 					//if one course starts & ends before another, then it is compatible, otherwise it isn't
 					if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
 					{	
-						System.out.println("\tMain course conflict!");
+						//System.out.println("\tMain course conflict!");
 						return false;
 					}
 				}
@@ -526,9 +547,12 @@ public class Student{
 		
 		for(String lid : lockedCourses)
 		{
-			if(lid.equals(id))
-				return false;
 			
+			if(lid.equals(id))
+			{
+				//System.out.println(lid + " is locked.");
+				return false;
+			}
 		}
 		return true;
 	}
@@ -542,9 +566,34 @@ public class Student{
 		
 	}
 	
+	public void lockCourse(String id)
+	{
+		lockedCourses.add(id);
+	}
+	
+	
 	public static boolean isNullPrerence(String name)
 	{
 		return name.equals(Constants.NULL_PREF);
+	}
+	
+	
+	private void calculateSatisfactionScore()
+	{
+		
+		
+		
+	}
+	
+	public boolean hasSeminarCourse()
+	{
+		for(Course c : courses)
+		{
+			if(c.isSeminar())
+				return true;
+		}
+		
+		return false;
 	}
 	
 }

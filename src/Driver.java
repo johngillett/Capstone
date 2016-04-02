@@ -7,9 +7,13 @@ import java.util.HashMap;
 	static ArrayList<Course> courseList;
 	static HashMap<String,ArrayList<Course>> courses;
 	static ArrayList<Course> advisingCourses;
+	static ArrayList<String> seminarcourses;
+	static ArrayList<String> regularcourses;
 	//static ArrayList<Student> students;	
 	static HashMap<Integer, Student> students;
 	static HashMap<String, Integer> freshmenCourseCounts;
+	
+	static boolean doingSeminar;
 	
 	public static void main(String[] args) {
 		
@@ -17,31 +21,52 @@ import java.util.HashMap;
 		
 		//Generate Courses
 		courses =  CourseParser.parseCourses(courseList,Constants.TOT_COURSES);
+		
+		seperateCourses();
+		
 		freshmenCourseCounts = CourseParser.updateEnrollmentTotals(courses);
+		//printCourseCounts();
+//		
 		setAdvisingCourses();
-		printAdvisingCourses();
-		System.out.println(" ");
+		//printAdvisingCourses();
+		
 		//Generate students
 		//students = FreshmanParser.parseFreshmen(courses);
 		students = StudentGenerator.generateStudents(advisingCourses);
-		
-		//Generate Preferences
-		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students);
 	
+		printAdvisingInfo();
+		
+		//Generate Seminar Preferences
+		setStudentPrefsToSeminar();
+		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);
+		//PreferenceGenerator.generateRanPrefs(students, seminarcourses, doingSeminar);
+		
+		//Generate Regular Preferences
+		setStudentPrefsToRegular();
+		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);	
+		//PreferenceGenerator.generateRanPrefs(students, regularcourses, doingSeminar);
+		
 		//PreferenceGenerator.getStandardPrefs(students);
-
 		//PreferenceGenerator.generateRanPrefs(students, courseList);
+		
+		//Set to Seminar mode
+		setStudentPrefsToSeminar();
+		
+		//Preliminary Seminar Greedy Schedule
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
+
+		//Preliminary Regular Greedy Schedule
+		setStudentPrefsToRegular();
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
 				
-		//Preliminary Greedy Schedule
-		//GreedyScheduler.greedyScheduleByPref(students, courses);
-		//GreedyScheduler.greedyScheduleByStudent(students, courses);
-		//GreedyScheduler.greedyScheduleByPrefRandomized(students, courses);
+
+		//printSeminarInfo();
+		//printAdvisingInfo();
 				
 		//printCourses();
-		//printCourseData();
-		//int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
+		int startingScore = SimAnnealingScheduler.getTotalSatScore(students);
 		
-		/*if(Constants.SAT == Constants.SAT_SCALE.Linear)
+		if(Constants.SAT == Constants.SAT_SCALE.Linear)
 		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
 		else
 		System.out.println("Starting with a score of "+startingScore+", aiming for "+Constants.GEOMETRIC_OBJ_THRESHOLD);
@@ -51,16 +76,17 @@ import java.util.HashMap;
 		//Simulated Annealing:
 		Solution sol = SimAnnealingScheduler.ScheduleUnbiased(students, courses);
 		
+		//printSeminarInfo();
+		
 		System.out.println("Started with: "+startingScore+", ended up with "+sol.getScore());
-	
-		printCourseData();
+		//printCourseData();
 		
 		//getGraphs();
-*/	
-		//printStudents();
+	
+		printStudents();
 		System.out.println("Number of students is " + students.size());
 		//printCourses();
-		printAdvisingCourses();
+		//printAdvisingCourses();
 		//printFreshmenCourseCountTotal();
 	}
 	
@@ -130,6 +156,20 @@ import java.util.HashMap;
 			
 	}
 	
+	static void printSeminarInfo()
+	{
+		
+		int count = 0;
+		int lockedCount;
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student stu = entry.getValue();
+			if(stu.hasSeminarCourse())
+				count++;
+		}
+		
+		System.out.println("Number of students in a seminar course: "+count);
+	}
+	
 	
 	static void printCourses()
 	{
@@ -141,11 +181,38 @@ import java.util.HashMap;
 		}	
 	}
 	
+	static void printSeminarCourses()
+	{
+		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
+			ArrayList<Course> sections = entry.getValue();
+			
+			if(!sections.get(0).isSeminar)
+				continue;
+			
+			for(Course section : sections)
+				System.out.println(section);
+		}	
+	}
+	
 	static void printAdvisingCourses()
 	{
 		for(Course c: advisingCourses){
 			System.out.println(c);
 		}
+	}
+	
+	static void printAdvisingInfo()
+	{
+		int count = 0;
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student stu = entry.getValue();
+			if(stu.getClassCount() == stu.lockedCourses.size())
+				count++;
+		}
+		
+		System.out.println("Number of students with all locked courses: "+count);
+		
+		
 	}
 	
 	static void printCourseData()
@@ -214,5 +281,49 @@ import java.util.HashMap;
 		
 	}
 	
+	static void seperateCourses()
+	{
+		seminarcourses = new ArrayList<String>();
+		regularcourses = new ArrayList<String>();
+		
+		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
+			ArrayList<Course>cs = entry.getValue();
+			
+			if(cs.get(0).isSeminar())
+				seminarcourses.add(cs.get(0).getID());
+			else
+				regularcourses.add(cs.get(0).getID());
+		}
+	}
+	
+	static void setStudentPrefsToSeminar()
+	{
+		doingSeminar = true;
+		
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student stu = entry.getValue();
+			stu.prefs = stu.semPrefs;
+		}
+	}
+	
+	static void setStudentPrefsToRegular()
+	{
+		doingSeminar = false;
+		
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student stu = entry.getValue();
+			stu.prefs = stu.regPrefs;
+		}
+	}
+	
+	static void lockAllStudentCourses()
+	{
+
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+				Student stu = entry.getValue();
+				stu.lockCourses();
+		}
+		
+	}
 	
 }
