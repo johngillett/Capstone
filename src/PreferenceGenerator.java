@@ -16,16 +16,36 @@ import java.util.TreeMap;
 
 public class PreferenceGenerator {
 
-	public static void generatePopPrefs(HashMap<String, Integer> freshmenCourseCounts, HashMap<Integer,Student> students)
+	public static void generatePopPrefs(HashMap<String, Integer> freshmenCourseCounts, HashMap<Integer,Student> students, boolean doingSeminar)
 	{
 		double averagePop = 0;
 		
+		int totCount = 0;
+		
 		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
 			int count = c.getValue();
-			averagePop += count;
+			String id = c.getKey();
+			if(doingSeminar){
+				//if course is Seminar
+					if(id.substring(0, 3).equals("SSI"))
+					{
+						averagePop += count;
+						totCount++;
+					}
+				}
+				else{
+				//if course isn't seminar
+				if(!id.substring(0, 3).equals("SSI")){
+					{
+						averagePop += count;
+						totCount++;
+					}
+				}
+				}
+				
 		}	
 		
-		averagePop = averagePop/freshmenCourseCounts.size();
+		averagePop = averagePop/totCount;
 
 		TreeMap<Integer, String> map = new TreeMap<Integer, String>();
 		
@@ -35,6 +55,24 @@ public class PreferenceGenerator {
 		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
 			String id = c.getKey();
 			int count = c.getValue();
+			
+			//System.out.println(id.substring(0,3)+", count of: "+count);
+			
+			if(doingSeminar){
+			//if course isn't Seminar
+			if(!id.substring(0, 3).equals("SSI"))
+			{
+				//System.out.println("Doing seminars but this ain't a seminar: "+id);
+				continue;
+			}	
+			}
+			else{
+			//if course is seminar
+			if(id.substring(0, 3).equals("SSI")){
+				//System.out.println("Doing regulars but this ain't regular: "+id);
+				continue;
+			}
+			}
 			
 			if(count >= averagePop)
 			{
@@ -84,12 +122,17 @@ public class PreferenceGenerator {
 			}
 			
 			String[] newPrefs = new String[prefs.size()];
-			stud.prefs = prefs.toArray(newPrefs);
+			
+			if(doingSeminar)
+			stud.semPrefs = prefs.toArray(newPrefs);
+			else
+			stud.regPrefs = prefs.toArray(newPrefs);
+			
 			//System.out.println("Student " + stud.id + " has a first preference of " + stud.prefs[7]);
 		}
 		
 
-		writeCurrentPrefs(students);
+		writeCurrentPrefs(students,doingSeminar);
 	}
 	
 	public static void getStandardPrefs(HashMap<Integer,Student> students)
@@ -136,11 +179,15 @@ public class PreferenceGenerator {
 		
 	}
 	
-	private static void writeCurrentPrefs(HashMap<Integer,Student> students)
+	private static void writeCurrentPrefs(HashMap<Integer,Student> students, boolean doingSeminar)
 	{
+		File f;
 		
-		File f = new File("currentStudentsInfo.txt");
-		
+		if(doingSeminar)
+			f = new File("currentStudentSeminarsPrefs.txt");
+		else
+			f = new File("currentStudentRegularPrefs.txt");
+			
 		if(!f.exists())
 			try {
 				f.createNewFile();
@@ -169,8 +216,9 @@ public class PreferenceGenerator {
 		
 	}
 	
-	public static void generateRanPrefs(HashMap<Integer,Student> students, ArrayList<Course> courses)
+	public static void generateRanPrefs(HashMap<Integer,Student> students, ArrayList<String> courses, boolean doingSeminar)
 	{
+		
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
 			Student st = entry.getValue();
 			
@@ -184,11 +232,15 @@ public class PreferenceGenerator {
 			shuffleArray(toShuffle);
 			
 			for(int y = 0; y < Constants.NUM_PREFS; y ++)
-				prefs[y] = courses.get(toShuffle[y]).getID();
+			{
+				prefs[y] = courses.get(toShuffle[y]);
+			}
 		
 			//students.add(new Student(i,prefs));
-			st.prefs = prefs;
-			
+			if(doingSeminar)
+			st.semPrefs = prefs;
+			else
+			st.regPrefs = prefs;
 		}
 		
 	}

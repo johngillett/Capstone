@@ -72,4 +72,15 @@ public class BarChartMaker extends ApplicationFrame
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
    }
+   
+   public static void makeAlgTrackerChart(int[] satCount)
+   {
+      BarChartMaker chart = new BarChartMaker("Progression of Simulated Annealing Approach", "Progression of Simulated Annealing Approach", "Time", "Total Satisfaction Score",satCount,Constants.MIN_SAT_LINEAR);
+      chart.pack( );        
+      RefineryUtilities.centerFrameOnScreen( chart );        
+      chart.setVisible( true ); 
+   }
+   
+   
+   
 }
