@@ -31,7 +31,7 @@ public class Constants {
 	static final float POP_SCALE_FACTOR = 0f;
 	
 	static final int TRACK_FIDELITY = 25;
-	
+
 	//Simulated Annealing
 	//static final int LINEAR_OBJ_THRESHOLD = (int) (((NUM_PREFS * 4)-4) * ((double)NUM_STUDENTS/2.5f)); // multiplied by # students
 	static final int LINEAR_OBJ_THRESHOLD = 2608;
