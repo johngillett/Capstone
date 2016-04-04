@@ -6,10 +6,14 @@ public class Student{
 
 	int id;
 	int satisfactionScore; //to gauge how many top choices are placed
+	
+	int prefSatScore;
+	int regSatScore;
+	
 	String[] prefs;
 	
-	private String[] semPrefs;
-	private String[] regPrefs;
+	String[] semPrefs;
+	String[] regPrefs;
 	
 	int indexOfNextCourseToCheck;
 	
@@ -37,7 +41,20 @@ public class Student{
 	{
 		this.satisfactionScore = (int)Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
 	}
+	
+	this.prefSatScore = this.satisfactionScore;
+	this.regSatScore = this.satisfactionScore;
+	
 	this.courses = new ArrayList<Course>();	
+	
+	this.regPrefs = new String[Constants.NUM_PREFS];
+	this.semPrefs = new String[Constants.NUM_PREFS];
+	
+	for(int i = 0; i < Constants.NUM_PREFS;i++)
+	{
+		regPrefs[i] = Constants.NULL_PREF;
+		semPrefs[i] = Constants.NULL_PREF;
+	}
 	
 	this.lockedCourses = new ArrayList<String>();
 	
@@ -51,27 +68,6 @@ public class Student{
 	
 	
 	}
-
-	//Copy Constructor
-//	public Student(Student st)
-//	{
-//	this.id = st.id;
-//	this.prefs = st.prefs;
-//	this.satisfactionScore = st.satisfactionScore;
-//	this.indexOfNextCourseToCheck = st.indexOfNextCourseToCheck;
-//	
-//	this.courses = new ArrayList<Course>();
-//	
-//	for(Course c: st.courses)
-//		this.courses.add(c);
-//	
-//	this.schedule
-//	
-//	for(Day d: st.schedule)
-//		this.
-//		
-//	}
-	
 	
 	public boolean hasAdvisingCourse()
 	{
@@ -90,47 +86,7 @@ public class Student{
 		this.schedule.add(cDay);
 	}
 	
-	
-	int newScore = 0;
-	
-	int classCount = 0;
-	
-	for(int i = 0; i < prefs.length; i++)
-	{
-		for(Course co : courses)
-		{
-			if(co.isLab)
-				continue;
-			
-			if(co.isSameCourse(prefs[i]))	
-			{
-				classCount++;
-				if(Constants.SAT == Constants.SAT_SCALE.Geometric)
-				{
-					newScore += (int) Math.pow(2,i+1);
-				}
-				else if(Constants.SAT == Constants.SAT_SCALE.Linear)
-				{
-					newScore += i+1;
-				}
-			}
-		}
-	}
-	
-	if(classCount < Constants.STUD_COURSE_LIMIT)
-	{
-		if(Constants.SAT == Constants.SAT_SCALE.Geometric)
-		{
-			newScore += (4 - classCount) * Math.pow(2, (Constants.NUM_PREFS+1));
-		}
-		else if(Constants.SAT == Constants.SAT_SCALE.Linear)
-		{
-			newScore += (4 - classCount) * (Constants.NUM_PREFS+1);
-		}
-	}
-	
-	this.satisfactionScore = newScore;
-	
+	updateSatisfactionScore();
 	}
 	
 	//checks if course has no conflicts with student's schedule
@@ -149,7 +105,7 @@ public class Student{
 					//if one course starts & ends before another, then it is compatible, otherwise it isn't
 					if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
 					{	
-						System.out.println("\tMain course conflict!");
+						//System.out.println("\tMain course conflict!");
 						return false;
 					}
 				}
@@ -234,6 +190,9 @@ public class Student{
 		if(!c.getID().equals(course.getID()))
 			continue;
 		
+		if(!this.courseNotLocked(c.getID()))
+			System.out.println("THIS SHOULD NEVER HAPPEN");
+		
 		c.removeStudent(this);
 		this.courses.remove(c);
 		
@@ -245,7 +204,7 @@ public class Student{
 			
 		}
 		
-
+		updateSatisfactionScore();
 		//System.out.println("\tEnded with: "+this.schedule.toString());
 	}
 	
@@ -358,34 +317,121 @@ public class Student{
 		return classCount;
 	}
 	
+//	public Course[] getRemainingCompPrefs(HashMap<String,ArrayList<Course>> hashCourses)
+//	{
+//		ArrayList<Course> toBuild = new ArrayList<Course>();
+//		
+//		String idToSkip = "";
+//		
+//			//if they have a full courseload, then we need to ignore their least preferred course
+//	if(this.getClassCount() >= Constants.STUD_COURSE_LIMIT)
+//	{
+//
+//		Course[] ourCourses = new Course[this.courses.size()];
+//		ourCourses = this.courses.toArray(ourCourses);
+//		
+//		outerLoop:
+//		for(int i = prefs.length-1; i >= 0;i--)
+//		{
+//			if(Student.isNullPrerence(prefs[i]) || !this.courseNotLocked(prefs[i]))
+//				continue;
+//			
+//			for(Course c : ourCourses)
+//			{
+//				//if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
+//				if(prefs[i].equals(c.getID()))
+//				{
+//				IgnorePrefCourse(i+1);
+//				idToSkip = prefs[i];
+//				break outerLoop;
+//				}
+//			}
+//			
+//		}
+//		
+//	}
+//
+//		//finding non-enrolled preferred courses that are compatible with their schedule
+//		for(String id : this.prefs)
+//		{
+//			if(this.hasCourse(id) || idToSkip == id)
+//				continue;
+//			
+//			ArrayList<Course> curPrefSections = hashCourses.get(id);
+//			
+//			for(Course c : curPrefSections)
+//			{
+//				if(fitsInSchedule(c))
+//				{
+//					toBuild.add(c);
+//				}	
+//			}	
+//		}
+//		
+//		Course[] toReturn = new Course[toBuild.size()];
+//		toReturn =toBuild.toArray(toReturn);
+//		
+//		stopIgnoringCourse();
+//		
+//		return toReturn;
+//	}
+	
 	public Course[] getRemainingCompPrefs(HashMap<String,ArrayList<Course>> hashCourses)
 	{
 		ArrayList<Course> toBuild = new ArrayList<Course>();
 		
 		String idToSkip = "";
 		
-		//if they have a full courseload, then we need to ignore their least preferred course
-		if(this.getClassCount() >= Constants.STUD_COURSE_LIMIT)
+		if(Driver.doingSeminar)
 		{
-
-			Course[] ourCourses = new Course[this.courses.size()];
-			ourCourses = this.courses.toArray(ourCourses);
-			
-			outerLoop:
-			for(int i = prefs.length-1; i >= 0;i--)
+			if(this.hasSeminarCourse() && !this.advisingIsSeminar())	
 			{
-				if(Student.isNullPrerence(prefs[i]))
-					continue;
-				
-				for(Course c : ourCourses)
+			outerLoop:
+				for(int i = prefs.length-1; i >= 0;i--)
 				{
-					//if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
-					if(prefs[i].equals(c.getID()))
+					if(Student.isNullPrerence(prefs[i]) || !this.courseNotLocked(prefs[i]))
+						continue;
+						
+					for(Course c : this.courses)
 					{
-					IgnorePrefCourse(i+1);
-					idToSkip = prefs[i];
-					break outerLoop;
+						//if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
+							if(prefs[i].equals(c.getID()))
+							{
+							IgnorePrefCourse(i+1);
+							//System.out.println("Ignoring: "+prefs[i]);
+							idToSkip = prefs[i];
+							break outerLoop;
+							}
 					}
+				}		
+			}
+		}
+		else
+		{
+			//if they have a full courseload, then we need to ignore their least preferred course
+			if(this.getClassCount() >= Constants.STUD_COURSE_LIMIT)
+			{
+
+				Course[] ourCourses = new Course[this.courses.size()];
+				ourCourses = this.courses.toArray(ourCourses);
+				
+				outerLoop:
+				for(int i = prefs.length-1; i >= 0;i--)
+				{
+					if(Student.isNullPrerence(prefs[i]) || !this.courseNotLocked(prefs[i]))
+						continue;
+					
+					for(Course c : ourCourses)
+					{
+						//if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
+						if(prefs[i].equals(c.getID()))
+						{
+						IgnorePrefCourse(i+1);
+						idToSkip = prefs[i];
+						break outerLoop;
+						}
+					}
+					
 				}
 				
 			}
@@ -395,7 +441,7 @@ public class Student{
 		//finding non-enrolled preferred courses that are compatible with their schedule
 		for(String id : this.prefs)
 		{
-			if(this.hasCourse(id) || idToSkip == id)
+			if(this.hasCourse(id) || idToSkip.equals(id))
 				continue;
 			
 			ArrayList<Course> curPrefSections = hashCourses.get(id);
@@ -417,6 +463,7 @@ public class Student{
 		return toReturn;
 	}
 	
+	
 	public String toString()
 	{
 		String toReturn = "Student: "+id+", Prefs: ";
@@ -431,6 +478,10 @@ public class Student{
 			toReturn += courses.get(i).getID()+courses.get(i).getSectionID()+", ";
 		
 		toReturn += " Score: "+satisfactionScore;
+
+		//toReturn += " Locked Courses: ";
+		//for(String s : this.lockedCourses)
+		//	toReturn += s+", ";
 		
 		return toReturn;
 	}
@@ -456,8 +507,17 @@ public class Student{
 	//returns the preference number of the least preferred course the student is enrolled in. 9 if they are missing at least one course. 
 	public int getLastEnrolledPrefNumber()
 	{
+		if(!Driver.doingSeminar){
 		if(this.getClassCount() < Constants.STUD_COURSE_LIMIT)
 			return (Constants.NUM_PREFS+1);
+		}
+		if(Driver.doingSeminar)
+		{
+			if(!this.hasSeminarCourse())
+			{
+				return (Constants.NUM_PREFS+1);
+			}
+		}
 		
 		for(int i = prefs.length-1; i >= 0;i--)
 		{
@@ -526,15 +586,20 @@ public class Student{
 		
 		for(String lid : lockedCourses)
 		{
-			if(lid.equals(id))
-				return false;
 			
+			if(lid.equals(id))
+			{
+				//System.out.println(lid + " is locked.");
+				return false;
+			}
 		}
 		return true;
 	}
 	
 	public void lockCourses()
 	{
+		
+		System.out.print("THIS SHOULDNT HAPPEN");
 		this.lockedCourses = new ArrayList<String>();
 		
 		for(Course c: this.courses)
@@ -542,9 +607,97 @@ public class Student{
 		
 	}
 	
+	public void lockCourse(String id)
+	{
+		lockedCourses.add(id);
+	}
+	
+	
 	public static boolean isNullPrerence(String name)
 	{
 		return name.equals(Constants.NULL_PREF);
+	}
+	
+	
+	private void updateSatisfactionScore()
+	{
+
+		int newScore = 0;
+		
+		
+		for(int i = 0; i < prefs.length; i++)
+		{
+			for(Course co : courses)
+			{
+				if(co.isLab)
+					continue;
+				
+				if(co.isSameCourse(regPrefs[i]))	
+				{
+					if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+					{
+						newScore += (int) Math.pow(2,i+1);
+					}
+					else if(Constants.SAT == Constants.SAT_SCALE.Linear)
+					{
+						newScore += i+1;
+					}
+				}
+				if(co.isSameCourse(semPrefs[i]))	
+				{
+					if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+					{
+						newScore += (int) Math.pow(2,i+1);
+					}
+					else if(Constants.SAT == Constants.SAT_SCALE.Linear)
+					{
+						newScore += i+1;
+					}
+				}
+				
+			}
+		}
+		
+		int classCount = this.getClassCount();
+		
+		if(classCount < Constants.STUD_COURSE_LIMIT)
+		{
+			if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+			{
+				newScore += (4 - classCount) * Math.pow(2, (Constants.NUM_PREFS+1));
+			}
+			else if(Constants.SAT == Constants.SAT_SCALE.Linear)
+			{
+				newScore += (4 - classCount) * (Constants.NUM_PREFS+1);
+			}
+		}
+		
+		this.satisfactionScore = newScore;
+			
+		
+		
+	}
+	
+	public boolean advisingIsSeminar()
+	{
+		for(Course c : courses)
+		{
+			if(c.isSeminar() && c.isAdvising())
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean hasSeminarCourse()
+	{
+		for(Course c : courses)
+		{
+			if(c.isSeminar())
+				return true;
+		}
+		
+		return false;
 	}
 	
 }
