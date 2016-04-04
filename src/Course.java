@@ -26,7 +26,6 @@ public class Course{
 	
 	int curSize;
 	
-	private 
 	boolean isSeminar;
 	boolean isAdvising;
 	

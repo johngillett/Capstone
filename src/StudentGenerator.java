@@ -30,7 +30,7 @@ public class StudentGenerator {
 				if(c.hasRoom() && stu.addIfFitsInSchedule(c))
 				{
 					stu.hasAdvisingCourse = true;
-					stu.lockCourses();
+					stu.lockCourse(c.getID());
 					flag = false;
 				}
 			}
@@ -47,7 +47,7 @@ public class StudentGenerator {
 					continue stuLoop;
 				}
 			}*/
-			System.out.print(" NO! ");
+			//System.out.print(" NO! ");
 		}
 		
 		return students;

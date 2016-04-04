@@ -35,6 +35,9 @@ public class SimAnnealingScheduler {
 	
 	public static Solution ScheduleUnbiased(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
 	{
+		
+		
+		
 		courses = inCourses;
 		studentsMap = inStudents;
 		
@@ -45,16 +48,19 @@ public class SimAnnealingScheduler {
 		//Create initial best score
 		bestSol = new Solution(inCourses,inStudents,totalSatScore);
 		
+		
+		
+		if(Constants.SAT == Constants.SAT_SCALE.Linear)
+			System.out.println("Starting with a score of "+bestSol.getScore()+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
+			else
+			System.out.println("Starting with a score of "+bestSol.getScore()+", aiming for "+Constants.GEOMETRIC_OBJ_THRESHOLD);
+				
+		
 		temp = Constants.INIT_TEMP_VAL;
 		
 		ScheduleUnbiased();
 		
-		//Lock Current Placed courses
-		//Swap Students to RegCourses Mode
-		
-		//ScheduleUnbiased();
-		
-		//ScheduleRecursively(studentsHeap,totalSatScore,1);
+		System.out.println("Started with: "+totalSatScore+", ended up with "+bestSol.getScore());
 		
 		return bestSol;
 	}
@@ -126,6 +132,7 @@ public class SimAnnealingScheduler {
 								int stu2PrefLeaving = studInCourse.getPrefNumber(pref.getID());
 								//The preference number of the course we can schedule the replaced student into if we make the swap, 9 if there is none.
 								int stu2PrefEntering = getNextPreferredCourseAfterPotentialSwap(studInCourse,stu2PrefLeaving);
+								
 								
 								int netChange = netChangeFromReplacingStudent(stu1PrefLeaving,stu1PrefEntering,stu2PrefLeaving,stu2PrefEntering);
 								
@@ -228,8 +235,25 @@ public class SimAnnealingScheduler {
 								
 								//the preference number of the course we'd be taking this student out of 
 								int stu2PrefLeaving = studInCourse.getPrefNumber(pref.getID());
+								
+								if(!studInCourse.courseNotLocked(pref.getID()))
+								{
+									System.out.println("THIS SHOULDNT HAPPEN");
+								}
 								//The preference number of the course we can schedule the replaced student into if we make the swap, 9 if there is none.
 								int stu2PrefEntering = getNextPreferredCourseAfterPotentialSwap(studInCourse,stu2PrefLeaving);
+								
+								//System.out.println("Got: "+stu2PrefEntering);
+								if(!Driver.doingSeminar)
+								{
+									
+									if(stu2PrefEntering == Constants.NUM_PREFS+1)
+									{
+										//System.out.println("HELLO");
+										studInCourse = removeRandomStudent(studentsList);
+										continue;
+									}
+								}
 								
 								int netChange = netChangeFromReplacingStudent(stu1PrefLeaving,stu1PrefEntering,stu2PrefLeaving,stu2PrefEntering);
 								
@@ -238,7 +262,11 @@ public class SimAnnealingScheduler {
 								{
 								currTotalSatScore += netChange;	
 								
-								//System.out.println("Made net change: "+netChange+", new score:"+currTotalSatScore);	
+								//if(netChange != 0 && temp >=.9)
+								//if(Driver.doingSeminar && stu1PrefLeaving != stu2PrefEntering)
+								//	System.out.println("Made net change: "+netChange+", new score:"+currTotalSatScore +" with Stud1 From "+stu1PrefLeaving+" to "+stu1PrefEntering+ " and Stud2 From "+stu2PrefLeaving+" to "+stu2PrefEntering);	
+								
+								AlgTracker.addEntry(currTotalSatScore);
 								
 								//Update Best Solution if necessary
 								if(currTotalSatScore < bestSol.getScore())
@@ -263,7 +291,7 @@ public class SimAnnealingScheduler {
 					
 				}
 				temp *= Constants.TEMP_SCALE_FACTOR;
-				//System.out.println("\tNew Temperature: "+temp);
+				System.out.println("\tNew Temperature: "+temp+" new score: "+currTotalSatScore);
 	        	
 			}
 			return;
@@ -312,7 +340,6 @@ public class SimAnnealingScheduler {
 	//returns the net change to the overall satisfaction score if two students were to change courses
 	private static int netChangeFromReplacingStudent(int stud1From, int stud1To, int stud2From, int stud2To)
 	{
-		//System.out.println("Checking if swapping stud1 from pref num: "+stud1From+" to "+stud1To+ " and stud2 from pref num: "+stud2From+" to "+stud2To);
 		
 		//Convert vals to geometric if enabled
 		if(Constants.SAT == Constants.SAT_SCALE.Geometric){
@@ -328,6 +355,8 @@ public class SimAnnealingScheduler {
 		
 		netChange += (stud2To - stud2From);
 		
+		//if(netChange < 0)
+		//System.out.println("Checking if swapping stud1 from pref num: "+stud1From+" to "+stud1To+ " and stud2 from pref num: "+stud2From+" to "+stud2To+" NEt change: "+netChange);
 		//System.out.println("Net Change will be: "+netChange);
 		
 		return netChange;
@@ -391,8 +420,12 @@ public class SimAnnealingScheduler {
 		//check following preferred courses 
 		for(int i = 0; i< toCheck.prefs.length;i++)
 		{
+		
 			if(toCheck.hasCourse(toCheck.prefs[i]) || i == (toMask-1))
 				continue;
+			
+			//System.out.println(toCheck.prefs[i]+", "+i);
+			
 			
 			ArrayList<Course> sections = courses.get(toCheck.prefs[i]);
 			
@@ -402,6 +435,7 @@ public class SimAnnealingScheduler {
 			{
 				if(c.hasRoom() && toCheck.fitsInSchedule(c))
 				{
+					//System.out.println("FOUND ONE! "+i);
 					toReturn = i+1;
 					foundOne = true;
 					break;
@@ -453,6 +487,14 @@ public class SimAnnealingScheduler {
 			for(HashMap.Entry<Integer, Student> entry : studentsMap.entrySet())
 			{
 					Student stud = entry.getValue();
+					
+					if(Driver.doingSeminar)
+					{
+						if(stud.advisingIsSeminar())
+							continue;
+						
+					}
+					
 					studentsHeap.push(stud.satisfactionScore, stud);
 			}
 			
@@ -503,6 +545,8 @@ public class SimAnnealingScheduler {
 		
 		return toReturn;
 	}
+	
+	
 	
 	
 }

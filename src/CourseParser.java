@@ -135,6 +135,7 @@ public class CourseParser {
 			   	}
 			   	
 			   	boolean isSeminar = courseData[8].equals("SSI");
+			   	
 			   	boolean isAdvising = false;
 			   	
 			   	//if the isAdvising field is filled in
