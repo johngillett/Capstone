@@ -57,9 +57,16 @@ public class BarChartMaker extends ApplicationFrame
        
       return dataset; 
    }
-   public static void makeBarChartPrefs(int[] prefCount)
+   public static void makeBarChartPrefs(int[] prefCount, boolean doingSeminar)
    {
-      BarChartMaker chart = new BarChartMaker("Preference Placements", "Number of Students Placed in Each Preference", "Preference ID", "Number of Students", prefCount,1);
+	  String title;
+	  
+	  if(doingSeminar)
+		  title = "Seminar Preference Placements";
+	  else
+		  title = "Regular Preference Placements";
+	  
+      BarChartMaker chart = new BarChartMaker(title, title, "Preference ID", "Number of Students", prefCount,1);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
@@ -72,4 +79,15 @@ public class BarChartMaker extends ApplicationFrame
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
    }
+   
+   public static void makeAlgTrackerChart(int[] satCount)
+   {
+      BarChartMaker chart = new BarChartMaker("Progression of Simulated Annealing Approach", "Progression of Simulated Annealing Approach", "Time", "Total Satisfaction Score",satCount,Constants.MIN_SAT_LINEAR);
+      chart.pack( );        
+      RefineryUtilities.centerFrameOnScreen( chart );        
+      chart.setVisible( true ); 
+   }
+   
+   
+   
 }
