@@ -54,7 +54,7 @@ import java.util.HashMap;
 		setStudentPrefsToRegular();
 		
 		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
-				
+			
 		sol = SimAnnealingScheduler.ScheduleUnbiased(students, courses);
 		
 		long endTime = System.currentTimeMillis();
@@ -74,9 +74,9 @@ import java.util.HashMap;
 		printCourseData();
 		
 		//getGraphs();
-		getAlgTrackerGraph();
+		//getAlgTrackerGraph();
 		
-		//printStudents();
+		printStudents();
 		//printCourses();
 		//printFreshmenCourseCountTotal();
 		
@@ -108,15 +108,15 @@ import java.util.HashMap;
 			
 		//Generate Seminar Preferences
 		setStudentPrefsToSeminar();
-		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);
+		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);
 		//PreferenceGenerator.generateRanPrefs(students, seminarcourses, doingSeminar);
-				
+		PreferenceGenerator.getStandardPrefs(students);
+		
 		//Generate Regular Preferences
 		setStudentPrefsToRegular();
-		PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);	
+		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);	
 		//PreferenceGenerator.generateRanPrefs(students, regularcourses, doingSeminar);
-				
-		//PreferenceGenerator.getStandardPrefs(students);
+		PreferenceGenerator.getStandardPrefs(students);
 		//PreferenceGenerator.generateRanPrefs(students, courseList);
 
 	}
@@ -156,7 +156,6 @@ import java.util.HashMap;
 	{
 		int[] algTrackerResults = AlgTracker.getArray();
 		BarChartMaker.makeAlgTrackerChart(algTrackerResults);
-		XYChartMaker.makeAlgTrackerChart(algTrackerResults);
 	}
 	
 	static void printFreshmenCourseCountTotal()
@@ -169,6 +168,7 @@ import java.util.HashMap;
 		//System.out.println("The total number is " + totalCount);
 	}
 	
+	//doesn't work because assumes students are an arrayList
 	static void printStudents()
 	{	
 		double avgScore = 0;
@@ -184,7 +184,7 @@ import java.util.HashMap;
 				numStudsWithoutFullCourseLoad++;
 			}
 			
-			System.out.println(stud.toString());
+			//System.out.println(stud.toString());
 			avgScore += stud.satisfactionScore;
 		}
 		

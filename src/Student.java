@@ -523,7 +523,7 @@ public class Student{
 		{
 			for(Course c : this.courses)
 			{
-				if(c.getID().equals(prefs[i]))
+				if(c.getID().equals(prefs[i]) && courseNotLocked(c.getID()))
 						return i+1;
 			}
 			

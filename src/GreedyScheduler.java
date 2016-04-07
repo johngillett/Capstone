@@ -8,8 +8,8 @@ public class GreedyScheduler {
 
 	public static void greedyScheduleByPref(HashMap<Integer,Student> students,HashMap<String,ArrayList<Course>> courses, boolean doingSeminar)
 	{
-
-		AlgTracker.addEntry(14000);
+		//add arbitrarily high value to indicate Greedy
+		//AlgTracker.addEntry(14000);
 
 		
 		int courseAmt;

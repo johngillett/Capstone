@@ -113,7 +113,7 @@ public class PreferenceGenerator {
 					e = map.lowerEntry(random);
 				}
 				String id = e.getValue();
-				if(prefs.contains(id) || stud.hasCourse(id))
+				if(prefs.contains(id))// || stud.hasCourse(id))
 				{
 					continue;
 				}
@@ -138,7 +138,12 @@ public class PreferenceGenerator {
 	public static void getStandardPrefs(HashMap<Integer,Student> students)
 	{
 
-		File f = new File("standardStudentsInfo.txt");
+		File f;
+		
+		if(Driver.doingSeminar)
+		f = new File("standardStudentSeminarPrefs.txt");
+		else
+		f = new File("standardStudentRegularPrefs.txt");
 		
 		try {
 			Scanner sc = new Scanner(f);
@@ -160,7 +165,11 @@ public class PreferenceGenerator {
 				
 				Student toChange = students.get(studID);
 				
-				toChange.prefs = newprefs;
+				if(Driver.doingSeminar)
+					toChange.semPrefs = newprefs;
+				else
+					toChange.regPrefs = newprefs;
+				//toChange.prefs = newprefs;
 				
 				//System.out.println(studID+toChange.prefsToString());
 				
@@ -168,7 +177,7 @@ public class PreferenceGenerator {
 			}
 			
 			
-			
+			sc.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -184,7 +193,7 @@ public class PreferenceGenerator {
 		File f;
 		
 		if(doingSeminar)
-			f = new File("currentStudentSeminarsPrefs.txt");
+			f = new File("currentStudentSeminarPrefs.txt");
 		else
 			f = new File("currentStudentRegularPrefs.txt");
 			
