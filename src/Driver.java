@@ -76,7 +76,7 @@ import java.util.HashMap;
 		//getGraphs();
 		getAlgTrackerGraph();
 		
-		printStudents();
+		//printStudents();
 		//printCourses();
 		//printFreshmenCourseCountTotal();
 		
@@ -156,6 +156,7 @@ import java.util.HashMap;
 	{
 		int[] algTrackerResults = AlgTracker.getArray();
 		BarChartMaker.makeAlgTrackerChart(algTrackerResults);
+		XYChartMaker.makeAlgTrackerChart(algTrackerResults);
 	}
 	
 	static void printFreshmenCourseCountTotal()
@@ -168,7 +169,6 @@ import java.util.HashMap;
 		//System.out.println("The total number is " + totalCount);
 	}
 	
-	//doesn't work because assumes students are an arrayList
 	static void printStudents()
 	{	
 		double avgScore = 0;
@@ -184,7 +184,7 @@ import java.util.HashMap;
 				numStudsWithoutFullCourseLoad++;
 			}
 			
-			//System.out.println(stud.toString());
+			System.out.println(stud.toString());
 			avgScore += stud.satisfactionScore;
 		}
 		

@@ -18,7 +18,7 @@ public class AlgTracker {
 
 	if(entry == 14000)
 	{
-		list.add(entry);
+		//list.add(entry);
 		return;
 	}
 	
