@@ -7,6 +7,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame; 
 import org.jfree.ui.RefineryUtilities; 
 
+/**
+ * Class for creating a bar chart.
+ * Modeled after tutorialspoint.com/jfreechart
+ * 
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
 public class BarChartMaker extends ApplicationFrame
 {
    public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, int[] prefCount, int toAdd )
@@ -30,7 +37,7 @@ public class BarChartMaker extends ApplicationFrame
    {
 	   final DefaultCategoryDataset dataset = new DefaultCategoryDataset( ); 
 
-	   // row keys...
+	   // row keys
        final String series1 = "Number of Students";
        
        for(int i= 0; i < count.length; i++)
@@ -40,6 +47,7 @@ public class BarChartMaker extends ApplicationFrame
        
       return dataset; 
    }
+   
    public static void makeBarChartPrefs(int[] prefCount, boolean doingSeminar)
    {
 	  String title;

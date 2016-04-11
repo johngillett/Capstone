@@ -8,8 +8,22 @@ import java.util.HashMap;
 //import java.util.concurrent.ThreadLocalRandom;
 
 
+/**
+ * Reads through a text file containing all courses,
+ * writes these courses into a HashMap
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
 public class CourseParser {
 
+	/**
+	 * Parses a set text file assumed to be comma-delimited
+	 * with each line describing a course.
+	 * 
+	 * @param courses an ArrayList of courses we want to update
+	 * @param numCourses how many courses we want to add to the course HashMap
+	 * @return all the courses we will be working with
+	 */
 	public static HashMap<String,ArrayList<Course>> parseCourses(ArrayList<Course> courses,int numCourses)
 	{
 		ArrayList<Course> courseList = new ArrayList<Course>();
@@ -53,8 +67,7 @@ public class CourseParser {
 				//Skip classes with no schedule
 			   	if(timeData[0].equals("-"))
 			   		continue;	
-			   
-			   	
+			    	
 			    //System.out.println(Double.parseDouble(timeData[1]));
 			   	
 			    //parse times
@@ -81,7 +94,7 @@ public class CourseParser {
 			   	
 			   	int prevID = courseList.size()-1;
 			   	
-			   	//If We're not on the first line
+			   	//If we're not on the first line
 			   	if(prevID >= 0)
 			   	{
 				   	Course prev = courseList.get(courseList.size()-1);
@@ -149,7 +162,8 @@ public class CourseParser {
 			   	//if(isSeminar)
 			   		//numSSIs++;
 			   	
-			    //(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar, boolean isAdvising)
+			    //Add the course!
+			   	//(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar, boolean isAdvising)
 			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,isSeminar,isAdvising);
 			    courseList.add(toAdd);
 			 	
@@ -163,13 +177,12 @@ public class CourseParser {
 		ArrayList<Day> schedule = new ArrayList<Day>();
 		Course toAdd = new Course("Business Leadership Seminar","BUS","A",101,schedule,0,30, 23,false,true);	
 		courseList.add(toAdd);
-		
+
 		
 		bufRead.close();
 		input.close();
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		
@@ -179,7 +192,7 @@ public class CourseParser {
 		}
 		else
 		{
-		Collections.shuffle(courseList);
+			Collections.shuffle(courseList);
 		}
 		
 		//System.out.println(toReturn.size());
@@ -189,16 +202,16 @@ public class CourseParser {
 		{
 			Course curC = courseList.get(i);
 			String curID = curC.getID();
-			
+
 			if(!toReturn.containsKey(curID))
 			{
-			toReturn.put(curID, new ArrayList<Course>());
-			toReturn.get(curID).add(curC);
-			courses.add(curC);
+				toReturn.put(curID, new ArrayList<Course>());
+				toReturn.get(curID).add(curC);
+				courses.add(curC);
 			}
 			else
 			{
-			toReturn.get(curID).add(curC);	
+				toReturn.get(curID).add(curC);	
 			}
 			//toReturn.add(courseList.get(i));
 		}
@@ -207,9 +220,13 @@ public class CourseParser {
 		return toReturn;
 	}
 	
-	
-	//using modified excel sheet to update course totals to exclude freshmen enrolled
-	//also return how many freshman are in each course
+
+	/**
+	 * Using a modified excel sheet that we created, this method
+	 * updates course totals to exclude the freshmen that were enrolled during fall 2015
+	 * @param courses the courses we are looking at
+	 * @return a HashMap that gives the count of freshmen in each course, by ID
+	 */
 	public static HashMap<String,Integer> updateEnrollmentTotals(HashMap<String,ArrayList<Course>> courses)
 	{
 		// key is course ID, value is how many freshmen are in the course
@@ -292,8 +309,7 @@ public class CourseParser {
 							}
 						}
 					}
-					
-///	
+						
 				}
 				
 			}

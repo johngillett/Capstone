@@ -1,7 +1,14 @@
 
-public class Constants {
+/**
+ * A class that holds all constant values that
+ * are referenced throughout the program
+ * 
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
+public class Constants 
+{
 
-	
 	static final int NUM_STUDENTS = 652;
 	
 	static final boolean PARSE_ALL_COURSES = true;
@@ -30,6 +37,7 @@ public class Constants {
 	
 	static final float POP_SCALE_FACTOR = 0f;
 	
+	//Algorithm Tracker
 	static final int TRACK_FIDELITY = 100;
 
 	//Simulated Annealing

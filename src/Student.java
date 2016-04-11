@@ -1,7 +1,14 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This class represents one student, who has an id,
+ * two sets of preferences, a satisfaction score, courses, and a schedule
+ * 
+ * 
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
 public class Student{
 
 	int id;
@@ -29,43 +36,42 @@ public class Student{
 	//New Constructor
 	public Student(int id, String[] prefs)
 	{
-	this.id = id;
-	this.prefs = prefs;
-		
-	//this.satisfactionScore = Integer.MAX_VALUE;
-	if(Constants.SAT == Constants.SAT_SCALE.Linear)
+		this.id = id;
+		this.prefs = prefs;
+
+		//this.satisfactionScore = Integer.MAX_VALUE;
+		if(Constants.SAT == Constants.SAT_SCALE.Linear)
 		{
 			this.satisfactionScore = (Constants.NUM_PREFS+1)*Constants.STUD_COURSE_LIMIT;
 		}
-	if(Constants.SAT == Constants.SAT_SCALE.Geometric)
-	{
-		this.satisfactionScore = (int)Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
-	}
-	
-	this.prefSatScore = this.satisfactionScore;
-	this.regSatScore = this.satisfactionScore;
-	
-	this.courses = new ArrayList<Course>();	
-	
-	this.regPrefs = new String[Constants.NUM_PREFS];
-	this.semPrefs = new String[Constants.NUM_PREFS];
-	
-	for(int i = 0; i < Constants.NUM_PREFS;i++)
-	{
-		regPrefs[i] = Constants.NULL_PREF;
-		semPrefs[i] = Constants.NULL_PREF;
-	}
-	
-	this.lockedCourses = new ArrayList<String>();
-	
-	this.indexOfNextCourseToCheck = 0;
-	
-	this.schedule = new ArrayList<Day>();
-	
-	toIgnore = new ArrayList<Course>();
-	
-	this.hasAdvisingCourse = false;
-	
+		if(Constants.SAT == Constants.SAT_SCALE.Geometric)
+		{
+			this.satisfactionScore = (int)Math.pow(2,(Constants.NUM_PREFS+1))*Constants.STUD_COURSE_LIMIT;
+		}
+
+		this.prefSatScore = this.satisfactionScore;
+		this.regSatScore = this.satisfactionScore;
+
+		this.courses = new ArrayList<Course>();	
+
+		this.regPrefs = new String[Constants.NUM_PREFS];
+		this.semPrefs = new String[Constants.NUM_PREFS];
+
+		for(int i = 0; i < Constants.NUM_PREFS;i++)
+		{
+			regPrefs[i] = Constants.NULL_PREF;
+			semPrefs[i] = Constants.NULL_PREF;
+		}
+
+		this.lockedCourses = new ArrayList<String>();
+
+		this.indexOfNextCourseToCheck = 0;
+
+		this.schedule = new ArrayList<Day>();
+
+		toIgnore = new ArrayList<Course>();
+
+		this.hasAdvisingCourse = false;
 	
 	}
 	
@@ -603,6 +609,7 @@ public class Student{
 		return true;
 	}
 	
+	//SHOULD DELETE THIS?
 	public void lockCourses()
 	{
 		

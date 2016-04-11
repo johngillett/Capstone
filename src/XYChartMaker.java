@@ -13,6 +13,13 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeriesCollection; 
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
+/**
+ * Class for creating an x,y plot
+ * Modeled after tutorialspoint.com/jfreechart
+ * 
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
 public class XYChartMaker extends ApplicationFrame 
 {
    public XYChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, int[] prefCount, int toAdd )
@@ -39,7 +46,7 @@ public class XYChartMaker extends ApplicationFrame
    {
 	   final XYSeries score = new XYSeries( "Score" );          
 
-	   // row keys...
+	   // row keys
        final String series1 = "Total Satisfaction Score";
 
        

@@ -2,6 +2,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * This class schedules students into courses by
+ * minimizing the total satisfaction score using 
+ * the simulated annealing algorithm
+ * 
+ * @author Anna Dovzhik & John Gillett
+ * @version 4.8.2016
+ *
+ */
 public class SimAnnealingScheduler {
 
 	private static HashMap<String,ArrayList<Course>> courses;

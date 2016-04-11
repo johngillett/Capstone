@@ -1,5 +1,11 @@
 import java.io.Serializable;
 
+/**
+ * This class represents one day (M, T, W, Th, F) 
+ * with a given start and end time
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
 public class Day{
 
 	enum Slot{M,T,W,Th,F};
@@ -11,11 +17,9 @@ public class Day{
 	
 	public Day(Slot day, int st, int end)
 	{
-	this.day = day;
-	
-	this.startTime = st;
-			
-	this.endTime = end;	
+		this.day = day;
+		this.startTime = st;
+		this.endTime = end;	
 	}
 	
 	public String toString()

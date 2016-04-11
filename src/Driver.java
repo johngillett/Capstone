@@ -1,17 +1,25 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
+	/**
+	 * This class loads in Fall 2015 course data,
+	 * generates students and their preferences,
+	 * runs our scheduling algorithms, and displays
+	 * the results.
+	 * 
+	 * @author Anna Dovzhik & John Gillett
+	 * @version 4.8.2016
+	 * 
+	 */
 	public class Driver
 	{
 		
 	static ArrayList<Course> courseList;
 	static HashMap<String,ArrayList<Course>> courses;
 	static ArrayList<Course> advisingCourses;
-	static ArrayList<String> seminarcourses;
-	static ArrayList<String> regularcourses;
+	static ArrayList<String> seminarCourses;
+	static ArrayList<String> regularCourses;
 	static HashMap<Integer, Student> students;
 	static HashMap<String, Integer> freshmenCourseCounts;
-	
 	static boolean doingSeminar;
 	
 	public static void main(String[] args) {
@@ -27,6 +35,11 @@ import java.util.HashMap;
 		PrintOutDataInfo();
 	}
 	
+
+	/**
+	 * Schedules students into their seminar preferences
+	 * and then schedules students into their remaining courses
+	 */
 	private static void RunSchedulingProcess()
 	{
 		AlgTracker.init();
@@ -47,7 +60,6 @@ import java.util.HashMap;
 		
 		printSeminarInfo();
 		
-		
 		System.out.println("Switching to Regular Courses.");
 		//Lock Current Placed courses
 		lockAllStudentSeminarCourses(students);
@@ -66,6 +78,9 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Prints out results of the scheduling process
+	 */
 	private static void PrintOutDataInfo()
 	{
 
@@ -84,6 +99,9 @@ import java.util.HashMap;
 
 	}
 	
+	/**
+	 * Reads course file and extracts relevant info about courses
+	 */
 	private static void SetupCourses()
 	{
 		courseList = new ArrayList<Course>();
@@ -100,6 +118,10 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Creates students (either randomly or through actual data)
+	 * Generates students' preferences, or loads standard preferences
+	 */
 	private static void GenerateStudents()
 	{
 		//Generate students
@@ -109,18 +131,20 @@ import java.util.HashMap;
 		//Generate Seminar Preferences
 		setStudentPrefsToSeminar();
 		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);
-		//PreferenceGenerator.generateRanPrefs(students, seminarcourses, doingSeminar);
+		//PreferenceGenerator.generateRanPrefs(students, seminarCourses, doingSeminar);
 		PreferenceGenerator.getStandardPrefs(students);
 		
 		//Generate Regular Preferences
 		setStudentPrefsToRegular();
 		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);	
-		//PreferenceGenerator.generateRanPrefs(students, regularcourses, doingSeminar);
+		//PreferenceGenerator.generateRanPrefs(students, regularCourses, doingSeminar);
 		PreferenceGenerator.getStandardPrefs(students);
-		//PreferenceGenerator.generateRanPrefs(students, courseList);
 
 	}
 	
+	/**
+	 * Determines all courses that are advising courses
+	 */
 	static void setAdvisingCourses()
 	{
 		advisingCourses = new ArrayList<Course>(); 
@@ -136,6 +160,10 @@ import java.util.HashMap;
 			
 	}
 
+	/**
+	 * Produces graphs displaying range of satisfaction scores
+	 * and preference placements
+	 */
 	static void getGraphs()
 	{
 		if(Constants.SAT == Constants.SAT_SCALE.Linear)
@@ -152,12 +180,20 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Produces graph showing change of satisfaction score over time
+	 * due to the simulated annealing/greedy approach
+	 */
 	static void getAlgTrackerGraph()
 	{
 		int[] algTrackerResults = AlgTracker.getArray();
 		BarChartMaker.makeAlgTrackerChart(algTrackerResults);
 	}
 	
+	/**
+	 * Prints out the number of freshmen counted in the 
+	 * HashMap where (k -> v) is (course -> num of freshmen)
+	 */
 	static void printFreshmenCourseCountTotal()
 	{
 		int totalCount = 0;
@@ -168,7 +204,10 @@ import java.util.HashMap;
 		//System.out.println("The total number is " + totalCount);
 	}
 	
-	//doesn't work because assumes students are an arrayList
+	/**
+	 * Prints average satisfaction score and number of students without a full course load
+	 * Can also print each student's info
+	 */
 	static void printStudents()
 	{	
 		double avgScore = 0;
@@ -195,6 +234,9 @@ import java.util.HashMap;
 			
 	}
 	
+	/**
+	 * Displays the number of students that have a seminar course
+	 */
 	static void printSeminarInfo()
 	{
 		
@@ -210,6 +252,9 @@ import java.util.HashMap;
 	}
 	
 	
+	/**
+	 * Prints every course
+	 */
 	static void printCourses()
 	{
 		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
@@ -220,6 +265,9 @@ import java.util.HashMap;
 		}	
 	}
 	
+	/**
+	 * Prints only courses that are seminars
+	 */
 	static void printSeminarCourses()
 	{
 		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
@@ -233,6 +281,9 @@ import java.util.HashMap;
 		}	
 	}
 	
+	/**
+	 * Prints only courses that are advising courses
+	 */
 	static void printAdvisingCourses()
 	{
 		for(Course c: advisingCourses){
@@ -240,6 +291,9 @@ import java.util.HashMap;
 		}
 	}
 	
+	/**
+	 * Prints out how many students have all locked courses
+	 */
 	static void printAdvisingInfo()
 	{
 		int count = 0;
@@ -254,6 +308,10 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Prints out the total number of freshmen enrolled in
+	 * the courses. Should be around 652*4, not counting labs
+	 */
 	static void printCourseData()
 	{
 		int totStudents = 0;
@@ -269,6 +327,9 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Prints how many freshmen are in each course
+	 */
 	static void printCourseCounts()
 	{
 		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
@@ -279,6 +340,13 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Prints out how many students are in each
+	 * preference, for either regular courses or seminars
+	 * @param students the students that have been placed into courses 
+	 * @param doingSeminar whether we are considering seminar prefs
+	 * @return
+	 */
 	static int[] getPrefCount(HashMap<Integer,Student> students,boolean doingSeminar)
 	{
 		int[] prefCount = new int[Constants.NUM_PREFS];
@@ -313,6 +381,12 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Counts how many students have each possible linear satisfaction score
+	 * 
+	 * @param students the students that have been placed into courses
+	 * @return an array where each index holds the corresponding number of students with that score
+	 */
 	static int[] getLinearSatCount(HashMap<Integer,Student> students)
 	{
 		int[] satCount = new int[Constants.MAX_SAT_LINEAR-Constants.MIN_SAT_LINEAR];
@@ -327,21 +401,28 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Goes through the courses and places them 
+	 * either into the seminarCourses ArrayList or regularCourses ArrayList
+	 */
 	static void seperateCourses()
 	{
-		seminarcourses = new ArrayList<String>();
-		regularcourses = new ArrayList<String>();
+		seminarCourses = new ArrayList<String>();
+		regularCourses = new ArrayList<String>();
 		
 		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
 			ArrayList<Course>cs = entry.getValue();
 			
 			if(cs.get(0).isSeminar())
-				seminarcourses.add(cs.get(0).getID());
+				seminarCourses.add(cs.get(0).getID());
 			else
-				regularcourses.add(cs.get(0).getID());
+				regularCourses.add(cs.get(0).getID());
 		}
 	}
 	
+	/**
+	 * Sets the current prefs we're considering to seminars
+	 */
 	static void setStudentPrefsToSeminar()
 	{
 		doingSeminar = true;
@@ -352,6 +433,9 @@ import java.util.HashMap;
 		}
 	}
 	
+	/**
+	 * Sets the current prefs we're considering to regular courses
+	 */
 	static void setStudentPrefsToRegular()
 	{
 		doingSeminar = false;
@@ -362,9 +446,12 @@ import java.util.HashMap;
 		}
 	}
 	
+	/**
+	 * Iterates through all students and locks their courses
+	 * SHOULD DELETE THIS & Student.lockCourses()
+	 */
 	static void lockAllStudentCourses()
 	{
-
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
 				Student stu = entry.getValue();
 				stu.lockCourses();
@@ -372,6 +459,10 @@ import java.util.HashMap;
 		
 	}
 	
+	/**
+	 * Iterates through all students and locks their seminar course
+	 * @param inStudents the students that have seminar courses
+	 */
 	private static void lockAllStudentSeminarCourses(HashMap<Integer,Student> inStudents)
 	{
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
@@ -385,21 +476,22 @@ import java.util.HashMap;
 						stud.lockCourse(c.getID());
 						break;
 					}
-					
 				}
-		
+				
 		}	
-	
 	}
 	
+	/**
+	 * Helper method to check that we know the actual
+	 * total satisfaction score
+	 */
 	private static void printSatisfactionScoreInfo()
 	{
 		int score = 0;
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
 		{
 				Student stud = entry.getValue();
-				score += stud.satisfactionScore;
-				
+				score += stud.satisfactionScore;	
 		}		
 		
 		System.out.println("Current Actual Satisfaction Score: "+score);

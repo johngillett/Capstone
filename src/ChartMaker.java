@@ -12,6 +12,12 @@
 	import org.jfree.data.xy.XYSeriesCollection; 
 	import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 	
+/**
+ * Modeled after tutorialspoint.com/jfreechart
+ * @author Anna Dovzhik & John Gillett
+ * 
+ *
+ */
 public class ChartMaker extends ApplicationFrame {
 
 	   public ChartMaker( String applicationTitle, String chartTitle )

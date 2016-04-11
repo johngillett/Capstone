@@ -1,6 +1,15 @@
-
 import java.util.ArrayList;
 
+/**
+ * This class represents one course, which must be a section
+ * of a course offered at the university. This course is
+ * uniquely identified by its department, course number, and section ID.
+ * Each course has a schedule and a listing of the students enrolled in it.
+ * 
+ * @author Anna Dovzhik & John Gillett
+ * @version 4.8.16
+ *
+ */
 public class Course{
 
 	String title;
@@ -10,6 +19,8 @@ public class Course{
 	int courseNum;
 	
 	String sectionID;
+	
+	String ID;
 	
 	boolean hasLab;
 	
@@ -35,6 +46,8 @@ public class Course{
 		
 		this.dept = dep;
 		this.courseNum = cN;
+		
+		this.ID = this.dept+this.courseNum;
 		
 		this.sectionID = sectionID;
 		
@@ -63,11 +76,11 @@ public class Course{
 	
 	public void addLab(Course c)
 	{
-	c.isLab = true;
-	labs.add(c);
-	hasLab = true;
+		c.isLab = true;
+		labs.add(c);
+		hasLab = true;
 	}
-	
+
 	public void printLabs()
 	{
 		for(Course c: labs)
@@ -78,20 +91,14 @@ public class Course{
 	
 	public void addStudent(Student stud)
 	{		
-	curSize++;	
-	students.add(stud);	
-	
-		//if(curSize > this.maxSize)
-		//{
-		//	System.out.println("Over the limit!");
-		//	Thread.dumpStack();	
-		//}
+		students.add(stud);	
+		curSize++;	
 	}
 	
 	public void removeStudent(Student stud)
 	{
-	curSize--;
-	students.remove(stud);
+		students.remove(stud);
+		curSize--;
 	}
 	
 	public String getTitle()
@@ -123,33 +130,32 @@ public class Course{
 	
 	public boolean isSameCourse(Course c)
 	{
-	return this.dept.equals(c.dept) && this.courseNum == c.courseNum;	
-		
+		return this.dept.equals(c.dept) && this.courseNum == c.courseNum;		
 	}
 	
 	public boolean isSameCourse(String dept, int cN)
 	{
-	return this.dept.equals(dept) && this.courseNum == cN;
+		return this.dept.equals(dept) && this.courseNum == cN;
 	}
 	
 	public boolean isSameCourse(String id)
 	{
-	return id.equals(this.dept+this.courseNum);
+		return id.equals(this.dept+this.courseNum);
 	}
 	
 	public boolean isSameSection(String sectID)
 	{
-	return this.sectionID.equals(sectID);
+		return this.sectionID.equals(sectID);
 	}
 	
 	public String getID()
 	{
-	return this.dept+this.courseNum;
+		return this.ID;
 	}
 	
 	public String getSectionID()
 	{
-	return this.sectionID;
+		return this.sectionID;
 	}
 	
 	public void addMeetingTime(ArrayList<Day> d)

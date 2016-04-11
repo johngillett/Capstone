@@ -3,6 +3,11 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Creates new students & randomly places them into advising courses
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
 public class StudentGenerator {
 
 	public static HashMap<Integer,Student> generateStudents(ArrayList<Course> advisingCourses)
@@ -19,8 +24,6 @@ public class StudentGenerator {
 			}
 			Student stu = new Student(i,prefs);
 			students.put(i,stu);
-			
-			
 			
 			boolean flag = true;
 			while(flag)

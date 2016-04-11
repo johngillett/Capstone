@@ -5,8 +5,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ * This class reads a text file containing all actual Fall 2015 freshmen
+ * and returns a HashMap of all freshmen, organized by student ID
+ * @author Anna Dovzhik & John Gillett
+ *
+ */
 public class FreshmanParser {
 	
+	/**
+	 * Reads all freshmen from a text file, returns a HashMap of the students.
+	 * Automatically adds the students to their advising courses.
+	 * 
+	 * @param courses the possible courses the students can be enrolled in
+	 * @return a HashMap of all students
+	 */
 	public static HashMap<Integer,Student> parseFreshmen(HashMap<String,ArrayList<Course>> courses)
 	{
 		HashMap<Integer, Student> freshmen = new HashMap<Integer,Student>();
