@@ -27,10 +27,11 @@ public class Constants
 	
 	enum SAT_SCALE{Geometric, Linear};
 	
-	static final SAT_SCALE SAT = SAT_SCALE.Linear;
+	static final SAT_SCALE SAT = SAT_SCALE.Geometric;
 	
+	//has advising, 1st pref seminar + 1st pref regular + 2nd pref regular
 	static final int MIN_SAT_LINEAR = 4;
-	static final int MAX_SAT_LINEAR = 36;
+	static final int MAX_SAT_LINEAR = NUM_PREFS * STUD_COURSE_LIMIT;
 	
 	static final int MIN_SAT_GEOMETRIC = 30;
 	static final int MAX_SAT_GEOMETRIC = (int) Math.pow(2,9);

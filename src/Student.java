@@ -447,7 +447,7 @@ public class Student{
 		//finding non-enrolled preferred courses that are compatible with their schedule
 		for(String id : this.prefs)
 		{
-			if(this.hasCourse(id) || idToSkip.equals(id))
+			if(id.equals(Constants.NULL_PREF) || this.hasCourse(id) || idToSkip.equals(id))
 				continue;
 			
 			ArrayList<Course> curPrefSections = hashCourses.get(id);
@@ -609,17 +609,6 @@ public class Student{
 		return true;
 	}
 	
-	//SHOULD DELETE THIS?
-	public void lockCourses()
-	{
-		
-		System.out.print("THIS SHOULDNT HAPPEN");
-		this.lockedCourses = new ArrayList<String>();
-		
-		for(Course c: this.courses)
-			lockedCourses.add(c.getID());
-		
-	}
 	
 	public void lockCourse(String id)
 	{

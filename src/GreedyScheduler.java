@@ -30,11 +30,20 @@ public class GreedyScheduler {
 		else
 			courseAmt = Constants.STUD_COURSE_LIMIT;
 		
+		//for shuffling students in each iteration
+		ArrayList<Student> studentsList = new ArrayList<Student>();
+		
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			Student st = entry.getValue();
+			studentsList.add(st);
+		}
+		
 		for(int y = 0; y< courseAmt;y++)
 		{
 
-			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
-			Student st = entry.getValue();
+			//for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+			//Student st = entry.getValue();
+			for(Student st : studentsList){
 			
 			if(doingSeminar && st.hasSeminarCourse())
 				continue;
@@ -46,6 +55,8 @@ public class GreedyScheduler {
 			//System.out.println("Working on student " + st.id);
 				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
 				{
+					if(prefs[i].equals(Constants.NULL_PREF)) continue;
+					
 					ArrayList<Course> prefCourses = courses.get(prefs[i]);
 					
 					boolean addedCourse = false;
@@ -72,6 +83,8 @@ public class GreedyScheduler {
 				}
 				
 			}
+			
+			Collections.shuffle(studentsList);
 			
 		}
 		

@@ -216,6 +216,117 @@ public class PreferenceGenerator {
 		
 	}
 	
+	
+	/**
+	 * Loads the files with seminars preferences and 
+	 * sets these preferences to the corresponding students
+	 * @param students the freshmen we are assigning preferences
+	 */
+	public static void getRealSemPrefs(HashMap<Integer,Student> students, ArrayList<String> seminarCourses)
+	{
+
+		try {			
+			FileReader input = new FileReader("seminar_prefs.txt");
+			BufferedReader bufRead = new BufferedReader(input);
+			String nextLine = null;
+
+			//skip first line
+			bufRead.readLine();	
+			
+			//each line marks a single preference of a student
+			while ( (nextLine = bufRead.readLine()) != null)
+			{   
+				//example line:
+				//CSID,    Question,                     Text,                                                      Rank
+				//1499454,Seminar in Scholarly Inquiry 1,SSI-1 174: Lethal Othering: Critiquing Genocidal Prejudice,1
+
+				String[] line = nextLine.split(",");
+
+				//get the student
+				String id = line[0];
+				int studID = Integer.parseInt(id);
+				
+				//may be the case that a student dropped out before september!
+				if(!students.containsKey(studID)) continue;
+				
+				Student stud = students.get(studID);
+				
+				//get the course
+				String course = line[2];
+				String[] courseArray = course.split(" ");
+				String courseID = courseArray[0].replace("-", "") + courseArray[1].replace(":", "");
+
+				//get the rank of this course
+				int rank = Integer.parseInt(line[3]);
+
+				//System.out.println("Student is " + studID + ", course is "+ courseID + ", rank is " + rank);
+				
+				//add to the seminar preferences, if this seminar exists
+				//this means students may have null preferences
+				boolean foundSeminar = false;
+				for(String st : seminarCourses){
+					if(st.equals(courseID))
+					{
+						stud.semPrefs[rank-1] = courseID;
+						foundSeminar = true;
+						break;
+					}
+				}
+				if(!foundSeminar){
+					//System.out.println(stud.semPrefs[rank-1]);
+					stud.semPrefs[rank-1] = Constants.NULL_PREF;
+					//System.out.println("This course is not in our array " + courseID);
+				}
+				
+			}
+			
+
+			bufRead.close();
+			input.close();
+
+			
+			//remove students who didn't input their preferences
+			ArrayList<Integer> studsToRemove = new ArrayList<Integer>();
+			for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+			{
+				Student student = entry.getValue();
+				int studID = entry.getKey();
+				//System.out.println(studID + ": " + student.prefsToString(true));
+				boolean allNull = true;
+				for(int i = 0; i < Constants.NUM_PREFS; i++)
+				{
+					if(!student.semPrefs[i].equals(Constants.NULL_PREF)){
+						allNull = false;
+						break;
+					}
+				}
+				
+				if(allNull) studsToRemove.add(studID);
+			
+			}
+			
+			//delete these students
+			for(Integer studID : studsToRemove){
+				students.remove(studID);
+			}
+			
+			//check students
+			for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+			{
+				Student student = entry.getValue();
+				int studID = entry.getKey();
+				System.out.println(studID + ": " + student.prefsToString(true));
+			
+			}
+			
+			writeCurrentPrefs(students,true);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+
+	}
+	
 	/**
 	 * Takes the students and their existing preferences, and
 	 * writes this information into a file

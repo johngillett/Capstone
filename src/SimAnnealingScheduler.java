@@ -22,6 +22,14 @@ public class SimAnnealingScheduler {
 	
 	private static Random rand;
 	
+	/**
+	 * Schedules using simulated annealing, but always tries to make the best possible swap
+	 * of students in each iteration of the algorithm
+	 * 
+	 * @param inStudents the students we are scheduling
+	 * @param inCourses the courses the students can be scheduled into
+	 * @return the solution, i.e. the courses and students properly scheduled with a low total sat. score
+	 */
 	public static Solution ScheduleBiased(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
 	{
 		courses = inCourses;
@@ -42,11 +50,16 @@ public class SimAnnealingScheduler {
 		return bestSol;
 	}
 	
+	/**
+	 * Schedules using simulated annealing, always choosing a random swap of students
+	 * in each iteration of the algorithm
+	 * 
+	 * @param inStudents the students we are scheduling
+	 * @param inCourses the courses the students can be scheduled into
+	 * @return the solution, i.e. the courses and students properly scheduled with a low total sat. score
+	 */
 	public static Solution ScheduleUnbiased(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
 	{
-		
-		
-		
 		courses = inCourses;
 		studentsMap = inStudents;
 		
@@ -56,8 +69,6 @@ public class SimAnnealingScheduler {
 		
 		//Create initial best score
 		bestSol = new Solution(inCourses,inStudents,totalSatScore);
-		
-		
 		
 		if(Constants.SAT == Constants.SAT_SCALE.Linear)
 			System.out.println("Starting with a score of "+bestSol.getScore()+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
@@ -75,6 +86,9 @@ public class SimAnnealingScheduler {
 	}
 	
 	    //Heuristic Approach (less random) method
+		/**
+		 * Helper method for biased simulated annealing
+		 */
 		private static void ScheduleBiased()
 		{
 	        PriorityQueue students;// = constructMaxHeapOfAllStudents();
@@ -178,7 +192,10 @@ public class SimAnnealingScheduler {
 			return;
 		}
 	
-	    //Random Approach method
+		/**
+		 * Helper method for unbiased simulated annealing
+		 * randomly chooses students to replace in order to lower the total score
+		 */
 		private static void ScheduleUnbiased()
 		{
 	        PriorityQueue students;// = constructMaxHeapOfAllStudents();
@@ -305,8 +322,13 @@ public class SimAnnealingScheduler {
 			return;
 		}
 		
-	//Checks if the algorithm has succeeded yet or not
-	//Takes into account max possible satisfaction score and min temperature  
+
+	/**
+	 * Checks if the algorithm has succeeded yet or not
+	 * Takes into account max possible satisfaction score and min temperature
+	 * 
+	 * @return whether algorithm should stop
+	 */
 	private static boolean conditionIsMet()
 	{
 		if(temp <= Constants.MIN_TEMP) return true;
@@ -417,7 +439,6 @@ public class SimAnnealingScheduler {
 	
 	//imagining not being in toMask, returns the preference number of the next preferred course the student could be scheduled in. 9 if there is none. 
 	private static int getNextPreferredCourseAfterPotentialSwap(Student toCheck, int toMask) {
-		// TODO Auto-generated method stub
 		
 		int toReturn = Constants.NUM_PREFS+1;
 		
@@ -427,7 +448,7 @@ public class SimAnnealingScheduler {
 		for(int i = 0; i< toCheck.prefs.length;i++)
 		{
 		
-			if(toCheck.hasCourse(toCheck.prefs[i]) || i == (toMask-1))
+			if( toCheck.prefs[i].equals(Constants.NULL_PREF) || toCheck.hasCourse(toCheck.prefs[i]) || i == (toMask-1))
 				continue;
 			
 			//System.out.println(toCheck.prefs[i]+", "+i);

@@ -46,6 +46,7 @@ public class FreshmanParser {
 			    
 			    //create student
 			    int id = Integer.parseInt(data[0]);
+			   
 			    if (!freshmen.containsKey(id))
 			    {
 			    	//create a student with null preferences
@@ -62,6 +63,7 @@ public class FreshmanParser {
 			    
 			    //find advising course
 			    String[] course = data[1].split(" ");
+			    // course = "DEPT  NUM"
 			    String courseID = course[0]+course[2];
 			    String section = course[3];
 			    
@@ -91,7 +93,7 @@ public class FreshmanParser {
 				    				}
 				    				//courseSec.addStudent(currStudent);
 				    				currStudent.hasAdvisingCourse = true;
-				    				currStudent.lockCourses();
+				    				currStudent.lockCourse(courseSec.getID());
 				    				//System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
 				    				//numAdvisees ++;
 				    			}
@@ -107,26 +109,26 @@ public class FreshmanParser {
 		
 		//finding students without an advising course
 		//for now, remove these students
-		int numStu = 0;
-		ArrayList<Integer> freshmenToRemove = new ArrayList<Integer>();
-		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
-			Student stud = c.getValue();
-			int studID = c.getKey();
-			if(stud.getClassCount() == 0){
-				numStu++;
-				freshmenToRemove.add(studID);
-				//System.out.println(stud);
-				//freshmen.remove(studID);
-				//System.out.println("does the hashmap contain student "+ stud.id + " ?: " + freshmen.containsKey(studID));
-			}
-		}
-		
-		for(Integer studID : freshmenToRemove)
-		{
-			System.out.println("Student " + studID + " is getting deleted");
-			freshmen.remove(studID);
-			
-		}
+//		int numStu = 0;
+//		ArrayList<Integer> freshmenToRemove = new ArrayList<Integer>();
+//		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
+//			Student stud = c.getValue();
+//			int studID = c.getKey();
+//			if(stud.getClassCount() == 0){
+//				numStu++;
+//				freshmenToRemove.add(studID);
+//				//System.out.println(stud);
+//				//freshmen.remove(studID);
+//				//System.out.println("does the hashmap contain student "+ stud.id + " ?: " + freshmen.containsKey(studID));
+//			}
+//		}
+//		
+//		for(Integer studID : freshmenToRemove)
+//		{
+//			//System.out.println("Student " + studID + " is getting deleted");
+//			freshmen.remove(studID);
+//			
+//		}
 		//System.out.println("There " + numStu + " students without advising classes");
 			
 		

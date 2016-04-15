@@ -88,8 +88,8 @@ import java.util.HashMap;
 		
 		printCourseData();
 		
-		//getGraphs();
-		//getAlgTrackerGraph();
+		getGraphs();
+		getAlgTrackerGraph();
 		
 		printStudents();
 		//printCourses();
@@ -125,11 +125,12 @@ import java.util.HashMap;
 	private static void GenerateStudents()
 	{
 		//Generate students
-		//students = FreshmanParser.parseFreshmen(courses);
-		students = StudentGenerator.generateStudents(advisingCourses);
-			
+		students = FreshmanParser.parseFreshmen(courses);
+		//students = StudentGenerator.generateStudents(advisingCourses);
+		
 		//Generate Seminar Preferences
 		setStudentPrefsToSeminar();
+		//PreferenceGenerator.getRealSemPrefs(students, seminarCourses);
 		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);
 		//PreferenceGenerator.generateRanPrefs(students, seminarCourses, doingSeminar);
 		PreferenceGenerator.getStandardPrefs(students);
@@ -187,7 +188,8 @@ import java.util.HashMap;
 	static void getAlgTrackerGraph()
 	{
 		int[] algTrackerResults = AlgTracker.getArray();
-		BarChartMaker.makeAlgTrackerChart(algTrackerResults);
+		//BarChartMaker.makeAlgTrackerChart(algTrackerResults);
+		XYChartMaker.makeAlgTrackerChart(algTrackerResults);
 	}
 	
 	/**
@@ -413,8 +415,11 @@ import java.util.HashMap;
 		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
 			ArrayList<Course>cs = entry.getValue();
 			
-			if(cs.get(0).isSeminar())
+			if(cs.get(0).isSeminar()){
 				seminarCourses.add(cs.get(0).getID());
+				//System.out.println(cs.get(0).getID());
+			}
+				
 			else
 				regularCourses.add(cs.get(0).getID());
 		}
@@ -445,19 +450,7 @@ import java.util.HashMap;
 			stu.prefs = stu.regPrefs;
 		}
 	}
-	
-	/**
-	 * Iterates through all students and locks their courses
-	 * SHOULD DELETE THIS & Student.lockCourses()
-	 */
-	static void lockAllStudentCourses()
-	{
-		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
-				Student stu = entry.getValue();
-				stu.lockCourses();
-		}
-		
-	}
+
 	
 	/**
 	 * Iterates through all students and locks their seminar course
