@@ -16,14 +16,14 @@ import org.jfree.ui.RefineryUtilities;
  */
 public class BarChartMaker extends ApplicationFrame
 {
-   public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, int[] prefCount, int toAdd )
+   public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, double[] prefCount, int toAdd, boolean doingSeminar )
    {
       super( applicationTitle );        
       JFreeChart barChart = ChartFactory.createBarChart(
          chartTitle,           
          xAxis,            
          yAxis,            
-         createDataset(prefCount, toAdd),          
+         createDataset(prefCount, toAdd, doingSeminar),          
          PlotOrientation.VERTICAL,           
          true, true, false);
          
@@ -33,22 +33,36 @@ public class BarChartMaker extends ApplicationFrame
    }
    
 
-   private CategoryDataset createDataset( int[] count, int toAdd)
+   private CategoryDataset createDataset( double[] count, int toAdd, boolean doingSeminar)
    {
 	   final DefaultCategoryDataset dataset = new DefaultCategoryDataset( ); 
-
+	   
 	   // row keys
        final String series1 = "Number of Students";
        
-       for(int i= 0; i < count.length; i++)
-       {
-    	   dataset.addValue(count[i], series1, "" +(i+toAdd));
+       
+       if(doingSeminar){
+    	   dataset.addValue(count[0], series1, "Advising ");
+           for(int i= 1; i < count.length; i++)
+           {
+        	   //i +toAdd gives pref number
+        	   dataset.addValue(count[i], series1, "" +(i));
+           } 
        }
+       
+       else{
+           for(int i= 0; i < count.length; i++)
+           {
+        	   //i +toAdd gives pref number
+        	   dataset.addValue(count[i], series1, "" +(i+toAdd));
+           }
+       }
+       
        
       return dataset; 
    }
    
-   public static void makeBarChartPrefs(int[] prefCount, boolean doingSeminar)
+   public static void makeBarChartPrefs(double[] prefCount, boolean doingSeminar)
    {
 	  String title;
 	  
@@ -57,23 +71,23 @@ public class BarChartMaker extends ApplicationFrame
 	  else
 		  title = "Regular Preference Placements";
 	  
-      BarChartMaker chart = new BarChartMaker(title, title, "Preference ID", "Number of Students", prefCount,1);
+      BarChartMaker chart = new BarChartMaker(title, title, "Preference ID", "Number of Students", prefCount,1, doingSeminar);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
    }
    
-   public static void makeBarChartScores(int[] satCount)
+   public static void makeBarChartScores(double[] satCount, boolean doingSeminar)
    {
-      BarChartMaker chart = new BarChartMaker("Distribution of Satisfaction Scores", "Number of Students with Each Satisfaction Score", "Satisfaction Score", "Number of Students",satCount,Constants.MIN_SAT_LINEAR);
+      BarChartMaker chart = new BarChartMaker("Distribution of Satisfaction Scores", "Number of Students with Each Satisfaction Score", "Satisfaction Score", "Number of Students",satCount,Constants.MIN_SAT_LINEAR, doingSeminar);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
    }
    
-   public static void makeAlgTrackerChart(int[] satCount)
+   public static void makeAlgTrackerChart(double[] satCount, boolean doingSeminar)
    {
-      BarChartMaker chart = new BarChartMaker("Progression of Simulated Annealing Approach", "Progression of Simulated Annealing Approach", "Time", "Total Satisfaction Score",satCount,Constants.MIN_SAT_LINEAR);
+      BarChartMaker chart = new BarChartMaker("Progression of Simulated Annealing Approach", "Progression of Simulated Annealing Approach", "Time", "Total Satisfaction Score",satCount,Constants.MIN_SAT_LINEAR, doingSeminar);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 

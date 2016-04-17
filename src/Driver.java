@@ -21,6 +21,7 @@ import java.util.HashMap;
 	static HashMap<Integer, Student> students;
 	static HashMap<String, Integer> freshmenCourseCounts;
 	static boolean doingSeminar;
+	static ArrayList<Integer> studsWithAdAsSem;
 	
 	public static void main(String[] args) {
 		
@@ -62,7 +63,7 @@ import java.util.HashMap;
 		
 		System.out.println("Switching to Regular Courses.");
 		//Lock Current Placed courses
-		lockAllStudentSeminarCourses(students);
+		lockAllStudentSeminarCourses();
 		setStudentPrefsToRegular();
 		
 		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
@@ -128,6 +129,7 @@ import java.util.HashMap;
 		students = FreshmanParser.parseFreshmen(courses);
 		//students = StudentGenerator.generateStudents(advisingCourses);
 		
+		
 		//Generate Seminar Preferences
 		setStudentPrefsToSeminar();
 		//PreferenceGenerator.getRealSemPrefs(students, seminarCourses);
@@ -140,6 +142,10 @@ import java.util.HashMap;
 		//PreferenceGenerator.generatePopPrefs(freshmenCourseCounts, students,doingSeminar);	
 		//PreferenceGenerator.generateRanPrefs(students, regularCourses, doingSeminar);
 		PreferenceGenerator.getStandardPrefs(students);
+
+		//Find out how many students initially have advising as seminar
+		studsWithAdAsSem = getStudentsWithAdAsSem();
+		System.out.println("The number of students with advising as seminar: " + studsWithAdAsSem.size());
 
 	}
 	
@@ -169,14 +175,17 @@ import java.util.HashMap;
 	{
 		if(Constants.SAT == Constants.SAT_SCALE.Linear)
 		{
-			int[] satCount = getLinearSatCount(students);
-			BarChartMaker.makeBarChartScores(satCount);
+			double[] satCount = getLinearSatCount(students);
+			BarChartMaker.makeBarChartScores(satCount, doingSeminar);
 		}
-		int[] prefCount = getPrefCount(students,true);
-		BarChartMaker.makeBarChartPrefs(prefCount,true);
 		
-		prefCount = getPrefCount(students,false);
-		BarChartMaker.makeBarChartPrefs(prefCount,false); 
+		setStudentPrefsToSeminar();
+		double[] prefCount = getPrefCount();
+		BarChartMaker.makeBarChartPrefs(prefCount,doingSeminar);
+		
+		setStudentPrefsToRegular();
+		prefCount = getPrefCount();
+		BarChartMaker.makeBarChartPrefs(prefCount,doingSeminar); 
 		
 		
 	}
@@ -243,7 +252,6 @@ import java.util.HashMap;
 	{
 		
 		int count = 0;
-		int lockedCount;
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
 			Student stu = entry.getValue();
 			if(stu.hasSeminarCourse())
@@ -349,37 +357,76 @@ import java.util.HashMap;
 	 * @param doingSeminar whether we are considering seminar prefs
 	 * @return
 	 */
-	static int[] getPrefCount(HashMap<Integer,Student> students,boolean doingSeminar)
+	static double[] getPrefCount()
 	{
-		int[] prefCount = new int[Constants.NUM_PREFS];
-		
-		for(int i = 0; i <prefCount.length; i++)
+		int[] prefCount; 
+		if(doingSeminar)
 		{
-			for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
-				Student stu = entry.getValue();
-				
-				String prefID;
-				
-				if(doingSeminar)
-				prefID= stu.semPrefs[i];
-				else
-				prefID = stu.regPrefs[i];
-				
-				if(stu.hasCourse(prefID))
+			prefCount = new int[Constants.NUM_PREFS+1];
+			prefCount[0] = studsWithAdAsSem.size();
+			
+			HashMap<Integer,Student> studsToCheck = getStudentsWithoutAdAsSem();
+
+			for(int i = 1; i < prefCount.length; i++)
+			{
+				for(HashMap.Entry<Integer, Student> entry : studsToCheck.entrySet()){
+					Integer id = entry.getKey();
+					Student stu = entry.getValue();
+					String prefID;
+
+					prefID= stu.semPrefs[i-1];
+
+					if(stu.hasCourse(prefID))
+					{
+						prefCount[i] ++;
+					}
+				}
+
+			}
+			
+			//debugging
+//			int sum = 0;
+//			for(int i = 0; i < prefCount.length; i++){
+//				sum += prefCount[i];
+//			}
+//			System.out.println("Total number of students is " + students.size() +
+//					", Total number of those in seminars is " + sum);
+		}
+
+		else{
+			prefCount = new int[Constants.NUM_PREFS];
+
+			for(int i = 0; i < prefCount.length; i++)
+			{
+				for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
+					Student stu = entry.getValue();
+
+					String prefID;
+
+					prefID = stu.regPrefs[i];
+
+					if(stu.hasCourse(prefID))
 					{
 						prefCount[i]  += 1;
 					}
+				}
+
 			}
-				
 		}
-		
+
 		//Optional printing of info
 		for(int i = 0; i <prefCount.length; i++)
 		{
 			System.out.println("There are " + prefCount[i] + " students in their preference " + (i+1) + " class.");
 		}
 		
-		return prefCount;
+		//normalize out of 1
+		double[] normalizedPrefCount = new double[prefCount.length];
+		for(int i = 0; i < prefCount.length; i++){
+			normalizedPrefCount[i] = (double) prefCount[i]/students.size();
+		}
+		
+		return normalizedPrefCount;
 		
 	}
 	
@@ -389,9 +436,9 @@ import java.util.HashMap;
 	 * @param students the students that have been placed into courses
 	 * @return an array where each index holds the corresponding number of students with that score
 	 */
-	static int[] getLinearSatCount(HashMap<Integer,Student> students)
+	static double[] getLinearSatCount(HashMap<Integer,Student> students)
 	{
-		int[] satCount = new int[Constants.MAX_SAT_LINEAR-Constants.MIN_SAT_LINEAR];
+		double[] satCount = new double[Constants.MAX_SAT_LINEAR-Constants.MIN_SAT_LINEAR];
 		
 
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
@@ -456,7 +503,7 @@ import java.util.HashMap;
 	 * Iterates through all students and locks their seminar course
 	 * @param inStudents the students that have seminar courses
 	 */
-	private static void lockAllStudentSeminarCourses(HashMap<Integer,Student> inStudents)
+	private static void lockAllStudentSeminarCourses()
 	{
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
 		{
@@ -490,5 +537,33 @@ import java.util.HashMap;
 		System.out.println("Current Actual Satisfaction Score: "+score);
 	}
 	
+	
+	private static ArrayList<Integer> getStudentsWithAdAsSem(){
+		int count = 0;
+		ArrayList<Integer> studs = new ArrayList<Integer>();
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+		{
+				Integer id = entry.getKey();
+				Student stud = entry.getValue();
+				if (stud.advisingIsSeminar()) studs.add(id);
+		}	
+		return studs;
+	}
+	
+	private static HashMap<Integer,Student> getStudentsWithoutAdAsSem(){
+		HashMap<Integer,Student> studs = new HashMap<Integer,Student>();
+		//go through current students
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+		{
+				Integer id = entry.getKey();
+				Student stud = entry.getValue();
+				//only consider those who didn't initally have advising as sem
+				if(!studsWithAdAsSem.contains(id)){
+					studs.put(id, stud);
+				}
+		}	
+		return studs;
+	}
+
 	
 }

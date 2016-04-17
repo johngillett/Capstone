@@ -206,6 +206,8 @@ public class PreferenceGenerator {
 			
 			sc.close();
 			
+			deleteStudsWithoutPrefs(students);
+
 		} 
 		
 		catch (FileNotFoundException e) 
@@ -283,42 +285,7 @@ public class PreferenceGenerator {
 
 			bufRead.close();
 			input.close();
-
-			
-			//remove students who didn't input their preferences
-			ArrayList<Integer> studsToRemove = new ArrayList<Integer>();
-			for(HashMap.Entry<Integer, Student> entry : students.entrySet())
-			{
-				Student student = entry.getValue();
-				int studID = entry.getKey();
-				//System.out.println(studID + ": " + student.prefsToString(true));
-				boolean allNull = true;
-				for(int i = 0; i < Constants.NUM_PREFS; i++)
-				{
-					if(!student.semPrefs[i].equals(Constants.NULL_PREF)){
-						allNull = false;
-						break;
-					}
-				}
-				
-				if(allNull) studsToRemove.add(studID);
-			
-			}
-			
-			//delete these students
-			for(Integer studID : studsToRemove){
-				students.remove(studID);
-			}
-			
-			//check students
-			for(HashMap.Entry<Integer, Student> entry : students.entrySet())
-			{
-				Student student = entry.getValue();
-				int studID = entry.getKey();
-				System.out.println(studID + ": " + student.prefsToString(true));
-			
-			}
-			
+			deleteStudsWithoutPrefs(students);
 			writeCurrentPrefs(students,true);
 
 		} catch (IOException e) {
@@ -364,10 +331,48 @@ public class PreferenceGenerator {
 			
 			
 			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void deleteStudsWithoutPrefs(HashMap<Integer,Student> students)
+	{
+		//remove students who didn't input their preferences
+		ArrayList<Integer> studsToRemove = new ArrayList<Integer>();
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+		{
+			Student student = entry.getValue();
+			int studID = entry.getKey();
+			//System.out.println(studID + ": " + student.prefsToString(true));
+			boolean allNull = true;
+			for(int i = 0; i < Constants.NUM_PREFS; i++)
+			{
+				if(!student.semPrefs[i].equals(Constants.NULL_PREF)){
+					allNull = false;
+					break;
+				}
+			}
+			
+			if(allNull) studsToRemove.add(studID);
+		
+		}
+		
+		//delete these students
+		for(Integer studID : studsToRemove){
+			students.remove(studID);
+		}
+		
+		//check students
+//		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+//		{
+//			Student student = entry.getValue();
+//			int studID = entry.getKey();
+//			System.out.println(studID + ": " + student.prefsToString(true));
+//		
+//		}
 	}
 	
 	/**
