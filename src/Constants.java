@@ -27,7 +27,7 @@ public class Constants
 	
 	enum SAT_SCALE{Geometric, Linear};
 	
-	static final SAT_SCALE SAT = SAT_SCALE.Geometric;
+	static final SAT_SCALE SAT = SAT_SCALE.Linear;
 	
 	//has advising, 1st pref seminar + 1st pref regular + 2nd pref regular
 	static final int MIN_SAT_LINEAR = 4;

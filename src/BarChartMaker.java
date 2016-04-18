@@ -1,7 +1,10 @@
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel; 
-import org.jfree.chart.JFreeChart; 
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.CategoryDataset; 
 import org.jfree.data.category.DefaultCategoryDataset; 
 import org.jfree.ui.ApplicationFrame; 
@@ -30,6 +33,12 @@ public class BarChartMaker extends ApplicationFrame
       ChartPanel chartPanel = new ChartPanel( barChart );        
       chartPanel.setPreferredSize(new java.awt.Dimension( 1500 , 1000 ) );        
       setContentPane( chartPanel ); 
+      
+      //normalize bar charts to be out of 1
+      CategoryPlot plot = (CategoryPlot) barChart.getPlot();
+      ValueAxis yAxis1 = plot.getRangeAxis();
+      yAxis1.setRange(0.0, 1.0);
+      
    }
    
 

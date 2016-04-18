@@ -44,7 +44,7 @@ public class XYChartMaker extends ApplicationFrame
    
    private XYDataset createDataset(int[] count, int toAdd )
    {
-	   final XYSeries score = new XYSeries( "Score" );          
+	   final XYSeries score = new XYSeries( "Total Satisfaction Score" );          
 
 	   // row keys
        final String series1 = "Total Satisfaction Score";
@@ -55,8 +55,28 @@ public class XYChartMaker extends ApplicationFrame
     	   score.add(i, count[i]);
        }
        
+       //add min satisfaction score goal
+       final XYSeries objective = new XYSeries( "Goal" );          
+       
+       int obj;
+       if(Constants.SAT.equals(Constants.SAT_SCALE.Geometric))
+       {
+    	   obj = Constants.GEOMETRIC_OBJ_THRESHOLD;
+       }
+       
+       else
+       {
+    	   obj = Constants.LINEAR_OBJ_THRESHOLD;
+       }
+       
+       for(int i= 0; i < count.length; i++)
+       {
+    	   objective.add(i, obj);
+       }
+       
       final XYSeriesCollection dataset = new XYSeriesCollection( );          
       dataset.addSeries( score );   
+      dataset.addSeries( objective );
       return dataset; 
    }
 
