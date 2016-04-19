@@ -33,6 +33,8 @@ public class Student{
 	ArrayList<Course> toIgnore;
 	boolean hasAdvisingCourse;
 	
+	String actualSeminar;
+	
 	//New Constructor
 	public Student(int id, String[] prefs)
 	{
@@ -701,6 +703,16 @@ public class Student{
 		}
 		
 		return false;
+	}
+	
+	public void setActualSeminar(String c)
+	{
+		this.actualSeminar = c;
+	}
+	
+	public String getActualSeminar()
+	{
+		return this.actualSeminar;
 	}
 	
 }

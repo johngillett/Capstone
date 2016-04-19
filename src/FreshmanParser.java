@@ -64,12 +64,20 @@ public class FreshmanParser {
 			    //find advising course
 			    String[] course = data[1].split(" ");
 			    // course = "DEPT  NUM"
+			    String dept = course[0];
 			    String courseID = course[0]+course[2];
 			    String section = course[3];
 			    
 			    //if this course was actually in our spreadsheet
 			    if(courses.containsKey(courseID))
 			    {
+			    	//find their actual seminar course
+		    		if(dept.equals("SSI1"))
+		    		{
+		    			Student currStudent = freshmen.get(id);
+		    			currStudent.setActualSeminar(courseID);
+		    		}
+		    		
 				    ArrayList<Course> possibleCourses = courses.get(courseID);
 				    //for all sections
 				    for(Course courseSec : possibleCourses)
@@ -141,6 +149,33 @@ public class FreshmanParser {
 		} 
 		
 		return freshmen;
+	}
+	
+	public static void getStudWithoutAdvising(){
+		//finding students without an advising course
+		//for now, remove these students
+//		int numStu = 0;
+//		ArrayList<Integer> freshmenToRemove = new ArrayList<Integer>();
+//		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
+//			Student stud = c.getValue();
+//			int studID = c.getKey();
+//			if(stud.getClassCount() == 0){
+//				numStu++;
+//				freshmenToRemove.add(studID);
+//				//System.out.println(stud);
+//				//freshmen.remove(studID);
+//				//System.out.println("does the hashmap contain student "+ stud.id + " ?: " + freshmen.containsKey(studID));
+//			}
+//		}
+//		
+//		for(Integer studID : freshmenToRemove)
+//		{
+//			//System.out.println("Student " + studID + " is getting deleted");
+//			freshmen.remove(studID);
+//			
+//		}
+		//System.out.println("There " + numStu + " students without advising classes");
+			
 	}
 	
 	 
