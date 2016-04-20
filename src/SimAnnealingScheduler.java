@@ -291,7 +291,7 @@ public class SimAnnealingScheduler {
 								//if(Driver.doingSeminar && stu1PrefLeaving != stu2PrefEntering)
 								//	System.out.println("Made net change: "+netChange+", new score:"+currTotalSatScore +" with Stud1 From "+stu1PrefLeaving+" to "+stu1PrefEntering+ " and Stud2 From "+stu2PrefLeaving+" to "+stu2PrefEntering);	
 								
-								AlgTracker.addEntry(currTotalSatScore);
+								AlgTracker.addSimAnnealEntry(currTotalSatScore);
 								
 								//Update Best Solution if necessary
 								if(currTotalSatScore < bestSol.getScore())

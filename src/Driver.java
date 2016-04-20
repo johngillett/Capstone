@@ -211,9 +211,14 @@ import java.util.HashMap;
 	 */
 	static void getAlgTrackerGraph()
 	{
-		int[] algTrackerResults = AlgTracker.getArray();
+		int[] algTrackerSimResults = AlgTracker.getSimAnnealArray();
 		//BarChartMaker.makeAlgTrackerChart(algTrackerResults);
-		XYChartMaker.makeAlgTrackerChart(algTrackerResults);
+		XYChartMaker.makeAlgTrackerChart(algTrackerSimResults);
+		
+		int[] algTrackerGreedResults = AlgTracker.getGreedyArray();
+		XYChartMaker.makeAlgTrackerChart(algTrackerGreedResults);
+		
+		
 	}
 	
 	/**

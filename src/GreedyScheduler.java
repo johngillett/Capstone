@@ -21,7 +21,6 @@ public class GreedyScheduler {
 	public static void greedyScheduleByPref(HashMap<Integer,Student> students,HashMap<String,ArrayList<Course>> courses, boolean doingSeminar)
 	{
 		//add arbitrarily high value to indicate Greedy
-		//AlgTracker.addEntry(14000);
 		
 		int courseAmt;
 		
@@ -67,7 +66,7 @@ public class GreedyScheduler {
 						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
 						{
 							st.indexOfNextCourseToCheck = i+1;
-							AlgTracker.addEntry(SimAnnealingScheduler.getTotalSatScore(students));
+							AlgTracker.addGreedyEntry(SimAnnealingScheduler.getTotalSatScore(students));
 							addedCourse = true;
 							break;
 						}
@@ -88,7 +87,6 @@ public class GreedyScheduler {
 			
 		}
 		
-		AlgTracker.addEntry(14000);
 		
 		
 	}
