@@ -52,7 +52,8 @@ public class GreedyScheduler {
 			
 			String[] prefs = st.prefs;
 			//System.out.println("Working on student " + st.id);
-				for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
+				//for(int i = st.indexOfNextCourseToCheck; i < prefs.length;i++)
+				for(int i = 0; i < prefs.length;i++)
 				{
 					if(prefs[i].equals(Constants.NULL_PREF)) continue;
 					
@@ -63,10 +64,12 @@ public class GreedyScheduler {
 					for(Course prefCourse : prefCourses)
 					{
 						//System.out.println("\t"+ prefCourse);
-						if(prefCourse.hasRoom() && st.addIfFitsInSchedule(prefCourse)) 
+						//the course needs to have room, the student shouldn't have been placed any section of it yet, 
+						//and it should fit in their schedule
+						if(prefCourse.hasRoom() && !st.hasCourse(prefCourse.getID())&& st.addIfFitsInSchedule(prefCourse)) 
 						{
 							st.indexOfNextCourseToCheck = i+1;
-							AlgTracker.addGreedyEntry(SimAnnealingScheduler.getTotalSatScore(students));
+							AlgTracker.addGreedyEntry(Driver.getTotalSatScore());
 							addedCourse = true;
 							break;
 						}

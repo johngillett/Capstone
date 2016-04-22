@@ -24,7 +24,7 @@ public class CourseParser {
 	 * @param numCourses how many courses we want to add to the course HashMap
 	 * @return all the courses we will be working with
 	 */
-	public static HashMap<String,ArrayList<Course>> parseCourses(ArrayList<Course> courses,int numCourses)
+	public static HashMap<String,ArrayList<Course>> parseCourses(ArrayList<Course> courses)
 	{
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		
@@ -186,14 +186,9 @@ public class CourseParser {
 			e.printStackTrace();
 		} 
 		
-		if(Constants.PARSE_ALL_COURSES)
-		{	
-			numCourses = courseList.size();
-		}
-		else
-		{
-			Collections.shuffle(courseList);
-		}
+	
+		int numCourses = courseList.size();
+		
 		
 		//System.out.println(toReturn.size());
 		HashMap<String,ArrayList<Course>> toReturn = new HashMap<String,ArrayList<Course>>();

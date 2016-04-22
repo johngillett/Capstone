@@ -22,6 +22,12 @@ import java.util.HashMap;
 	static HashMap<String, Integer> freshmenCourseCounts;
 	static boolean doingSeminar;
 	static HashMap<Integer,Student> studsWithAdAsSem;
+	//greedy results
+	static double[] prefCountReg2Greedy;
+	static double[] prefCountReg3Greedy;
+	static double[] prefCountSemGreedy;
+	static double[] satPerGreedy;
+	static int greedyTotalSat;
 	
 	public static void main(String[] args) {
 		
@@ -29,13 +35,71 @@ import java.util.HashMap;
 		SetupCourses();
 		GenerateStudents();
 		
-		//Schedule
+		//Schedule using just greedy 
+		runGreedy();
+		//PrintOutDataInfo();
+		
+		//Reschedule using simulated annealing (with greedy)
+		SetupCourses();
+		GenerateStudents();
 		RunSchedulingProcess();
 
 		//Results
 		PrintOutDataInfo();
 	}
 	
+	/**
+	 * Runs just the greedy algorithm in order to compare results
+	 * with simulated annealing
+	 */
+	private static void runGreedy()
+	{
+		AlgTracker.init();
+		
+		long startTime = System.currentTimeMillis();
+		
+		//Set to Seminar mode
+		setStudentPrefsToSeminar();
+		
+		printSeminarInfo();
+		
+		//Preliminary Seminar Greedy Schedule
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
+		printSeminarInfo();
+		
+		System.out.println("Switching to Regular Courses.");
+		//Lock Current Placed courses
+		lockAllStudentSeminarCourses();
+		setStudentPrefsToRegular();
+		
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
+		
+		long endTime = System.currentTimeMillis();
+		
+		float resTime = (float)(endTime - startTime)/1000;
+		
+		System.out.println("Greedy Scheduler ran in "+resTime+" seconds.");
+		
+		
+		//store results of greedy to graph later
+		double[] satCount = getLinearSatCount(students);
+		satPerGreedy = getLinearSatPer(satCount);
+		
+		setStudentPrefsToSeminar();
+		HashMap<Integer,Student> studsToCheck = getStudentsWithoutAdAsSem();
+		prefCountSemGreedy = getPrefCount(studsToCheck);
+		
+		setStudentPrefsToRegular();
+		//get students with 3 courses to schedule
+		HashMap<Integer,Student> studs3 = getStudentsWith3CoursesToPlace();
+		prefCountReg3Greedy = getPrefCount(studs3);
+		
+		//get students with 2 courses to schedule
+		HashMap<Integer,Student> studs2 = getStudentsWith2CoursesToPlace();
+		prefCountReg2Greedy = getPrefCount(studs2);
+		
+		greedyTotalSat = getTotalSatScore();
+	}
 
 	/**
 	 * Schedules students into their seminar preferences
@@ -108,7 +172,7 @@ import java.util.HashMap;
 		courseList = new ArrayList<Course>();
 		
 		//Generate Courses
-		courses =  CourseParser.parseCourses(courseList,Constants.TOT_COURSES);
+		courses =  CourseParser.parseCourses(courseList);
 				
 		seperateCourses();
 				
@@ -179,7 +243,7 @@ import java.util.HashMap;
 			double[] satPer = getLinearSatPer(satCount);
 			//BarChartMaker.makeBarChartScores(satCount, doingSeminar,false);
 			boolean normalize = true;
-			BarChartMaker.makeBarChartScores(satPer,normalize);
+			BarChartMaker.makeBarChartScores(satPer,satPerGreedy,normalize);
 		}
 		
 		//get seminar placements
@@ -188,20 +252,20 @@ import java.util.HashMap;
 		double[] prefCountSem = getPrefCount(studsToCheck);
 		double[] actualSemCount = getActualSemCount(studsToCheck);
 		String title = "Seminar Preference Placements";
-		BarChartMaker.makeBarChartSemPrefs(prefCountSem,actualSemCount,title);
+		BarChartMaker.makeBarChartSemPrefs(prefCountSem,prefCountSemGreedy,actualSemCount,title);
 		
 		setStudentPrefsToRegular();
 		//get students with 3 courses to schedule
 		HashMap<Integer,Student> studs3 = getStudentsWith3CoursesToPlace();
 		double[] prefCountReg3 = getPrefCount(studs3);
 		String title3 = "Regular Preference Placements for Students With 3 Courses to Schedule";
-		BarChartMaker.makeBarChartPrefs(prefCountReg3,title3); 
+		BarChartMaker.makeBarChartPrefs(prefCountReg3,prefCountReg3Greedy,title3); 
 
 		//get students with 2 courses to schedule
 		HashMap<Integer,Student> studs2 = getStudentsWith2CoursesToPlace();
 		double[] prefCountReg2 = getPrefCount(studs2);
 		String title2 = "Regular Preference Placements for Students With 2 Courses to Schedule";
-		BarChartMaker.makeBarChartPrefs(prefCountReg2,title2); 
+		BarChartMaker.makeBarChartPrefs(prefCountReg2,prefCountReg2Greedy,title2); 
 		
 	}
 	
@@ -215,8 +279,8 @@ import java.util.HashMap;
 		//BarChartMaker.makeAlgTrackerChart(algTrackerResults);
 		XYChartMaker.makeAlgTrackerChart(algTrackerSimResults);
 		
-		int[] algTrackerGreedResults = AlgTracker.getGreedyArray();
-		XYChartMaker.makeAlgTrackerChart(algTrackerGreedResults);
+		//int[] algTrackerGreedResults = AlgTracker.getGreedyArray();
+		//XYChartMaker.makeAlgTrackerChart(algTrackerGreedResults);
 		
 		
 	}
@@ -368,6 +432,20 @@ import java.util.HashMap;
 			System.out.println("Course "+ id + " has "+ count + " freshmen");
 		}		
 		
+	}
+	
+	public static int getTotalSatScore()
+	{
+		int score = 0;
+		
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+			{
+					Student stud = entry.getValue();
+					score += stud.satisfactionScore;
+			}
+		
+		//System.out.print("Initial Total score is: "+score);
+		return score;
 	}
 	
 	/**

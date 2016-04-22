@@ -40,8 +40,10 @@ public class AlgTracker {
 	
 	public static void addSimAnnealEntry(int entry)
 	{
+		if(Driver.doingSeminar) return;
+		
 		simCounter++;	
-
+		
 		if(simCounter < Constants.TRACK_FIDELITY)	
 			return;
 

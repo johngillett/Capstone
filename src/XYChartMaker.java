@@ -2,13 +2,15 @@ import java.awt.Color;
 import java.awt.BasicStroke; 
 import org.jfree.chart.ChartPanel; 
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYDataset; 
 import org.jfree.data.xy.XYSeries; 
 import org.jfree.ui.ApplicationFrame; 
 import org.jfree.ui.RefineryUtilities; 
 import org.jfree.chart.plot.XYPlot; 
-import org.jfree.chart.ChartFactory; 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation; 
 import org.jfree.data.xy.XYSeriesCollection; 
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -40,6 +42,9 @@ public class XYChartMaker extends ApplicationFrame
       final XYPlot plot = xylineChart.getXYPlot( );
       
       setContentPane( chartPanel ); 
+      
+      ValueAxis yAxis1 = plot.getRangeAxis();
+      yAxis1.setRange(2600, 5000);
    }
    
    private XYDataset createDataset(int[] count, int toAdd )
@@ -56,7 +61,7 @@ public class XYChartMaker extends ApplicationFrame
        }
        
        //add min satisfaction score goal
-       final XYSeries objective = new XYSeries( "Goal" );          
+       final XYSeries objective = new XYSeries( "Minimum Possible Score" );          
        
        int obj;
        if(Constants.SAT.equals(Constants.SAT_SCALE.Geometric))
@@ -74,9 +79,16 @@ public class XYChartMaker extends ApplicationFrame
     	   objective.add(i, obj);
        }
        
+       final XYSeries greedy = new XYSeries("Result of Greedy Algorithm");
+       for(int i= 0; i < count.length; i++)
+       {
+    	   greedy.add(i, Driver.greedyTotalSat);
+       }
+       
       final XYSeriesCollection dataset = new XYSeriesCollection( );          
       dataset.addSeries( score );   
       dataset.addSeries( objective );
+      dataset.addSeries(greedy);
       return dataset; 
    }
 

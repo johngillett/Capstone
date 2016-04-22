@@ -37,7 +37,7 @@ public class SimAnnealingScheduler {
 		
 		rand = new Random();
 		
-		int totalSatScore = getTotalSatScore(studentsMap);
+		int totalSatScore = Driver.getTotalSatScore();
 		
 		//Create initial best score
 		bestSol = new Solution(inCourses,inStudents,totalSatScore);
@@ -65,7 +65,7 @@ public class SimAnnealingScheduler {
 		
 		rand = new Random();
 		
-		int totalSatScore = getTotalSatScore(studentsMap);
+		int totalSatScore = Driver.getTotalSatScore();
 		
 		//Create initial best score
 		bestSol = new Solution(inCourses,inStudents,totalSatScore);
@@ -479,19 +479,6 @@ public class SimAnnealingScheduler {
 		return toReturn;
 	}
 		
-	public static int getTotalSatScore(HashMap<Integer, Student> students)
-	{
-		int score = 0;
-		
-		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
-			{
-					Student stud = entry.getValue();
-					score += stud.satisfactionScore;
-			}
-		
-		//System.out.print("Initial Total score is: "+score);
-		return score;
-	}
 
 	//returns a min priority queue of all students in a course
 	private static PriorityQueue constructStudentHeapFromCourse(Course section)
