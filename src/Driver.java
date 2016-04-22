@@ -192,7 +192,8 @@ import java.util.HashMap;
 		//Generate students
 		students = FreshmanParser.parseFreshmen(courses);
 		//students = StudentGenerator.generateStudents(advisingCourses);
-		
+		//get advising courses
+		FreshmanParser.setAdvisingCourses(students, courses);
 		
 		//Generate Seminar Preferences
 		setStudentPrefsToSeminar();

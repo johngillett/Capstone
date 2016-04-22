@@ -61,7 +61,7 @@ public class FreshmanParser {
 			    	//System.out.println("Student with id " +id+ " was added");
 			    }
 			    
-			    //find advising course
+			    //find seminar course
 			    String[] course = data[1].split(" ");
 			    // course = "DEPT  NUM"
 			    String dept = course[0];
@@ -78,36 +78,36 @@ public class FreshmanParser {
 		    			currStudent.setActualSeminar(courseID);
 		    		}
 		    		
-				    ArrayList<Course> possibleCourses = courses.get(courseID);
-				    //for all sections
-				    for(Course courseSec : possibleCourses)
-				    {
-				    	if(!courseSec.hasRoom()) continue;
-				    	//if we found the section the student is in
-				    	if(courseSec.getSectionID().equals(section))
-				    	{
-				    		if (courseSec.isAdvising())
-				    		{
-				    			//System.out.println(courseSec.getTitle() + " is " + data[0] + "'s advising course");
-				    			Student currStudent = freshmen.get(id);
-				    			//if(!currStudent.hasCourse(courseSec.getID()))
-				    			if(!currStudent.hasAdvisingCourse())
-				    			{
-				  
-				    				boolean flag = currStudent.addIfFitsInSchedule(courseSec);
-				    				if(!flag) {
-				    					System.out.println(flag);
-				    					//System.out.println(courseSec.toString());
-				    				}
-				    				//courseSec.addStudent(currStudent);
-				    				currStudent.hasAdvisingCourse = true;
-				    				currStudent.lockCourse(courseSec.getID());
-				    				//System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
-				    				//numAdvisees ++;
-				    			}
-				    		}
-				    	}
-				    }
+//				    ArrayList<Course> possibleCourses = courses.get(courseID);
+//				    //for all sections
+//				    for(Course courseSec : possibleCourses)
+//				    {
+//				    	if(!courseSec.hasRoom()) continue;
+//				    	//if we found the section the student is in
+//				    	if(courseSec.getSectionID().equals(section))
+//				    	{
+//				    		if (courseSec.isAdvising())
+//				    		{
+//				    			//System.out.println(courseSec.getTitle() + " is " + data[0] + "'s advising course");
+//				    			Student currStudent = freshmen.get(id);
+//				    			//if(!currStudent.hasCourse(courseSec.getID()))
+//				    			if(!currStudent.hasAdvisingCourse())
+//				    			{
+//				  
+//				    				boolean flag = currStudent.addIfFitsInSchedule(courseSec);
+//				    				if(!flag) {
+//				    					System.out.println(flag);
+//				    					//System.out.println(courseSec.toString());
+//				    				}
+//				    				//courseSec.addStudent(currStudent);
+//				    				currStudent.hasAdvisingCourse = true;
+//				    				currStudent.lockCourse(courseSec.getID());
+//				    				//System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
+//				    				//numAdvisees ++;
+//				    			}
+//				    		}
+//				    	}
+//				    }
 			    }
 
 			    			   	
@@ -176,6 +176,65 @@ public class FreshmanParser {
 //		}
 		//System.out.println("There " + numStu + " students without advising classes");
 			
+	}
+	
+	public static void setAdvisingCourses(HashMap<Integer,Student> students, HashMap<String, ArrayList<Course>> courses){
+		try {			
+		FileReader input = new FileReader("freshmen_advising.txt");
+		BufferedReader bufRead = new BufferedReader(input);
+		String nextLine = null;
+	
+		//skip first line
+		bufRead.readLine();	
+		
+			//Line Format:
+			//0	     1  
+			//CSID   Advising Class
+		
+			//Typical Line:
+			//6730910,ARTS 101A
+		
+			//one line = one student's advising class
+			while ( (nextLine = bufRead.readLine()) != null)
+			{   
+			    String[] data = nextLine.split(",");
+			    
+			    int id = Integer.parseInt(data[0]);
+			  
+			    //skip those students who didn't input questionnaire responses
+			    if(!students.containsKey(id)) continue; 
+			    
+			    Student curr = students.get(id);
+			    
+			    //find advising course
+			    String[] courseArray = data[1].split(" ");
+			    // course = "DEPT  NUM+SEC"
+			    String dept = courseArray[0];
+			    String courseID = courseArray[1].substring(0, 3);
+			    String sectionID = courseArray[1].substring(3, 4);
+
+			    //add the actual course to the student's schedule
+			    ArrayList<Course> courseArrayList = courses.get(dept+courseID);
+			    for(Course sec : courseArrayList){
+			    	if(sec.isSameSection(sectionID)){
+			    		if(curr.addIfFitsInSchedule(sec)){
+			    			curr.hasAdvisingCourse = true;
+			    			curr.lockCourse(sec.getID());
+			    		}
+			    	}
+			    }
+			    
+			    			   	
+			}
+		
+		bufRead.close();
+		input.close();
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
 	}
 	
 	 

@@ -173,7 +173,7 @@ public class Student{
 			
 			if(!foundLab)
 			{
-
+				//System.out.println(this.id);
 				//System.out.println("\tNo available lab!");
 				return false;
 			}
@@ -502,12 +502,12 @@ public class Student{
 		
 		for(String id: this.prefs)
 		{
-		if(courseID.equals(id))
-		{
-			toReturn = curIndex;
-			break;
-		}
-		curIndex++;
+			if(courseID.equals(id))
+			{
+				toReturn = curIndex;
+				break;
+			}
+			curIndex++;
 		}
 		return toReturn;
 	}
