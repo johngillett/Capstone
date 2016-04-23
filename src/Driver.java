@@ -18,6 +18,7 @@ import java.util.HashMap;
 	static ArrayList<Course> advisingCourses;
 	static ArrayList<String> seminarCourses;
 	static ArrayList<String> regularCourses;
+	static ArrayList<ArrayList<String>> conflictingCourses;
 	static HashMap<Integer, Student> students;
 	static HashMap<String, Integer> freshmenCourseCounts;
 	static boolean doingSeminar;
@@ -184,6 +185,8 @@ import java.util.HashMap;
 				
 		setAdvisingCourses();	
 		
+		conflictingCourses = CourseParser.findConflictingCourses();
+		//System.out.println(CourseParser.courseConflicts(conflictingCourses, "MATH280", "MATH181"));
 	}
 	
 	/**

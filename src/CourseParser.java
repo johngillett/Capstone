@@ -319,6 +319,53 @@ public class CourseParser {
 		
 		return freshmenCourseCounts;
 	}
-	 
 	
+	
+	public static ArrayList<ArrayList<String>> findConflictingCourses(){
+		//for now, just make an arrayList of arrayLists,
+		//where each arrayList is courses that are mutually conflicting
+		ArrayList<ArrayList<String>> conflictingCourses = new ArrayList<ArrayList<String>>();
+		
+		try{			
+			FileReader input = new FileReader("course_conflicts.txt");
+			BufferedReader bufRead = new BufferedReader(input);
+			String nextLine = null;
+
+			while ( (nextLine = bufRead.readLine()) != null)
+			{ 
+				String[] line = nextLine.split(",");
+				ArrayList<String> lineOfConCourses = new ArrayList<String>();
+				for(int i = 0; i < line.length; i++){
+					lineOfConCourses.add(line[i]);
+				}
+				
+				conflictingCourses.add(lineOfConCourses);
+				
+			}
+			bufRead.close();
+			input.close();
+		}
+
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+
+		return conflictingCourses;
+	}
+	
+	public static boolean courseConflicts(ArrayList<ArrayList<String>> conflictingCourses, String course1, String course2)
+	{
+		for(ArrayList<String> list : conflictingCourses){
+			for(String c1 : list){
+				if(c1.equals(course1)){
+					for(String c2 : list){
+						if(c2.equals(course2)) return true;
+					}
+				}
+			}
+		}
+	return false;
+	}
+
 }
