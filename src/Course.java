@@ -80,6 +80,16 @@ public class Course{
 	
 	public void addLab(Course c)
 	{
+		for(Course l : this.labs)
+		{
+			if(c.isSameCourse(l) && l.isSameSection(c.getSectionID()))
+			{
+				//System.out.println("Repeat Lab: "+c.getID()+c.getSectionID()+", "+l.getID()+l.sectionID);
+				return;
+			}
+		}
+		
+		
 		c.isLab = true;
 		labs.add(c);
 		hasLab = true;
@@ -164,7 +174,24 @@ public class Course{
 	
 	public void addMeetingTime(ArrayList<Day> d)
 	{
-		schedule.addAll(d);
+		d1Loop:
+		for(Day d1 : d)
+		{
+			for(Day d2: this.schedule)
+			{
+				if(d1.day.equals(d2.day))
+				{
+					if(d1.startTime == d2.startTime && d1.endTime == d2.endTime)
+					//notRepeat = false;
+					continue d1Loop;
+				}
+				
+			}
+			
+			schedule.add(d1);				
+			
+		}
+		
 	}
 	
 	public boolean isLab()
@@ -194,6 +221,16 @@ public class Course{
 		
 	}
 
+	public String schedToString()
+	{
+		String toReturn = "";
+		for(Day d : schedule)
+		{
+			toReturn += d.toString()+" ";
+		}
+		return toReturn;
+		
+	}
 
 	public boolean hasStudent(Student stud2) 
 	{
@@ -215,8 +252,13 @@ public class Course{
 	}
 	
 	public boolean courseConflicts(String courseID){
+		
+		
 		for(String c : this.conflictingCourses){
-			if(courseID.equals(c)) return true;
+			if(courseID.equals(c)){
+				//System.out.println("FOUND A COURSE CONFLICT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				return true;
+			}
 		}
 		return false;
 	}

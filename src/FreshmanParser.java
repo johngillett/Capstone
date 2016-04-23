@@ -215,11 +215,14 @@ public class FreshmanParser {
 
 			    //add the actual course to the student's schedule
 			    ArrayList<Course> courseArrayList = courses.get(dept+courseID);
+			    advisingLoop:
 			    for(Course sec : courseArrayList){
 			    	if(sec.isSameSection(sectionID)){
 			    		if(curr.addIfFitsInSchedule(sec)){
+			    			curr.advisingCourse = sec;
 			    			curr.hasAdvisingCourse = true;
 			    			curr.lockCourse(sec.getID());
+			    			break advisingLoop;
 			    		}
 			    	}
 			    }

@@ -165,6 +165,9 @@ import java.util.HashMap;
 		
 		printSatisfactionScoreInfo();
 
+		ResultsWriter.writeResults(students);
+		ResultsWriter.writeCourseResults(courses);
+		
 	}
 	
 	/**

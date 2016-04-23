@@ -33,6 +33,8 @@ public class Student{
 	ArrayList<Course> toIgnore;
 	boolean hasAdvisingCourse;
 	
+	Course advisingCourse;
+	
 	String actualSeminar;
 	
 	//New Constructor
@@ -725,5 +727,48 @@ public class Student{
 	{
 		return this.actualSeminar;
 	}
+	
+	public String getEnrollmentString()
+	{
+		String toReturn ="\n\t";
+		
+		if(this.hasAdvisingCourse)
+		{
+			Course advisingCourse = this.courses.get(0);
+			if(!advisingCourse.isSeminar())
+			toReturn += "Advising Course: "+advisingCourse.getID()+advisingCourse.getSectionID()+": "+advisingCourse.schedToString();
+			else
+			toReturn += "Advising/Sem Course: "+advisingCourse.getID()+advisingCourse.getSectionID()+ ": "+advisingCourse.schedToString();
+				
+			
+		}
+		
+		toReturn += "\n\t";
+		
+		for(Course c: this.courses)
+		{
+			if(c.isSeminar() && !c.isAdvising)
+			{
+				toReturn += "Seminar: "+c.getID()+c.getSectionID()+": "+ c.schedToString();
+				break;
+			}
+		}
+		toReturn += "\n\tRemaining: ";
+		
+		for(Course c: this.courses)
+		{
+			
+			if(!c.isSeminar() && !c.isAdvising())
+			{
+				toReturn += c.getID()+c.getSectionID()+": "+c.schedToString()+",";
+			}
+		}
+		
+		return toReturn;
+		
+	}
+	
+
+	
 	
 }
