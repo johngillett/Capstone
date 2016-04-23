@@ -96,7 +96,7 @@ public class BarChartMaker extends ApplicationFrame
 	   final DefaultCategoryDataset dataset = new DefaultCategoryDataset( ); 
 	   
 	   // row keys
-       final String series1 = "Students Scheduled by Algorithm";
+       final String series1 = "Students Scheduled by Simulated Annealing Algorithm";
        final String series2 = "Students Scheduled in Fall 2015";
        final String series3 = "Students Scheduled by Greedy Algorithm";
        
@@ -123,7 +123,7 @@ public class BarChartMaker extends ApplicationFrame
    public static void makeBarChartPrefs(double[] prefCount,double[] prefCount2, String title)
    {
 	  boolean normalize = true;
-      BarChartMaker chart = new BarChartMaker(title, title, "Preference ID", "Percentage of Students", prefCount,prefCount2,1, normalize);
+      BarChartMaker chart = new BarChartMaker(title, title, "Preference Number", "Percentage of Students", prefCount,prefCount2,1, normalize);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
@@ -132,7 +132,7 @@ public class BarChartMaker extends ApplicationFrame
    public static void makeBarChartSemPrefs(double[] prefCount, double[] prefCount2, double[] actualPrefCount, String title)
    {
 	  boolean normalize = true;
-      BarChartMaker chart = new BarChartMaker(title, title, "Preference ID", "Percentage of Students", prefCount, prefCount2, actualPrefCount, 1, normalize);
+      BarChartMaker chart = new BarChartMaker(title, title, "Preference Number", "Percentage of Students", prefCount, prefCount2, actualPrefCount, 1, normalize);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
