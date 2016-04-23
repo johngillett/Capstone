@@ -9,9 +9,9 @@
 public class Constants 
 {
 
-	static final int NUM_STUDENTS = 652;
+	static final int NUM_STUDENTS = 646;
 	
-	static final int NUM_STUDENTS_AD_AS_SEM = 124;
+	static final int NUM_STUDENTS_AD_AS_SEM = 172;
 		
 	static final int STUD_COURSE_LIMIT = 4;
 	
@@ -32,6 +32,12 @@ public class Constants
 	static final int MIN_SAT_LINEAR_ADVISING = 1 + 2 + 3;
 	static final int MAX_SAT_LINEAR = (NUM_PREFS+1) * STUD_COURSE_LIMIT;
 	
+	// Min scores when considering Seminars only
+	static final int MIN_SAT_LINEAR_SEM = 1;
+	static final int MIN_SAT_LINEAR_SEM_ADVISING = 0;
+	
+	static final int TOT_SAT_TO_SEM_MOD = (NUM_STUDENTS_AD_AS_SEM *(3*(NUM_PREFS+1))) + ((NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)* (2*(NUM_PREFS+1)));
+	
 	static final int MIN_SAT_GEOMETRIC = 2 + 2 + 4;
 	static final int MIN_SAT_GEOMETRIC_ADVISING = 2 + 4 + 8;
 	static final int MAX_SAT_GEOMETRIC = (int) Math.pow(2,(NUM_PREFS+1))*STUD_COURSE_LIMIT;
@@ -44,6 +50,8 @@ public class Constants
 	//Simulated Annealing
 	//static final int LINEAR_OBJ_THRESHOLD = (int) (((NUM_PREFS * 4)-4) * ((double)NUM_STUDENTS/2.5f)); // multiplied by # students
 	static final int LINEAR_OBJ_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)*MIN_SAT_LINEAR;
+	
+	static final int LINEAR_OBJ_SEM_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_SEM_ADVISING + (NUM_STUDENTS - NUM_STUDENTS_AD_AS_SEM) * MIN_SAT_LINEAR_SEM;
 	
 	static final int GEOMETRIC_OBJ_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_GEOMETRIC_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)*MIN_SAT_GEOMETRIC;
 	

@@ -28,6 +28,7 @@ import java.util.HashMap;
 	static double[] prefCountSemGreedy;
 	static double[] satPerGreedy;
 	static int greedyTotalSat;
+	static int greedyTotalSemSat;
 	
 	public static void main(String[] args) {
 		
@@ -66,6 +67,8 @@ import java.util.HashMap;
 		//Preliminary Seminar Greedy Schedule
 		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
 		printSeminarInfo();
+		
+		greedyTotalSemSat = getTotalSatScore()-Constants.TOT_SAT_TO_SEM_MOD;
 		
 		System.out.println("Switching to Regular Courses.");
 		//Lock Current Placed courses
@@ -276,13 +279,15 @@ import java.util.HashMap;
 	 */
 	static void getAlgTrackerGraph()
 	{
-		int[] algTrackerSimResults = AlgTracker.getSimAnnealArray();
+		int[] algTrackerSimRegResults = AlgTracker.getSimAnnealRegArray();
+		int[] algTrackerSimSemResults = AlgTracker.getSimAnnealSemArray();
 		//BarChartMaker.makeAlgTrackerChart(algTrackerResults);
-		XYChartMaker.makeAlgTrackerChart(algTrackerSimResults);
+		XYChartMaker.makeAlgTrackerChart(algTrackerSimRegResults,false);
+		XYChartMaker.makeAlgTrackerChart(algTrackerSimSemResults,true);
+		
 		
 		//int[] algTrackerGreedResults = AlgTracker.getGreedyArray();
 		//XYChartMaker.makeAlgTrackerChart(algTrackerGreedResults);
-		
 		
 	}
 	

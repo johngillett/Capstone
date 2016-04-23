@@ -10,20 +10,23 @@ import java.util.ArrayList;
  */
 public class AlgTracker {
 
-	private static ArrayList<Integer> simAnnealingList;
+	private static ArrayList<Integer> simAnnealingSemList;
+	private static ArrayList<Integer> simAnnealingRegList;
 
 	private static ArrayList<Integer> greedyList;
 	
 	private static int simCounter;
 	private static int greedyCounter;
 	
-	
+
 	public static void init()
 	{
 		greedyCounter = 0;
 		simCounter = 0;
 		
-		simAnnealingList = new ArrayList<Integer>();
+		simAnnealingSemList = new ArrayList<Integer>();
+		simAnnealingRegList = new ArrayList<Integer>();
+		
 		greedyList = new ArrayList<Integer>();
 	}
 	
@@ -40,32 +43,51 @@ public class AlgTracker {
 	
 	public static void addSimAnnealEntry(int entry)
 	{
-		if(Driver.doingSeminar) return;
 		
 		simCounter++;	
 		
 		if(simCounter < Constants.TRACK_FIDELITY)	
 			return;
-
-		simAnnealingList.add(entry);
+		
+		if(!Driver.doingSeminar)
+			simAnnealingRegList.add(entry);
+		else
+		{
+			//System.out.println(entry-Constants.TOT_SAT_TO_SEM_MOD);
+			simAnnealingSemList.add(entry-Constants.TOT_SAT_TO_SEM_MOD);
+		}
 		simCounter = 0;
 	}
 		
 	
 	
-	public static int[] getSimAnnealArray()
+	public static int[] getSimAnnealRegArray()
 	{
-		int[] toReturn = new int[simAnnealingList.size()];
+		int[] toReturn = new int[simAnnealingRegList.size()];
 		
 
-		for(int i = 0; i < simAnnealingList.size();i++){
+		for(int i = 0; i < simAnnealingRegList.size();i++){
 			
-				toReturn[i] = simAnnealingList.get(i);
+				toReturn[i] = simAnnealingRegList.get(i);
 			}
 		
 		return toReturn;
 	}
 
+	public static int[] getSimAnnealSemArray()
+	{
+		int[] toReturn = new int[simAnnealingSemList.size()];
+		
+
+		for(int i = 0; i < simAnnealingSemList.size();i++){
+			
+				toReturn[i] = simAnnealingSemList.get(i);
+			}
+		
+		return toReturn;
+	}
+	
+	
 	public static int[] getGreedyArray()
 	{
 		int[] toReturn = new int[greedyList.size()];

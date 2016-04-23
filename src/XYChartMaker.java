@@ -24,14 +24,14 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
  */
 public class XYChartMaker extends ApplicationFrame 
 {
-   public XYChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, int[] prefCount, int toAdd )
+   public XYChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, int[] prefCount, boolean doingSem)
    {
       super(applicationTitle);
       JFreeChart xylineChart = ChartFactory.createXYLineChart(
          chartTitle ,
          xAxis ,
          yAxis ,
-         createDataset(prefCount, toAdd) ,
+         createDataset(prefCount,doingSem) ,
          PlotOrientation.VERTICAL ,
          true , true , false);
       
@@ -44,10 +44,13 @@ public class XYChartMaker extends ApplicationFrame
       setContentPane( chartPanel ); 
       
       ValueAxis yAxis1 = plot.getRangeAxis();
+      if(doingSem)
+      yAxis1.setRange(400,1350);
+      else
       yAxis1.setRange(2600, 5000);
    }
    
-   private XYDataset createDataset(int[] count, int toAdd )
+   private XYDataset createDataset(int[] count,boolean doingSem)
    {
 	   final XYSeries score = new XYSeries( "Total Satisfaction Score" );          
 
@@ -66,11 +69,15 @@ public class XYChartMaker extends ApplicationFrame
        int obj;
        if(Constants.SAT.equals(Constants.SAT_SCALE.Geometric))
        {
+    	   
     	   obj = Constants.GEOMETRIC_OBJ_THRESHOLD;
        }
        
        else
        {
+    	   if(doingSem)
+    		   obj = Constants.LINEAR_OBJ_SEM_THRESHOLD;
+    		   else
     	   obj = Constants.LINEAR_OBJ_THRESHOLD;
        }
        
@@ -82,6 +89,9 @@ public class XYChartMaker extends ApplicationFrame
        final XYSeries greedy = new XYSeries("Result of Greedy Algorithm");
        for(int i= 0; i < count.length; i++)
        {
+    	   if(doingSem)
+    		   greedy.add(i,Driver.greedyTotalSemSat);
+    	   else
     	   greedy.add(i, Driver.greedyTotalSat);
        }
        
@@ -92,12 +102,23 @@ public class XYChartMaker extends ApplicationFrame
       return dataset; 
    }
 
-   public static void makeAlgTrackerChart(int[] satCount)
+   public static void makeAlgTrackerChart(int[] satCount, boolean doingSem)
    {
-      XYChartMaker chart = new XYChartMaker("Progression of Simulated Annealing Approach", "Progression of Simulated Annealing Approach", "Time", "Total Satisfaction Score",satCount,Constants.MIN_SAT_LINEAR);
+	  if(!doingSem)
+      {
+	  XYChartMaker chart = new XYChartMaker("Progression of our Algorithm on Regular Courses", "Progression of our Algorithm on Regular Courses", "Time", "Total Satisfaction Score",satCount,doingSem);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
-   }
    
+      }
+	  else
+	  {
+		  XYChartMaker chart = new XYChartMaker("Progression of our Algorithm on Seminars", "Progression of our Algorithm on Seminars", "Time", "Total Satisfaction Score",satCount,doingSem);
+	      chart.pack( );        
+	      RefineryUtilities.centerFrameOnScreen( chart );        
+	      chart.setVisible( true ); 
+	     
+	  }
+   }
 }
