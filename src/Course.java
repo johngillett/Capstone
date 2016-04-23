@@ -32,6 +32,8 @@ public class Course{
 	
 	ArrayList<Student> students;
 	
+	ArrayList<String> conflictingCourses;
+	
 	int minSize;
 	int maxSize;
 	
@@ -60,6 +62,8 @@ public class Course{
 		this.students = new ArrayList<Student>();
 		
 		this.labs = new ArrayList<Course>();
+		
+		this.conflictingCourses = new ArrayList<String>();
 		
 		this.hasLab = false;
 		this.isLab = false;
@@ -206,5 +210,15 @@ public class Course{
 		return this.isAdvising;
 	}
 	
+	public void addToConflictingCourses(String courseID){
+		this.conflictingCourses.add(courseID);
+	}
+	
+	public boolean courseConflicts(String courseID){
+		for(String c : this.conflictingCourses){
+			if(courseID.equals(c)) return true;
+		}
+		return false;
+	}
 	
 }

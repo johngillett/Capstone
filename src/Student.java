@@ -103,6 +103,11 @@ public class Student{
 		//System.out.println(courseToCheck);
 		//System.out.println(this);
 		
+		//can't enroll in a course that would conflict with another course
+		for(Course course : courses){
+			if(course.courseConflicts(courseToCheck.getID())) return false;
+		}
+		
 		for(Day day1 : schedule)
 		{
 			for(Day day2 : courseToCheck.schedule)
@@ -447,10 +452,16 @@ public class Student{
 		}
 		
 		//finding non-enrolled preferred courses that are compatible with their schedule
+		prefLoop:
 		for(String id : this.prefs)
 		{
 			if(id.equals(Constants.NULL_PREF) || this.hasCourse(id) || idToSkip.equals(id))
 				continue;
+			
+			//don't add courses that conflict with existing schedule
+			for(Course c : courses){
+				if(c.courseConflicts(id)) continue prefLoop;
+			}
 			
 			ArrayList<Course> curPrefSections = hashCourses.get(id);
 			

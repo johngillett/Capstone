@@ -15,6 +15,7 @@ import java.util.HashMap;
  *
  */
 public class CourseParser {
+	static ArrayList<ArrayList<String>> conflictingCourses;
 
 	/**
 	 * Parses a set text file assumed to be comma-delimited
@@ -321,10 +322,10 @@ public class CourseParser {
 	}
 	
 	
-	public static ArrayList<ArrayList<String>> findConflictingCourses(){
+	public static void findConflictingCourses(){
 		//for now, just make an arrayList of arrayLists,
 		//where each arrayList is courses that are mutually conflicting
-		ArrayList<ArrayList<String>> conflictingCourses = new ArrayList<ArrayList<String>>();
+		conflictingCourses = new ArrayList<ArrayList<String>>();
 		
 		try{			
 			FileReader input = new FileReader("course_conflicts.txt");
@@ -350,22 +351,33 @@ public class CourseParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-
-		return conflictingCourses;
 	}
 	
-	public static boolean courseConflicts(ArrayList<ArrayList<String>> conflictingCourses, String course1, String course2)
-	{
+//	public static boolean courseConflicts(String course1, String course2)
+//	{
+//		for(ArrayList<String> list : conflictingCourses){
+//			for(String c1 : list){
+//				if(c1.equals(course1)){
+//					for(String c2 : list){
+//						if(c2.equals(course2)) return true;
+//					}
+//				}
+//			}
+//		}
+//	return false;
+//	}
+	
+	public static void setConflictingCourses(HashMap<String,ArrayList<Course>> courses){
 		for(ArrayList<String> list : conflictingCourses){
 			for(String c1 : list){
-				if(c1.equals(course1)){
-					for(String c2 : list){
-						if(c2.equals(course2)) return true;
+				ArrayList<Course> sections = courses.get(c1);
+				for(Course c2 : sections){
+					for(String c3 : list){
+						c2.addToConflictingCourses(c3);
 					}
 				}
 			}
 		}
-	return false;
-	}
 
+	}
 }

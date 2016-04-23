@@ -415,8 +415,6 @@ public class SimAnnealingScheduler {
 		
 			for(Course s : sections)
 			{
-				
-				
 				if(s.hasRoom() && stud2.addIfFitsInSchedule(s))
 				{
 					foundCourse = true;
@@ -445,6 +443,7 @@ public class SimAnnealingScheduler {
 		toCheck.IgnorePrefCourse(toMask);
 		
 		//check following preferred courses 
+		prefLoop:
 		for(int i = 0; i< toCheck.prefs.length;i++)
 		{
 		
@@ -452,7 +451,9 @@ public class SimAnnealingScheduler {
 				continue;
 			
 			//System.out.println(toCheck.prefs[i]+", "+i);
-			
+			for(Course c : toCheck.courses){
+				if(c.courseConflicts(toCheck.prefs[i])) continue prefLoop;
+			}
 			
 			ArrayList<Course> sections = courses.get(toCheck.prefs[i]);
 			
