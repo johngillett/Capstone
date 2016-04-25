@@ -36,52 +36,57 @@ public class ResultsWriter {
 				}
 				else
 				{
-				if(stud.advisingIsSeminar())
-				writer.write("\tAdvising/Sem:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
-				else
-				writer.write("\tAdvising:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
+					if(stud.advisingIsSeminar()){
+						if(!(stud.advisingCourse.getID().charAt(0)=='S')){
+							System.out.println("!!!!!!!!!! Student " + stud.id + " has " + stud.advisingCourse.getID());
+						}
+						writer.write("\tAdvising/Sem:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
+
+					}
+					else
+						writer.write("\tAdvising:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
 				}	
 				writer.newLine();
-				
+
 				if(!stud.advisingIsSeminar())
-				for(Course c: stud.courses)
-				{
-					if(stud.hasAdvisingCourse && c.isSameCourse(stud.advisingCourse))
-						continue;
-					
-					if(c.isSeminar)
+					for(Course c: stud.courses)
 					{
-					writer.write("\tSeminar:\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
-					writer.newLine();
+						if(stud.hasAdvisingCourse && c.isSameCourse(stud.advisingCourse))
+							continue;
+
+						if(c.isSeminar)
+						{
+							writer.write("\tSeminar:\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
+							writer.newLine();
+						}
 					}
-				}
-				
+
 				for(Course c: stud.courses)
 				{
 					if(stud.hasAdvisingCourse && c.isSameCourse(stud.advisingCourse))
 						continue;
-					
+
 					if(!c.isSeminar)
 					{
 						writer.write("\t\t\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
-					writer.newLine();
+						writer.newLine();
 					}
 				}
-				
+
 				writer.newLine();
 			}
-			
-	
-			
+
+
+
 			writer.close();
-			
-			
-			
-			
+
+
+
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void writeCourseResults(HashMap<String,ArrayList<Course>> courses)

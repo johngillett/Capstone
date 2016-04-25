@@ -689,21 +689,13 @@ public class Student{
 				newScore += (4 - classCount) * (Constants.NUM_PREFS+1);
 			}
 		}
-		
 		this.satisfactionScore = newScore;
-			
-		
-		
 	}
 	
-	public boolean advisingIsSeminar()
-	{
-		for(Course c : courses)
-		{
-			if(c.isSeminar() && c.isAdvising())
-				return true;
+	public boolean advisingIsSeminar(){
+		if(this.hasAdvisingCourse){
+			return this.advisingCourse.isSeminar();
 		}
-		
 		return false;
 	}
 	

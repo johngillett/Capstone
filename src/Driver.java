@@ -47,6 +47,7 @@ import java.util.HashMap;
 
 		//Results
 		PrintOutDataInfo();
+		
 	}
 	
 	/**
@@ -251,7 +252,7 @@ import java.util.HashMap;
 			double[] satCount = getLinearSatCount(students);
 			double[] satPer = getLinearSatPer(satCount);
 			//BarChartMaker.makeBarChartScores(satCount, doingSeminar,false);
-			boolean normalize = true;
+			boolean normalize = false;
 			BarChartMaker.makeBarChartScores(satPer,satPerGreedy,normalize);
 		}
 		
@@ -365,10 +366,14 @@ import java.util.HashMap;
 		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
 			ArrayList<Course> sections = entry.getValue();
 			
-			for(Course section : sections)
+			for(Course section : sections){
 				System.out.println(section);
+
+			}
 		}	
 	}
+	
+	
 	
 	/**
 	 * Prints only courses that are seminars
@@ -378,11 +383,13 @@ import java.util.HashMap;
 		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
 			ArrayList<Course> sections = entry.getValue();
 			
-			if(!sections.get(0).isSeminar)
-				continue;
+//			if(!sections.get(0).isSeminar)
+//				continue;
 			
-			for(Course section : sections)
-				System.out.println(section);
+			for(Course section : sections){
+				if(section.isSeminar()) System.out.println(section);
+
+			}
 		}	
 	}
 	
