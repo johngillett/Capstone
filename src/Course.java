@@ -128,11 +128,18 @@ public class Course{
 			for(Day dayCourse2 : course.schedule)
 			{
 				//if course falls on same day
-				if(dayCourse1.day.equals(dayCourse2.day))
+				if(dayCourse1.day ==dayCourse2.day)
 				{
 					//if one course starts & ends before another, then it is compatible, otherwise it isn't
 					if(!((dayCourse1.startTime < dayCourse2.startTime && dayCourse1.endTime < dayCourse2.startTime ) || (dayCourse2.startTime < dayCourse1.startTime && dayCourse2.endTime < dayCourse1.startTime)))
 						return false;
+					
+					if((dayCourse1.startTime < dayCourse2.endTime && dayCourse1.startTime > dayCourse2.startTime) || (dayCourse1.endTime > dayCourse2.startTime && dayCourse1.endTime < dayCourse2.endTime))
+						return false;
+					
+					if(dayCourse1.startTime == dayCourse2.startTime)
+						return false;
+					
 				}
 			}
 		}

@@ -114,16 +114,8 @@ public class Student{
 		{
 			for(Day day2 : courseToCheck.schedule)
 			{
-				//if course falls on same day
-				if(day1.day.equals(day2.day))
-				{
-					//if one course starts & ends before another, then it is compatible, otherwise it isn't
-					if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
-					{	
-						//System.out.println("\tMain course conflict!");
-						return false;
-					}
-				}
+				if(!Day.isConflictFree(day1, day2))
+					return false;
 			}
 		}
 		
@@ -150,15 +142,10 @@ public class Student{
 				{
 					for(Day day2 : lab.schedule)
 					{
-						//if course falls on same day
-						if(day1.day.equals(day2.day))
-						{
-							//if one course starts & ends before another, then it is compatible, otherwise it isn't
-							if(((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
-							{	
-							noConflicts = false;
-							break;
-							}
+						if(!Day.isConflictFree(day1, day2))
+						{	
+						noConflicts = false;
+						break;
 						}
 					
 					}
@@ -249,13 +236,8 @@ public class Student{
 		{
 			for(Day day2 : courseToCheck.schedule)
 			{
-				//if course falls on same day
-				if(day1.day.equals(day2.day))
-				{
-					//if one course starts & ends before another, then it is compatible, otherwise it isn't
-					if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
-						return false;
-				}
+				if(!Day.isConflictFree(day1, day2))
+					return false;
 			}
 		}
 		
@@ -266,6 +248,7 @@ public class Student{
 			
 			boolean foundLab = false;
 			
+			labLoop:
 			for(Course lab : labs)
 			{
 				if(!lab.hasRoom())
@@ -277,15 +260,11 @@ public class Student{
 				{
 					for(Day day2 : lab.schedule)
 					{
-						//if course falls on same day
-						if(day1.day.equals(day2.day))
+
+						if(!Day.isConflictFree(day1, day2))
 						{
-							//if one course starts & ends before another, then it is compatible, otherwise it isn't
-							if(((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
-							{	
-							noConflicts = false;
-							break;
-							}
+						noConflicts = false;
+						break;
 						}
 					
 					}

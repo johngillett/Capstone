@@ -47,6 +47,7 @@ import java.util.HashMap;
 
 		//Results
 		PrintOutDataInfo();
+		VerifyResults();
 		
 	}
 	
@@ -153,18 +154,18 @@ import java.util.HashMap;
 	private static void PrintOutDataInfo()
 	{
 
-		printSeminarInfo();
+		//printSeminarInfo();
 		
-		printCourseData();
+		//printCourseData();
 		
 		getGraphs();
 		getAlgTrackerGraph();
 		
-		printStudents();
+		//printStudents();
 		//printCourses();
 		//printFreshmenCourseCountTotal();
 		
-		printSatisfactionScoreInfo();
+		//printSatisfactionScoreInfo();
 
 		ResultsWriter.writeResults(students);
 		ResultsWriter.writeCourseResults(courses);
@@ -295,6 +296,11 @@ import java.util.HashMap;
 		//int[] algTrackerGreedResults = AlgTracker.getGreedyArray();
 		//XYChartMaker.makeAlgTrackerChart(algTrackerGreedResults);
 		
+	}
+	
+	static void VerifyResults()
+	{
+		ResultsTester.verifySchedules(students);
 	}
 	
 	/**
