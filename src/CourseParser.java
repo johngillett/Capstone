@@ -134,8 +134,20 @@ public class CourseParser {
 				   				toCheck = courseList.get(prevID);
 				   			}
 				   			
+				   			addLabLoop:
 				   			for(Course cs: coursesWithSameLab)
 				   			{
+				   				for(Day d1 : cs.schedule)
+				   				{
+				   					for(Day d2: newLab.schedule)
+				   					{
+				   						if(!Day.isConflictFree(d1, d2))
+				   							continue addLabLoop;
+				   						
+				   					}
+				   				}
+				   					
+				   					
 				   				cs.addLab(newLab);
 				   			}
 				   			

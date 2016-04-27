@@ -70,7 +70,7 @@ import java.util.HashMap;
 		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
 		printSeminarInfo();
 		
-		greedyTotalSemSat = getTotalSatScore()-Constants.TOT_SAT_TO_SEM_MOD;
+		greedyTotalSemSat = getTotalSatScore();//-Constants.TOT_SAT_TO_SEM_MOD;
 		
 		System.out.println("Switching to Regular Courses.");
 		//Lock Current Placed courses
