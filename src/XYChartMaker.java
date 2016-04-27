@@ -45,9 +45,9 @@ public class XYChartMaker extends ApplicationFrame
       
       ValueAxis yAxis1 = plot.getRangeAxis();
       if(doingSem)
-    	  yAxis1.setRange(400,1350);
-//      else
-//    	  yAxis1.setRange(2600, 5000);
+    	  yAxis1.setRange(10500,12000);
+      else
+    	  yAxis1.setRange(2600, 5000);
    }
    
    private XYDataset createDataset(int[] count,boolean doingSem)
@@ -80,8 +80,8 @@ public class XYChartMaker extends ApplicationFrame
        else
        {
     	   if(doingSem){
-    		   obj = Constants.LINEAR_OBJ_SEM_THRESHOLD;
-    		   max = 0;
+    		   obj = Constants.TOT_SAT_TO_SEM_MOD + Constants.LINEAR_OBJ_SEM_THRESHOLD;
+    		   max = Constants.LINEAR_OBJ_MAX_THRESHOLD;
     	   }
 
     	   else{
@@ -107,9 +107,9 @@ public class XYChartMaker extends ApplicationFrame
        }
        
       final XYSeriesCollection dataset = new XYSeriesCollection( );          
+      dataset.addSeries(greedy);
       dataset.addSeries( score );   
       dataset.addSeries( objective );
-      dataset.addSeries(greedy);
       dataset.addSeries(maxSeries);
       return dataset; 
    }
@@ -118,7 +118,7 @@ public class XYChartMaker extends ApplicationFrame
    {
 	  if(!doingSem)
       {
-	  XYChartMaker chart = new XYChartMaker("Progression of our Algorithm on Regular Courses", "Progression of our Algorithm on Regular Courses", "Time", "Total Satisfaction Score",satCount,doingSem);
+	  XYChartMaker chart = new XYChartMaker("Progression of our Algorithm on Regular Courses", "Progression of our Algorithm on Regular Courses", "Iterations", "Total Satisfaction Score",satCount,doingSem);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
@@ -126,7 +126,7 @@ public class XYChartMaker extends ApplicationFrame
       }
 	  else
 	  {
-		  XYChartMaker chart = new XYChartMaker("Progression of our Algorithm on Seminars", "Progression of our Algorithm on Seminars", "Time", "Total Satisfaction Score",satCount,doingSem);
+		  XYChartMaker chart = new XYChartMaker("Progression of our Algorithm on Seminars", "Progression of our Algorithm on Seminars", "Iterations", "Total Satisfaction Score",satCount,doingSem);
 	      chart.pack( );        
 	      RefineryUtilities.centerFrameOnScreen( chart );        
 	      chart.setVisible( true ); 

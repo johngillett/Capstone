@@ -78,7 +78,7 @@ public class Constants
 	static final float INIT_TEMP_VAL = 1f;
 	static final float TEMP_SCALE_FACTOR = .9f;
 
-	static final float MIN_TEMP = 0.075f;
+	static final float MIN_TEMP = 0.0001f;
 
 	static final int ITERS_BEFORE_TEMP_SCALE = 1000;
 	

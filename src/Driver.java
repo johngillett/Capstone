@@ -30,6 +30,10 @@ import java.util.HashMap;
 	static int greedyTotalSat;
 	static int greedyTotalSemSat;
 	
+	//time results
+	static float semSchedTime;
+	static float regSchedTime;
+	
 	public static void main(String[] args) {
 		
 		//Setup
@@ -116,6 +120,8 @@ import java.util.HashMap;
 		
 		long startTime = System.currentTimeMillis();
 		
+		long semStartTime = System.currentTimeMillis();
+		
 		//Set to Seminar mode
 		setStudentPrefsToSeminar();
 		
@@ -130,10 +136,17 @@ import java.util.HashMap;
 		
 		printSeminarInfo();
 		
+		long semEndTime = System.currentTimeMillis();
+		
+		
+		semSchedTime = (float)(semEndTime - semStartTime)/1000;
+		
 		System.out.println("Switching to Regular Courses.");
 		//Lock Current Placed courses
 		lockAllStudentSeminarCourses();
 		setStudentPrefsToRegular();
+		
+		long regStartTime = System.currentTimeMillis();
 		
 		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
 			
@@ -143,7 +156,11 @@ import java.util.HashMap;
 		
 		float resTime = (float)(endTime - startTime)/1000;
 		
-		System.out.println("Scheduler ran in "+resTime+" seconds.");
+		long regEndTime = System.currentTimeMillis();
+		
+		regSchedTime = (float)(regEndTime - regStartTime)/1000;
+		
+		System.out.println("Scheduler ran in "+resTime+" seconds. Seminars took "+semSchedTime+" seconds, regulars took "+regSchedTime+ " seconds");
 		
 		
 	}

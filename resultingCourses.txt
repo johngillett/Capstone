@@ -4,15 +4,14 @@ PHIL101B, M: 1500-1550 W: 1500-1550 F: 1500-1550 , Introduction to Philosophy, #
 
 SSI1171A, M: 1300-1350 W: 1300-1350 F: 1300-1350 , Medical Discourse and the Body, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
-PHYS121A, M: 1000-1050 T: 1000-1050 W: 1000-1050 F: 1000-1050 , General University Physics, # Enrolled: 42/44, with 15 freshmen. Has room: true
-		PHYS121DD, W: 1300-1530 , General University Physics, # Enrolled: 20/24, with 26 freshmen. Has room: true
-		PHYS121EE, Th: 1300-1530 , General University Physics, # Enrolled: 10/24, with 1 freshmen. Has room: true
-		PHYS121FF, F: 1400-1630 , General University Physics, # Enrolled: 18/24, with 7 freshmen. Has room: true
+PHYS121A, M: 1000-1050 T: 1000-1050 W: 1000-1050 F: 1000-1050 , General University Physics, # Enrolled: 44/44, with 17 freshmen. Has room: false
+		PHYS121DD, W: 1300-1530 , General University Physics, # Enrolled: 18/24, with 24 freshmen. Has room: true
+		PHYS121EE, Th: 1300-1530 , General University Physics, # Enrolled: 16/24, with 4 freshmen. Has room: true
+		PHYS121FF, F: 1400-1630 , General University Physics, # Enrolled: 17/24, with 6 freshmen. Has room: true
 
-PHYS121B, M: 1200-1250 F: 1200-1250 T: 1230-1320 Th: 1230-1320 , General University Physics, # Enrolled: 33/44, with 19 freshmen. Has room: true
-		PHYS121DD, W: 1300-1530 , General University Physics, # Enrolled: 20/24, with 26 freshmen. Has room: true
-		PHYS121EE, Th: 1300-1530 , General University Physics, # Enrolled: 10/24, with 1 freshmen. Has room: true
-		PHYS121FF, F: 1400-1630 , General University Physics, # Enrolled: 18/24, with 7 freshmen. Has room: true
+PHYS121B, M: 1200-1250 F: 1200-1250 T: 1230-1320 Th: 1230-1320 , General University Physics, # Enrolled: 31/44, with 17 freshmen. Has room: true
+		PHYS121DD, W: 1300-1530 , General University Physics, # Enrolled: 18/24, with 24 freshmen. Has room: true
+		PHYS121FF, F: 1400-1630 , General University Physics, # Enrolled: 17/24, with 6 freshmen. Has room: true
 
 SSI1175A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Utopia and the Imagination, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
@@ -22,9 +21,9 @@ SSI1174A, M: 900-950 W: 900-950 F: 900-950 , Lethal Othering, # Enrolled: 17/17,
 
 SSI1172A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Science & Romantic Revolutions, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
-SPAN300A, T: 1100-1220 Th: 1100-1220 , "Literature Theory & Practice", # Enrolled: 13/20, with 4 freshmen. Has room: true
+SPAN300A, T: 1100-1220 Th: 1100-1220 , "Literature Theory & Practice", # Enrolled: 14/20, with 5 freshmen. Has room: true
 
-SPAN300B, T: 1230-1350 Th: 1230-1350 , "Literature Theory & Practice", # Enrolled: 10/20, with 3 freshmen. Has room: true
+SPAN300B, T: 1230-1350 Th: 1230-1350 , "Literature Theory & Practice", # Enrolled: 9/20, with 2 freshmen. Has room: true
 
 SSI1179A, M: 1400-1520 W: 1400-1520 , Women and Power in Byzantium, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
@@ -46,15 +45,15 @@ MATH180A, M: 800-850 T: 800-850 Th: 800-850 F: 800-850 , Calculus & Analytic Geo
 
 MATH180B, M: 900-950 F: 900-950 T: 930-1020 Th: 930-1020 , Calculus & Analytic Geometry I, # Enrolled: 24/24, with 11 freshmen. Has room: false
 
-MATH180C, M: 1000-1050 W: 1000-1050 F: 1000-1050 T: 930-1050 , Calculus & Analytic Geometry I, # Enrolled: 19/20, with 19 freshmen. Has room: true
+MATH180C, M: 1000-1050 W: 1000-1050 F: 1000-1050 T: 930-1050 , Calculus & Analytic Geometry I, # Enrolled: 20/20, with 20 freshmen. Has room: false
 
-MATH180D, M: 1100-1150 W: 1100-1150 F: 1100-1150 T: 1100-1220 , Calculus & Analytic Geometry I, # Enrolled: 24/24, with 9 freshmen. Has room: false
+MATH180D, M: 1100-1150 W: 1100-1150 F: 1100-1150 T: 1100-1220 , Calculus & Analytic Geometry I, # Enrolled: 23/24, with 8 freshmen. Has room: true
 
-MATH180E, M: 1200-1250 F: 1200-1250 T: 1300-1350 Th: 1300-1350 , Calculus & Analytic Geometry I, # Enrolled: 18/24, with 12 freshmen. Has room: true
+MATH180E, M: 1200-1250 F: 1200-1250 T: 1300-1350 Th: 1300-1350 , Calculus & Analytic Geometry I, # Enrolled: 20/24, with 14 freshmen. Has room: true
 
-MATH180F, M: 1300-1350 F: 1300-1350 T: 1230-1320 Th: 1230-1320 , Calculus & Analytic Geometry I, # Enrolled: 15/24, with 4 freshmen. Has room: true
+MATH180F, M: 1300-1350 F: 1300-1350 T: 1230-1320 Th: 1230-1320 , Calculus & Analytic Geometry I, # Enrolled: 13/24, with 2 freshmen. Has room: true
 
-MATH181A, M: 900-950 F: 900-950 T: 1000-1050 Th: 930-1050 , Calculus/Analytic Geometry II, # Enrolled: 13/24, with 9 freshmen. Has room: true
+MATH181A, M: 900-950 F: 900-950 T: 1000-1050 Th: 930-1050 , Calculus/Analytic Geometry II, # Enrolled: 14/24, with 10 freshmen. Has room: true
 
 MATH181B, M: 900-950 W: 900-950 F: 900-950 Th: 930-1050 , Calculus/Analytic Geometry II, # Enrolled: 15/20, with 9 freshmen. Has room: true
 
@@ -84,19 +83,19 @@ PG102A, T: 1230-1350 Th: 1230-1350 , Intro to Comparative Politics, # Enrolled: 
 
 PG102B, T: 1400-1520 Th: 1400-1520 , Intro to Comparative Politics, # Enrolled: 16/28, with 11 freshmen. Has room: true
 
-PG102C, T: 1530-1650 Th: 1530-1650 , Intro to Comparative Politics, # Enrolled: 12/28, with 5 freshmen. Has room: true
+PG102C, T: 1530-1650 Th: 1530-1650 , Intro to Comparative Politics, # Enrolled: 13/28, with 6 freshmen. Has room: true
 
 MUS205A, M: 1500-1550 W: 1500-1550 , Class Piano I, # Enrolled: 5/10, with 4 freshmen. Has room: true
 
 PG103A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Intro International Relations, # Enrolled: 28/28, with 13 freshmen. Has room: false
 
-PG103B, T: 930-1050 Th: 930-1050 , Intro International Relations, # Enrolled: 28/28, with 20 freshmen. Has room: false
+PG103B, T: 930-1050 Th: 930-1050 , Intro International Relations, # Enrolled: 26/28, with 18 freshmen. Has room: true
 
-PG103C, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Intro International Relations, # Enrolled: 15/28, with 7 freshmen. Has room: true
+PG103C, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Intro International Relations, # Enrolled: 16/28, with 8 freshmen. Has room: true
 
 PG103D, T: 1230-1350 Th: 1230-1350 , Intro International Relations, # Enrolled: 13/28, with 7 freshmen. Has room: true
 
-ENGL245A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Shakespeare: Script to Stage, # Enrolled: 17/20, with 9 freshmen. Has room: true
+ENGL245A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Shakespeare: Script to Stage, # Enrolled: 16/20, with 8 freshmen. Has room: true
 
 HON212A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Origins of the Modern World, # Enrolled: 17/28, with 0 freshmen. Has room: true
 		HON212AA, M: 1300-1530 , Origins of the Modern World, # Enrolled: 5/14, with 0 freshmen. Has room: true
@@ -124,9 +123,9 @@ PSYC101D, T: 1230-1350 Th: 1230-1350 , Introductory Psychology, # Enrolled: 20/2
 
 SSI1160A, M: 1400-1450 W: 1400-1450 F: 1400-1450 , Dilemmas of Statecraft, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
-CHEM115A, M: 1100-1150 T: 1100-1150 Th: 1100-1150 F: 1100-1150 , Integrated Chemical Principles, # Enrolled: 23/36, with 23 freshmen. Has room: true
+CHEM115A, M: 1100-1150 T: 1100-1150 Th: 1100-1150 F: 1100-1150 , Integrated Chemical Principles, # Enrolled: 25/36, with 25 freshmen. Has room: true
 		CHEM115AA, M: 1400-1650 , Integrated Chemical Principles, # Enrolled: 18/18, with 18 freshmen. Has room: false
-		CHEM115AB, T: 1300-1550 , Integrated Chemical Principles, # Enrolled: 5/18, with 5 freshmen. Has room: true
+		CHEM115AB, T: 1300-1550 , Integrated Chemical Principles, # Enrolled: 7/18, with 7 freshmen. Has room: true
 
 EXSC222A, T: 800-920 Th: 800-920 , Human Anatomy, # Enrolled: 47/60, with 0 freshmen. Has room: true
 		EXSC222AA, M: 800-1050 , Human Anatomy, # Enrolled: 14/15, with 0 freshmen. Has room: true
@@ -134,7 +133,7 @@ EXSC222A, T: 800-920 Th: 800-920 , Human Anatomy, # Enrolled: 47/60, with 0 fres
 		EXSC222AC, M: 1400-1650 , Human Anatomy, # Enrolled: 14/15, with 0 freshmen. Has room: true
 		EXSC222AD, T: 930-1220 , Human Anatomy, # Enrolled: 6/15, with 0 freshmen. Has room: true
 
-HIST153A, T: 1100-1220 Th: 1100-1220 , American Experiences II, # Enrolled: 26/28, with 22 freshmen. Has room: true
+HIST153A, T: 1100-1220 Th: 1100-1220 , American Experiences II, # Enrolled: 28/28, with 24 freshmen. Has room: false
 
 REL234A, M: 1400-1520 W: 1400-1520 , Chinese Religious Traditions, # Enrolled: 22/28, with 4 freshmen. Has room: true
 
@@ -146,7 +145,7 @@ SSI1165A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Never Really Alone, # Enrolle
 
 ARTS147A, M: 1400-1650 W: 1400-1650 , History of Ceramics, # Enrolled: 11/15, with 6 freshmen. Has room: true
 
-PHIL215A, T: 1400-1520 Th: 1400-1520 , Ancient Philosophy, # Enrolled: 26/28, with 6 freshmen. Has room: true
+PHIL215A, T: 1400-1520 Th: 1400-1520 , Ancient Philosophy, # Enrolled: 27/28, with 7 freshmen. Has room: true
 
 ARTH278A, M: 900-950 W: 900-950 F: 900-950 , Survey of Asian Art, # Enrolled: 30/28, with 0 freshmen. Has room: false
 
@@ -159,24 +158,24 @@ CHEM110B, M: 800-850 T: 800-850 Th: 800-850 F: 800-850 , General Chemistry I, # 
 		CHEM110BB, Th: 1300-1550 , General Chemistry I, # Enrolled: 18/18, with 17 freshmen. Has room: false
 
 CHEM110C, M: 1000-1050 T: 1000-1050 Th: 1000-1050 F: 1000-1050 , General Chemistry I, # Enrolled: 29/36, with 19 freshmen. Has room: true
-		CHEM110CA, M: 1800-2050 , General Chemistry I, # Enrolled: 18/18, with 13 freshmen. Has room: false
-		CHEM110CB, T: 1300-1550 , General Chemistry I, # Enrolled: 9/18, with 6 freshmen. Has room: true
+		CHEM110CA, M: 1800-2050 , General Chemistry I, # Enrolled: 17/18, with 12 freshmen. Has room: true
+		CHEM110CB, T: 1300-1550 , General Chemistry I, # Enrolled: 10/18, with 7 freshmen. Has room: true
 
-CHEM110D, M: 1100-1150 T: 1100-1150 Th: 1100-1150 F: 1100-1150 , General Chemistry I, # Enrolled: 34/36, with 28 freshmen. Has room: true
+CHEM110D, M: 1100-1150 T: 1100-1150 Th: 1100-1150 F: 1100-1150 , General Chemistry I, # Enrolled: 30/36, with 24 freshmen. Has room: true
 		CHEM110DA, Th: 1800-2050 , General Chemistry I, # Enrolled: 18/18, with 15 freshmen. Has room: false
-		CHEM110DB, F: 1300-1550 , General Chemistry I, # Enrolled: 18/18, with 13 freshmen. Has room: false
+		CHEM110DB, F: 1300-1550 , General Chemistry I, # Enrolled: 14/18, with 9 freshmen. Has room: true
 
 CHEM110E, M: 1200-1250 F: 1200-1250 T: 1230-1320 Th: 1230-1320 , General Chemistry I, # Enrolled: 35/36, with 29 freshmen. Has room: true
 		CHEM110EA, Th: 1800-2050 , General Chemistry I, # Enrolled: 18/18, with 18 freshmen. Has room: false
 		CHEM110EB, F: 1400-1650 , General Chemistry I, # Enrolled: 17/18, with 11 freshmen. Has room: true
 
-CHEM110F, M: 1200-1250 F: 1200-1250 T: 1230-1320 Th: 1230-1320 , General Chemistry I, # Enrolled: 20/36, with 12 freshmen. Has room: true
-		CHEM110FA, M: 1400-1650 , General Chemistry I, # Enrolled: 10/18, with 5 freshmen. Has room: true
-		CHEM110FB, T: 1800-2050 , General Chemistry I, # Enrolled: 10/18, with 7 freshmen. Has room: true
+CHEM110F, M: 1200-1250 F: 1200-1250 T: 1230-1320 Th: 1230-1320 , General Chemistry I, # Enrolled: 23/36, with 15 freshmen. Has room: true
+		CHEM110FA, M: 1400-1650 , General Chemistry I, # Enrolled: 12/18, with 7 freshmen. Has room: true
+		CHEM110FB, T: 1800-2050 , General Chemistry I, # Enrolled: 11/18, with 8 freshmen. Has room: true
 
-CHEM110G, M: 900-950 F: 900-950 T: 930-1020 Th: 930-1020 , General Chemistry I, # Enrolled: 30/36, with 10 freshmen. Has room: true
-		CHEM110GA, W: 1800-2050 , General Chemistry I, # Enrolled: 18/18, with 9 freshmen. Has room: false
-		CHEM110GB, Th: 1300-1550 , General Chemistry I, # Enrolled: 11/18, with 1 freshmen. Has room: true
+CHEM110G, M: 900-950 F: 900-950 T: 930-1020 Th: 930-1020 , General Chemistry I, # Enrolled: 28/36, with 8 freshmen. Has room: true
+		CHEM110GA, W: 1800-2050 , General Chemistry I, # Enrolled: 17/18, with 8 freshmen. Has room: true
+		CHEM110GB, Th: 1300-1550 , General Chemistry I, # Enrolled: 10/18, with 0 freshmen. Has room: true
 
 CSCI240A, M: 1400-1450 W: 1400-1450 F: 1400-1450 , Software Engineering, # Enrolled: 26/24, with 0 freshmen. Has room: false
 
@@ -186,13 +185,13 @@ MATH290B, M: 1200-1250 W: 1200-1250 F: 1200-1250 Th: 1230-1350 , Linear Algebra,
 
 ARTH276A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Western Art II: Renaiss-Modern, # Enrolled: 29/28, with 10 freshmen. Has room: false
 
-CHIN101A, M: 900-950 W: 900-950 F: 900-950 , First Year Chinese, # Enrolled: 22/22, with 16 freshmen. Has room: false
-		CHIN101CC, T: 1100-1150 , First Year Chinese, # Enrolled: 13/22, with 18 freshmen. Has room: true
-		CHIN101DD, T: 1230-1320 , First Year Chinese, # Enrolled: 9/22, with 5 freshmen. Has room: true
+CHIN101A, M: 900-950 W: 900-950 F: 900-950 , First Year Chinese, # Enrolled: 21/22, with 15 freshmen. Has room: true
+		CHIN101CC, T: 1100-1150 , First Year Chinese, # Enrolled: 11/22, with 16 freshmen. Has room: true
+		CHIN101DD, T: 1230-1320 , First Year Chinese, # Enrolled: 11/22, with 7 freshmen. Has room: true
 
-CHIN101B, M: 1100-1150 W: 1100-1150 F: 1100-1150 , First Year Chinese, # Enrolled: 15/22, with 7 freshmen. Has room: true
-		CHIN101CC, T: 1100-1150 , First Year Chinese, # Enrolled: 13/22, with 18 freshmen. Has room: true
-		CHIN101DD, T: 1230-1320 , First Year Chinese, # Enrolled: 9/22, with 5 freshmen. Has room: true
+CHIN101B, M: 1100-1150 W: 1100-1150 F: 1100-1150 , First Year Chinese, # Enrolled: 16/22, with 8 freshmen. Has room: true
+		CHIN101CC, T: 1100-1150 , First Year Chinese, # Enrolled: 11/22, with 16 freshmen. Has room: true
+		CHIN101DD, T: 1230-1320 , First Year Chinese, # Enrolled: 11/22, with 7 freshmen. Has room: true
 
 COMM181A, T: 930-1050 Th: 930-1050 , Intro Online Communication, # Enrolled: 21/28, with 7 freshmen. Has room: true
 
@@ -200,9 +199,9 @@ ENGL199A, Th: 1900-2000 , Crosscurrents Review, # Enrolled: 30/30, with 9 freshm
 
 ENGL231B, M: 1400-1450 W: 1400-1450 F: 1400-1450 , British Literature I, # Enrolled: 19/20, with 0 freshmen. Has room: true
 
-ENGL235A, T: 1100-1220 Th: 1100-1220 , American Literature II, # Enrolled: 14/20, with 2 freshmen. Has room: true
+ENGL235A, T: 1100-1220 Th: 1100-1220 , American Literature II, # Enrolled: 15/20, with 3 freshmen. Has room: true
 
-ENGL234B, T: 1400-1520 Th: 1400-1520 , American Literature I, # Enrolled: 14/20, with 2 freshmen. Has room: true
+ENGL234B, T: 1400-1520 Th: 1400-1520 , American Literature I, # Enrolled: 13/20, with 1 freshmen. Has room: true
 
 ENGL233A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , British Literature III, # Enrolled: 19/20, with 0 freshmen. Has room: true
 
@@ -252,9 +251,9 @@ HUM290A, T: 1530-1650 Th: 1530-1650 T: 1730-1930 , Intro to Cinema Studies, # En
 
 PHIL281A, M: 1400-1520 W: 1400-1520 , Moral Philosophy, # Enrolled: 17/23, with 0 freshmen. Has room: true
 
-REL201A, T: 1230-1350 Th: 1230-1350 , The New Testament, # Enrolled: 15/28, with 3 freshmen. Has room: true
+REL201A, T: 1230-1350 Th: 1230-1350 , The New Testament, # Enrolled: 14/28, with 2 freshmen. Has room: true
 
-FREN240A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , French Contemporary Issues, # Enrolled: 18/20, with 7 freshmen. Has room: true
+FREN240A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , French Contemporary Issues, # Enrolled: 16/20, with 5 freshmen. Has room: true
 
 FREN240B, M: 1100-1150 W: 1100-1150 F: 1100-1150 , French Contemporary Issues, # Enrolled: 8/20, with 4 freshmen. Has room: true
 
@@ -278,7 +277,7 @@ COMM292A, W: 1630-1830 , Forensics, # Enrolled: 10/20, with 4 freshmen. Has room
 
 MATH280A, M: 1000-1050 F: 1000-1050 T: 1000-1050 Th: 1000-1050 , Multivariate Calculus, # Enrolled: 19/24, with 3 freshmen. Has room: true
 
-MATH280B, M: 1100-1150 F: 1100-1150 T: 1100-1150 Th: 1100-1150 , Multivariate Calculus, # Enrolled: 22/24, with 5 freshmen. Has room: true
+MATH280B, M: 1100-1150 F: 1100-1150 T: 1100-1150 Th: 1100-1150 , Multivariate Calculus, # Enrolled: 23/24, with 6 freshmen. Has room: true
 
 COMM170A, T: 1230-1350 Th: 1230-1350 , Intro Media Studies: Torture, # Enrolled: 28/28, with 15 freshmen. Has room: false
 
@@ -343,7 +342,6 @@ PHYS111A, M: 900-950 W: 900-950 F: 900-950 Th: 930-1020 , General College Physic
 PHYS111B, M: 1100-1150 T: 1100-1150 Th: 1100-1150 F: 1100-1150 , General College Physics, # Enrolled: 38/42, with 0 freshmen. Has room: true
 		PHYS111CC, M: 1300-1530 , General College Physics, # Enrolled: 20/22, with 0 freshmen. Has room: true
 		PHYS111DD, M: 1530-1800 , General College Physics, # Enrolled: 19/22, with 0 freshmen. Has room: true
-		PHYS111EE, T: 930-1150 , General College Physics, # Enrolled: 6/22, with 0 freshmen. Has room: true
 		PHYS111FF, T: 1300-1530 , General College Physics, # Enrolled: 22/22, with 0 freshmen. Has room: false
 		PHYS111GG, T: 1530-1800 , General College Physics, # Enrolled: 19/22, with 0 freshmen. Has room: true
 
@@ -373,48 +371,48 @@ ARTS201A, T: 1300-1550 Th: 1300-1550 , Intermediate Drawing & Design, # Enrolled
 OT101A, T: 830-920 , Introduction to Allied Health, # Enrolled: 16/16, with 16 freshmen. Has room: false
 
 CHEM250A, M: 800-850 F: 800-850 T: 800-850 Th: 800-850 , Organic Chemistry I, # Enrolled: 37/36, with 0 freshmen. Has room: false
-		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 13/16, with 1 freshmen. Has room: true
+		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 14/16, with 2 freshmen. Has room: true
 		CHEM250FF, T: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250GG, W: 1300-1650 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250HH, W: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250II, Th: 1200-1550 , Organic Chemistry I, # Enrolled: 8/16, with 0 freshmen. Has room: true
 		CHEM250JJ, Th: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
-		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 12/16, with 1 freshmen. Has room: true
-		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 15/16, with 0 freshmen. Has room: true
+		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 11/16, with 0 freshmen. Has room: true
+		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250MM, W: 800-1150 , Organic Chemistry I, # Enrolled: 1/16, with 0 freshmen. Has room: true
 
 CHEM250B, M: 800-850 T: 800-850 Th: 800-850 F: 800-850 , Organic Chemistry I, # Enrolled: 38/36, with 0 freshmen. Has room: false
-		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 13/16, with 1 freshmen. Has room: true
+		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 14/16, with 2 freshmen. Has room: true
 		CHEM250FF, T: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250GG, W: 1300-1650 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250HH, W: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250II, Th: 1200-1550 , Organic Chemistry I, # Enrolled: 8/16, with 0 freshmen. Has room: true
 		CHEM250JJ, Th: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
-		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 12/16, with 1 freshmen. Has room: true
-		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 15/16, with 0 freshmen. Has room: true
+		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 11/16, with 0 freshmen. Has room: true
+		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250MM, W: 800-1150 , Organic Chemistry I, # Enrolled: 1/16, with 0 freshmen. Has room: true
 
 CHEM250C, M: 800-850 T: 800-850 Th: 800-850 F: 800-850 , Organic Chemistry I, # Enrolled: 38/36, with 0 freshmen. Has room: false
-		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 13/16, with 1 freshmen. Has room: true
+		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 14/16, with 2 freshmen. Has room: true
 		CHEM250FF, T: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250GG, W: 1300-1650 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250HH, W: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250II, Th: 1200-1550 , Organic Chemistry I, # Enrolled: 8/16, with 0 freshmen. Has room: true
 		CHEM250JJ, Th: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
-		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 12/16, with 1 freshmen. Has room: true
-		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 15/16, with 0 freshmen. Has room: true
+		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 11/16, with 0 freshmen. Has room: true
+		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250MM, W: 800-1150 , Organic Chemistry I, # Enrolled: 1/16, with 0 freshmen. Has room: true
 
-CHEM250D, M: 900-950 F: 900-950 T: 830-920 Th: 830-920 , Organic Chemistry I, # Enrolled: 28/36, with 3 freshmen. Has room: true
+CHEM250D, M: 900-950 F: 900-950 T: 830-920 Th: 830-920 , Organic Chemistry I, # Enrolled: 29/36, with 4 freshmen. Has room: true
 		CHEM250DD, M: 1300-1650 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
-		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 13/16, with 1 freshmen. Has room: true
+		CHEM250EE, T: 1300-1650 , Organic Chemistry I, # Enrolled: 14/16, with 2 freshmen. Has room: true
 		CHEM250FF, T: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250GG, W: 1300-1650 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250HH, W: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
 		CHEM250II, Th: 1200-1550 , Organic Chemistry I, # Enrolled: 8/16, with 0 freshmen. Has room: true
 		CHEM250JJ, Th: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 0 freshmen. Has room: false
-		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 12/16, with 1 freshmen. Has room: true
-		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 15/16, with 0 freshmen. Has room: true
+		CHEM250KK, F: 1300-1650 , Organic Chemistry I, # Enrolled: 11/16, with 0 freshmen. Has room: true
+		CHEM250LL, M: 1800-2150 , Organic Chemistry I, # Enrolled: 16/16, with 1 freshmen. Has room: false
 		CHEM250MM, W: 800-1150 , Organic Chemistry I, # Enrolled: 1/16, with 0 freshmen. Has room: true
 
 CHIN201A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Second Year Chinese, # Enrolled: 19/22, with 5 freshmen. Has room: true
@@ -422,16 +420,16 @@ CHIN201A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Second Year Chinese, # Enroll
 		CHIN201DD, T: 830-920 , Second Year Chinese, # Enrolled: 5/5, with 1 freshmen. Has room: false
 		CHIN201EE, T: 930-1020 , Second Year Chinese, # Enrolled: 2/5, with 2 freshmen. Has room: true
 		CHIN201FF, T: 1400-1450 , Second Year Chinese, # Enrolled: 5/5, with 0 freshmen. Has room: false
-		CHIN201GG, T: 1500-1550 , Second Year Chinese, # Enrolled: 2/5, with 1 freshmen. Has room: true
-		CHIN201HH, W: 1500-1550 , Second Year Chinese, # Enrolled: 5/5, with 1 freshmen. Has room: false
+		CHIN201GG, T: 1500-1550 , Second Year Chinese, # Enrolled: 3/5, with 2 freshmen. Has room: true
+		CHIN201HH, W: 1500-1550 , Second Year Chinese, # Enrolled: 4/5, with 0 freshmen. Has room: true
 
 CHIN201B, M: 1300-1350 W: 1300-1350 F: 1300-1350 , Second Year Chinese, # Enrolled: 9/22, with 0 freshmen. Has room: true
 		CHIN201CC, M: 1500-1550 , Second Year Chinese, # Enrolled: 5/5, with 0 freshmen. Has room: false
 		CHIN201DD, T: 830-920 , Second Year Chinese, # Enrolled: 5/5, with 1 freshmen. Has room: false
 		CHIN201EE, T: 930-1020 , Second Year Chinese, # Enrolled: 2/5, with 2 freshmen. Has room: true
 		CHIN201FF, T: 1400-1450 , Second Year Chinese, # Enrolled: 5/5, with 0 freshmen. Has room: false
-		CHIN201GG, T: 1500-1550 , Second Year Chinese, # Enrolled: 2/5, with 1 freshmen. Has room: true
-		CHIN201HH, W: 1500-1550 , Second Year Chinese, # Enrolled: 5/5, with 1 freshmen. Has room: false
+		CHIN201GG, T: 1500-1550 , Second Year Chinese, # Enrolled: 3/5, with 2 freshmen. Has room: true
+		CHIN201HH, W: 1500-1550 , Second Year Chinese, # Enrolled: 4/5, with 0 freshmen. Has room: true
 
 REL292A, T: 930-1050 Th: 930-1050 , Basics of Bioethics, # Enrolled: 21/20, with 0 freshmen. Has room: false
 
@@ -439,27 +437,27 @@ LTS200A, T: 1230-1350 Th: 1230-1350 , Latina/o America, # Enrolled: 9/20, with 8
 
 LTS200B, T: 1400-1520 Th: 1400-1520 , Latina/o America, # Enrolled: 14/20, with 13 freshmen. Has room: true
 
-ARAB201A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Modern Intermediate Arabic, # Enrolled: 9/22, with 3 freshmen. Has room: true
+ARAB201A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Modern Intermediate Arabic, # Enrolled: 10/22, with 4 freshmen. Has room: true
 
-PHYS109A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Astronomy, # Enrolled: 38/40, with 3 freshmen. Has room: true
-		PHYS109AA, W: 1300-1530 , Astronomy, # Enrolled: 18/20, with 2 freshmen. Has room: true
+PHYS109A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Astronomy, # Enrolled: 39/40, with 4 freshmen. Has room: true
+		PHYS109AA, W: 1300-1530 , Astronomy, # Enrolled: 19/20, with 3 freshmen. Has room: true
 		PHYS109AB, Th: 1300-1530 , Astronomy, # Enrolled: 20/20, with 1 freshmen. Has room: false
 
 COMM156A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Intro Interpersonal Comm, # Enrolled: 28/28, with 1 freshmen. Has room: false
 
-CWLT100A, T: 1500-1550 , Strategies for College Reading, # Enrolled: 12/12, with 9 freshmen. Has room: false
+CWLT100A, T: 1500-1550 , Strategies for College Reading, # Enrolled: 11/12, with 8 freshmen. Has room: true
 
 CWLT100B, Th: 1500-1550 , Strategies for College Reading, # Enrolled: 5/12, with 4 freshmen. Has room: true
 
 LAT101A, M: 1000-1050 T: 1000-1050 W: 1000-1050 F: 1000-1050 , Elementary Latin I, # Enrolled: 20/20, with 13 freshmen. Has room: false
 
-LAT101B, M: 1100-1150 W: 1100-1150 F: 1100-1150 T: 1100-1150 , Elementary Latin I, # Enrolled: 12/20, with 8 freshmen. Has room: true
+LAT101B, M: 1100-1150 W: 1100-1150 F: 1100-1150 T: 1100-1150 , Elementary Latin I, # Enrolled: 11/20, with 7 freshmen. Has room: true
 
 GRK301A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Advanced Greek Reading, # Enrolled: 1/20, with 0 freshmen. Has room: true
 
 GERM303A, T: 1400-1520 Th: 1400-1520 , German Mentalities, # Enrolled: 13/19, with 0 freshmen. Has room: true
 
-AFAM210A, T: 1400-1520 Th: 1400-1520 , Black Fictions and Feminism, # Enrolled: 24/28, with 5 freshmen. Has room: true
+AFAM210A, T: 1400-1520 Th: 1400-1520 , Black Fictions and Feminism, # Enrolled: 25/28, with 6 freshmen. Has room: true
 
 SOAN298A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Social Research, # Enrolled: 13/20, with 0 freshmen. Has room: true
 
@@ -477,19 +475,19 @@ SOAN295A, T: 930-1050 Th: 930-1050 , Social Theory, # Enrolled: 13/20, with 0 fr
 
 SPAN101A, M: 900-950 W: 900-950 F: 900-950 T: 830-920 , Elementary Spanish, # Enrolled: 22/22, with 6 freshmen. Has room: false
 
-SPAN101B, M: 1000-1050 W: 1000-1050 F: 1000-1050 T: 1000-1050 , Elementary Spanish, # Enrolled: 19/22, with 13 freshmen. Has room: true
+SPAN101B, M: 1000-1050 W: 1000-1050 F: 1000-1050 T: 1000-1050 , Elementary Spanish, # Enrolled: 22/22, with 16 freshmen. Has room: false
 
 SPAN101C, M: 1000-1050 T: 1000-1050 W: 1000-1050 F: 1000-1050 , Elementary Spanish, # Enrolled: 19/22, with 3 freshmen. Has room: true
 
 SPAN101D, M: 1100-1150 W: 1100-1150 F: 1100-1150 T: 1100-1150 , Elementary Spanish, # Enrolled: 22/22, with 2 freshmen. Has room: false
 
-SPAN101E, M: 1300-1350 T: 1300-1350 W: 1300-1350 F: 1300-1350 F: 1200-1250 , Elementary Spanish, # Enrolled: 22/22, with 16 freshmen. Has room: false
+SPAN101E, M: 1300-1350 T: 1300-1350 W: 1300-1350 F: 1300-1350 F: 1200-1250 , Elementary Spanish, # Enrolled: 19/22, with 13 freshmen. Has room: true
 
-SPAN101F, M: 1200-1250 W: 1200-1250 F: 1200-1250 F: 1300-1350 T: 1130-1220 , Elementary Spanish, # Enrolled: 17/22, with 8 freshmen. Has room: true
+SPAN101F, M: 1200-1250 W: 1200-1250 F: 1200-1250 F: 1300-1350 T: 1130-1220 , Elementary Spanish, # Enrolled: 16/22, with 7 freshmen. Has room: true
 
-SPAN101G, M: 1300-1350 T: 1300-1350 W: 1300-1350 F: 1300-1350 , Elementary Spanish, # Enrolled: 17/22, with 6 freshmen. Has room: true
+SPAN101G, M: 1300-1350 T: 1300-1350 W: 1300-1350 F: 1300-1350 , Elementary Spanish, # Enrolled: 16/22, with 5 freshmen. Has room: true
 
-SPAN101H, M: 1400-1450 T: 1400-1450 W: 1400-1450 F: 1400-1450 , Elementary Spanish, # Enrolled: 18/22, with 9 freshmen. Has room: true
+SPAN101H, M: 1400-1450 T: 1400-1450 W: 1400-1450 F: 1400-1450 , Elementary Spanish, # Enrolled: 20/22, with 11 freshmen. Has room: true
 
 SSI1134A, M: 1300-1350 W: 1300-1350 F: 1300-1350 , Dreams and Desire, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
@@ -502,11 +500,11 @@ THTR215A, T: 1530-1650 Th: 1530-1650 , Fundamentals of Acting, # Enrolled: 13/16
 
 SSI1139A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Rock After the Beatles, # Enrolled: 17/17, with 16 freshmen. Has room: false
 
-SSI1138A, M: 900-950 W: 900-950 F: 900-950 , Theatre and Comedy, # Enrolled: 17/17, with 14 freshmen. Has room: false
+SSI1138A, M: 900-950 W: 900-950 F: 900-950 , Theatre and Comedy, # Enrolled: 16/17, with 13 freshmen. Has room: true
 
 SSI1138B, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Theatre and Comedy, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
-SSI1138C, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Theatre and Comedy, # Enrolled: 15/17, with 12 freshmen. Has room: true
+SSI1138C, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Theatre and Comedy, # Enrolled: 17/17, with 14 freshmen. Has room: false
 
 ECON270A, T: 930-1050 Th: 930-1050 , Economics of Money & Banking, # Enrolled: 25/25, with 0 freshmen. Has room: false
 
@@ -516,15 +514,15 @@ FREN101A, M: 1000-1050 T: 1000-1050 W: 1000-1050 F: 1000-1050 , Beginning French
 
 FREN101B, M: 1100-1150 T: 1100-1150 W: 1100-1150 F: 1100-1150 , Beginning French, # Enrolled: 22/22, with 11 freshmen. Has room: false
 
-FREN101C, M: 1300-1350 T: 1300-1350 W: 1300-1350 F: 1300-1350 , Beginning French, # Enrolled: 18/22, with 5 freshmen. Has room: true
+FREN101C, M: 1300-1350 T: 1300-1350 W: 1300-1350 F: 1300-1350 , Beginning French, # Enrolled: 17/22, with 4 freshmen. Has room: true
 
-FREN101D, M: 1400-1450 W: 1400-1450 F: 1400-1450 T: 1400-1450 , Beginning French, # Enrolled: 4/22, with 2 freshmen. Has room: true
+FREN101D, M: 1400-1450 W: 1400-1450 F: 1400-1450 T: 1400-1450 , Beginning French, # Enrolled: 5/22, with 3 freshmen. Has room: true
 
-MUS126A, M: 1400-1450 W: 1400-1450 F: 1400-1450 , History of Rock Music, # Enrolled: 34/35, with 9 freshmen. Has room: true
+MUS126A, M: 1400-1450 W: 1400-1450 F: 1400-1450 , History of Rock Music, # Enrolled: 35/35, with 10 freshmen. Has room: false
 
-HIST224A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Russia Since 1861, # Enrolled: 13/28, with 3 freshmen. Has room: true
+HIST224A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Russia Since 1861, # Enrolled: 14/28, with 4 freshmen. Has room: true
 
-HIST102A, M: 900-950 W: 900-950 F: 900-950 , Western Civilization 1650-1990, # Enrolled: 26/28, with 12 freshmen. Has room: true
+HIST102A, M: 900-950 W: 900-950 F: 900-950 , Western Civilization 1650-1990, # Enrolled: 25/28, with 11 freshmen. Has room: true
 
 PSYC265A, M: 1400-1520 W: 1400-1520 , Cross-Cultural Psychology, # Enrolled: 22/25, with 0 freshmen. Has room: true
 
@@ -577,8 +575,8 @@ SSI1129A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Mao's China, # Enrolled: 17/1
 
 ARAB101A, M: 1000-1050 W: 1000-1050 F: 1000-1050 T: 1000-1050 , Modern Elementary Arabic, # Enrolled: 14/22, with 5 freshmen. Has room: true
 
-PHYS205A, M: 1300-1350 W: 1300-1350 F: 1300-1350 , Physics of Music, # Enrolled: 6/16, with 1 freshmen. Has room: true
-		PHYS205AA, T: 1200-1430 , Physics of Music, # Enrolled: 6/16, with 1 freshmen. Has room: true
+PHYS205A, M: 1300-1350 W: 1300-1350 F: 1300-1350 , Physics of Music, # Enrolled: 7/16, with 2 freshmen. Has room: true
+		PHYS205AA, T: 1200-1430 , Physics of Music, # Enrolled: 7/16, with 2 freshmen. Has room: true
 
 MUS230A, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Westrn Music Antiquity-Baroque, # Enrolled: 27/35, with 1 freshmen. Has room: true
 
@@ -610,19 +608,19 @@ SPAN201C, M: 1000-1050 W: 1000-1050 F: 1000-1050 , Intermediate Spanish, # Enrol
 
 SPAN201D, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Intermediate Spanish, # Enrolled: 20/20, with 14 freshmen. Has room: false
 
-SPAN201E, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Intermediate Spanish, # Enrolled: 19/20, with 15 freshmen. Has room: true
+SPAN201E, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Intermediate Spanish, # Enrolled: 18/20, with 14 freshmen. Has room: true
 
 SPAN201F, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Intermediate Spanish, # Enrolled: 20/20, with 17 freshmen. Has room: false
 
 SPAN201G, M: 1300-1350 W: 1300-1350 F: 1300-1350 , Intermediate Spanish, # Enrolled: 20/20, with 2 freshmen. Has room: false
 
-SPAN201H, M: 1400-1450 W: 1400-1450 F: 1400-1450 , Intermediate Spanish, # Enrolled: 12/20, with 7 freshmen. Has room: true
+SPAN201H, M: 1400-1450 W: 1400-1450 F: 1400-1450 , Intermediate Spanish, # Enrolled: 11/20, with 6 freshmen. Has room: true
 
 THAI101A, M: 1800-1950 W: 1800-1950 , Elementary Thai, # Enrolled: 19/22, with 8 freshmen. Has room: true
 
 SSI1112A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Latin American Popular Culture, # Enrolled: 17/17, with 16 freshmen. Has room: false
 
-SPAN203A, T: 930-1050 Th: 930-1050 , Advanced Grammar & Composition, # Enrolled: 18/20, with 9 freshmen. Has room: true
+SPAN203A, T: 930-1050 Th: 930-1050 , Advanced Grammar & Composition, # Enrolled: 19/20, with 10 freshmen. Has room: true
 
 SPAN203B, T: 1100-1220 Th: 1100-1220 , Advanced Grammar & Composition, # Enrolled: 20/20, with 0 freshmen. Has room: false
 
@@ -658,11 +656,11 @@ ENGL228B, M: 1300-1350 W: 1300-1350 F: 1300-1350 , Intro to Writing Poetry, # En
 
 LAS100A, T: 1100-1220 Th: 1100-1220 , Intro Latin American Studies, # Enrolled: 26/28, with 14 freshmen. Has room: true
 
-ENGL227A, M: 1400-1450 W: 1400-1450 F: 1400-1450 , Intro to Writing Fiction, # Enrolled: 20/20, with 1 freshmen. Has room: false
+ENGL227A, M: 1400-1450 W: 1400-1450 F: 1400-1450 , Intro to Writing Fiction, # Enrolled: 19/20, with 0 freshmen. Has room: true
 
 ENGL227B, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Intro to Writing Fiction, # Enrolled: 17/20, with 0 freshmen. Has room: true
 
-HIST245A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Chinese Civilization, # Enrolled: 22/28, with 4 freshmen. Has room: true
+HIST245A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Chinese Civilization, # Enrolled: 21/28, with 3 freshmen. Has room: true
 
 JAPN301A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Third Year Japanese, # Enrolled: 20/20, with 3 freshmen. Has room: false
 
@@ -670,7 +668,7 @@ AFAM101A, T: 1100-1220 Th: 1100-1220 , Intro African American Studies, # Enrolle
 
 AFAM101B, T: 1400-1520 Th: 1400-1520 , Intro African American Studies, # Enrolled: 24/24, with 10 freshmen. Has room: false
 
-SSI1181A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Science and Theater, # Enrolled: 16/17, with 14 freshmen. Has room: true
+SSI1181A, M: 1100-1150 W: 1100-1150 F: 1100-1150 , Science and Theater, # Enrolled: 17/17, with 15 freshmen. Has room: false
 
 MATH110A, M: 800-850 T: 800-850 Th: 800-850 F: 800-850 , Pre-Calculus, # Enrolled: 13/24, with 5 freshmen. Has room: true
 
@@ -700,7 +698,7 @@ IPE201C, M: 1400-1450 W: 1400-1450 F: 1400-1450 , International Political Econ, 
 
 ARTS247A, M: 1000-1250 W: 1000-1250 , Ceramics: Beginning Wheel, # Enrolled: 17/15, with 0 freshmen. Has room: false
 
-FREN210A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Conversational French, # Enrolled: 7/20, with 5 freshmen. Has room: true
+FREN210A, M: 1200-1250 W: 1200-1250 F: 1200-1250 , Conversational French, # Enrolled: 8/20, with 6 freshmen. Has room: true
 
 SSI1104A, T: 1400-1520 Th: 1400-1520 , Why Travel, # Enrolled: 17/17, with 17 freshmen. Has room: false
 
@@ -716,11 +714,11 @@ ENGL212B, M: 1400-1450 W: 1400-1450 F: 1400-1450 , The Craft of Literature, # En
 
 ENGL212C, M: 1600-1650 W: 1600-1650 F: 1600-1650 , The Craft of Literature, # Enrolled: 22/28, with 18 freshmen. Has room: true
 
-GERM101A, M: 1000-1050 T: 1000-1050 W: 1000-1050 F: 1000-1050 , Elementary German, # Enrolled: 21/24, with 17 freshmen. Has room: true
+GERM101A, M: 1000-1050 T: 1000-1050 W: 1000-1050 F: 1000-1050 , Elementary German, # Enrolled: 18/24, with 14 freshmen. Has room: true
 
-GERM101B, M: 1100-1150 T: 1100-1150 W: 1100-1150 F: 1100-1150 , Elementary German, # Enrolled: 16/24, with 7 freshmen. Has room: true
+GERM101B, M: 1100-1150 T: 1100-1150 W: 1100-1150 F: 1100-1150 , Elementary German, # Enrolled: 17/24, with 8 freshmen. Has room: true
 
-GERM101C, M: 1200-1250 W: 1200-1250 F: 1200-1250 T: 1230-1320 , Elementary German, # Enrolled: 13/24, with 5 freshmen. Has room: true
+GERM101C, M: 1200-1250 W: 1200-1250 F: 1200-1250 T: 1230-1320 , Elementary German, # Enrolled: 12/24, with 4 freshmen. Has room: true
 
 GRK101A, M: 1400-1450 T: 1400-1450 W: 1400-1450 F: 1400-1450 , Intro to Ancient Greek I, # Enrolled: 4/20, with 1 freshmen. Has room: true
 
