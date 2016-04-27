@@ -94,30 +94,28 @@ public class BarChartMaker extends ApplicationFrame
    private CategoryDataset createDataset( double[] count,double[] count2, double[] actualPrefCount, int toAdd)
    {
 	   final DefaultCategoryDataset dataset = new DefaultCategoryDataset( ); 
-	   
+
 	   // row keys
-       final String series1 = "Students Scheduled by Simulated Annealing Algorithm";
-       final String series2 = "Students Scheduled in Fall 2015";
-       final String series3 = "Students Scheduled by Greedy Algorithm";
-       
- 
-    	   dataset.addValue(count[0], series2, "Advising ");
-    	   dataset.addValue(count[0], series3, "Advising ");
-    	   dataset.addValue(count[0], series1, "Advising ");
+	   final String simAnnealing = "Students Scheduled by Simulated Annealing Algorithm";
+	   final String actual = "Students Scheduled in Fall 2015";
+	   final String greedy = "Students Scheduled by Greedy Algorithm";
 
-           for(int i= 1; i < count.length; i++)
-           {
-        	   //i +toAdd gives pref number
 
-        	   dataset.addValue(actualPrefCount[i], series2, "" +(i));
-        	   dataset.addValue(count2[i], series3, "" +(i));
-        	   dataset.addValue(count[i], series1, "" +(i));
-        	 
-           } 
-   
-       
-       
-      return dataset; 
+	   dataset.addValue(count[0], greedy, "Advising ");
+	   dataset.addValue(count[0], simAnnealing, "Advising ");
+	   dataset.addValue(count[0], actual, "Advising ");
+
+	   for(int i= 1; i < count.length; i++)
+	   {
+		   //i +toAdd gives pref number
+		   dataset.addValue(count2[i], greedy, "" +(i));
+		   dataset.addValue(count[i], simAnnealing, "" +(i));
+		   dataset.addValue(actualPrefCount[i], actual, "" +(i));
+	   } 
+
+
+
+	   return dataset; 
    }
    
    public static void makeBarChartPrefs(double[] prefCount,double[] prefCount2, String title)

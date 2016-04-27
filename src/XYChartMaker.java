@@ -45,9 +45,9 @@ public class XYChartMaker extends ApplicationFrame
       
       ValueAxis yAxis1 = plot.getRangeAxis();
       if(doingSem)
-      yAxis1.setRange(400,1350);
-      else
-      yAxis1.setRange(2600, 5000);
+    	  yAxis1.setRange(400,1350);
+//      else
+//    	  yAxis1.setRange(2600, 5000);
    }
    
    private XYDataset createDataset(int[] count,boolean doingSem)
@@ -64,26 +64,37 @@ public class XYChartMaker extends ApplicationFrame
        }
        
        //add min satisfaction score goal
-       final XYSeries objective = new XYSeries( "Minimum Possible Score" );          
+       final XYSeries objective = new XYSeries( "Minimum Possible Score" );   
+       
+       //add max
+       final XYSeries maxSeries = new XYSeries("Maximum Possible Score");
        
        int obj;
+       int max;
        if(Constants.SAT.equals(Constants.SAT_SCALE.Geometric))
        {
-    	   
+    	   max = 0;
     	   obj = Constants.GEOMETRIC_OBJ_THRESHOLD;
        }
        
        else
        {
-    	   if(doingSem)
+    	   if(doingSem){
     		   obj = Constants.LINEAR_OBJ_SEM_THRESHOLD;
-    		   else
-    	   obj = Constants.LINEAR_OBJ_THRESHOLD;
+    		   max = 0;
+    	   }
+
+    	   else{
+    		   obj = Constants.LINEAR_OBJ_THRESHOLD;
+    		   max = Constants.LINEAR_OBJ_MAX_THRESHOLD;
+    	   }
        }
-       
+
+
        for(int i= 0; i < count.length; i++)
        {
     	   objective.add(i, obj);
+    	   maxSeries.add(i,max);
        }
        
        final XYSeries greedy = new XYSeries("Result of Greedy Algorithm");
@@ -99,6 +110,7 @@ public class XYChartMaker extends ApplicationFrame
       dataset.addSeries( score );   
       dataset.addSeries( objective );
       dataset.addSeries(greedy);
+      dataset.addSeries(maxSeries);
       return dataset; 
    }
 
