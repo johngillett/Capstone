@@ -54,7 +54,7 @@ public class AlgTracker {
 		else
 		{
 			//System.out.println(entry-Constants.TOT_SAT_TO_SEM_MOD);
-			simAnnealingSemList.add(entry-Constants.TOT_SAT_TO_SEM_MOD);
+			simAnnealingSemList.add(entry);//-Constants.TOT_SAT_TO_SEM_MOD);
 		}
 		simCounter = 0;
 	}

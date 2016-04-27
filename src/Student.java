@@ -138,15 +138,15 @@ public class Student{
 				boolean noConflicts = true;	
 				
 				//Make sure lab doesn't conflict with its main course
-				for(Day d1 : courseToCheck.schedule){
-					for(Day d2 : lab.schedule){
-						if(!Day.isConflictFree(d1, d2))
-						{
-							noConflicts = false;
-							break;
-						}
-					}
-				}
+//				for(Day d1 : courseToCheck.schedule){
+//					for(Day d2 : lab.schedule){
+//						if(!Day.isConflictFree(d1, d2))
+//						{
+//							noConflicts = false;
+//							break;
+//						}
+//					}
+//				}
 				
 				for(Day day1 : schedule)
 				{
@@ -267,15 +267,15 @@ public class Student{
 				boolean noConflicts = true;	
 			
 				//Make sure lab doesn't conflict with its main course
-				for(Day d1 : courseToCheck.schedule){
-					for(Day d2 : lab.schedule){
-						if(!Day.isConflictFree(d1, d2))
-						{
-							noConflicts = false;
-							break;
-						}
-					}
-				}
+//				for(Day d1 : courseToCheck.schedule){
+//					for(Day d2 : lab.schedule){
+//						if(!Day.isConflictFree(d1, d2))
+//						{
+//							noConflicts = false;
+//							break;
+//						}
+//					}
+//				}
 				
 				
 				for(Day day1 : schedule)
@@ -694,6 +694,7 @@ public class Student{
 		this.satisfactionScore = newScore;
 	}
 	
+		
 	public boolean advisingIsSeminar(){
 		if(this.hasAdvisingCourse){
 			return this.advisingCourse.isSeminar();

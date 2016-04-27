@@ -61,6 +61,16 @@ public class ResultsTester {
 								return false;
 							}
 							
+							if(d1.endTime > d2.endTime && !(d1.startTime > d2.endTime))
+							{
+								//Conflict!
+								System.out.println("Conflict found between courses: "+c1.getID()+c1.getSectionID()+" and "+c2.getID()+c2.getSectionID());
+								System.out.println("\t"+d1.toString()+", "+d2.toString());
+								return false;
+							}
+							
+							
+							
 						}
 					}
 				}
