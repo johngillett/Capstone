@@ -38,28 +38,28 @@ public class Day{
 		if(day1.endTime < day2.startTime)
 			return true;
 		
-		if((day1.startTime < day2.endTime && day1.startTime > day2.startTime) || (day1.endTime > day2.startTime && day1.endTime < day2.endTime))
-			return false;
-
-		if(day1.startTime == day2.startTime)
-			return false;
-		
-		if(day1.endTime == day2.endTime)
-			return false;
+//		if((day1.startTime < day2.endTime && day1.startTime > day2.startTime) || (day1.endTime > day2.startTime && day1.endTime < day2.endTime))
+//			return false;
+//
+//		if(day1.startTime == day2.startTime)
+//			return false;
+//		
+//		if(day1.endTime == day2.endTime)
+//			return false;
 		
 		
 		//if one course starts & ends before another, then it is compatible, otherwise it isn't
 		//if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
 		//	return false;
-		
-		if((day1.startTime < day2.endTime && day1.startTime > day2.startTime) || (day1.endTime > day2.startTime && day1.endTime < day2.endTime))
-			return false;
-		
-		if(day2.endTime < day1.endTime && day2.endTime > day1.startTime) 
-			return false;
-		
-		if(day2.endTime > day1.startTime && day2.startTime < day1.startTime)
-			return false;
+//		
+//		if((day1.startTime < day2.endTime && day1.startTime > day2.startTime) || (day1.endTime > day2.startTime && day1.endTime < day2.endTime))
+//			return false;
+//		
+//		if(day2.endTime < day1.endTime && day2.endTime > day1.startTime) 
+//			return false;
+//		
+//		if(day2.endTime > day1.startTime && day2.startTime < day1.startTime)
+//			return false;
 		
 		
 		//4 POSSIBLE CONFLICTS:

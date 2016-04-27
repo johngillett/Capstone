@@ -18,17 +18,16 @@ public class ResultsTester {
 		
 	}
 	
-	if(noConflicts)
-	{
-	System.out.println("Double checked for conflicts in all Student's schedules, none found.");		
-	}
+		if(noConflicts)
+		{
+		System.out.println("Double checked for conflicts in all Student's schedules, none found.");		
+		}
 	
 	}
 	
 	
 	private static boolean schedConflictFree(ArrayList<Course> courses)
-	{		
-		
+	{				
 		for(int x = 0; x < courses.size(); x ++)
 		{
 			Course c1 = courses.get(x);
@@ -53,14 +52,20 @@ public class ResultsTester {
 								System.out.println("\t"+d1.toString()+", "+d2.toString());
 								return false;
 							}
+							
+							if(d1.startTime < d2.startTime && !(d1.endTime < d2.startTime))
+							{
+								//Conflict!
+								System.out.println("Conflict found between courses: "+c1.getID()+c1.getSectionID()+" and "+c2.getID()+c2.getSectionID());
+								System.out.println("\t"+d1.toString()+", "+d2.toString());
+								return false;
+							}
+							
 						}
 					}
 				}
 			}
-		}
-		
+		}		
 		return true;
 	}
-	
-	
 }
