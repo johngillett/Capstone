@@ -269,8 +269,9 @@ import java.util.HashMap;
 		{
 			double[] satCount = getLinearSatCount(students);
 			double[] satPer = getLinearSatPer(satCount);
-			//BarChartMaker.makeBarChartScores(satCount, doingSeminar,false);
-			boolean normalize = false;
+			//normalize = false;
+			//BarChartMaker.makeBarChartScores(satCount, doingSeminar,normalize);
+			boolean normalize = true;
 			BarChartMaker.makeBarChartScores(satPer,satPerGreedy,normalize);
 		}
 		

@@ -19,7 +19,7 @@ import org.jfree.ui.RefineryUtilities;
  */
 public class BarChartMaker extends ApplicationFrame
 {
-   public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, double[] prefCount, double[] prefCount2, int toAdd, boolean normalize )
+   public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, double[] prefCount, double[] prefCount2, int toAdd, boolean normalize, boolean satScores )
    {
       super( applicationTitle );        
       JFreeChart barChart = ChartFactory.createBarChart(
@@ -35,7 +35,7 @@ public class BarChartMaker extends ApplicationFrame
       setContentPane( chartPanel ); 
       
       //normalize bar charts to be out of 1
-      if(normalize)
+      if(normalize & !satScores)
       {
     	  CategoryPlot plot = (CategoryPlot) barChart.getPlot();
           ValueAxis yAxis1 = plot.getRangeAxis();
@@ -45,7 +45,7 @@ public class BarChartMaker extends ApplicationFrame
    }
    
    //if doing seminar
-   public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, double[] prefCount,  double[] prefCount2, double[] actualPrefCount, int toAdd, boolean normalize )
+   public BarChartMaker( String applicationTitle , String chartTitle, String xAxis, String yAxis, double[] prefCount,  double[] prefCount2, double[] actualPrefCount, int toAdd, boolean normalize, boolean satScores )
    {
       super( applicationTitle );        
       JFreeChart barChart = ChartFactory.createBarChart(
@@ -121,7 +121,7 @@ public class BarChartMaker extends ApplicationFrame
    public static void makeBarChartPrefs(double[] prefCount,double[] prefCount2, String title)
    {
 	  boolean normalize = true;
-      BarChartMaker chart = new BarChartMaker(title, title, "Preference Number", "Percentage of Students", prefCount,prefCount2,1, normalize);
+      BarChartMaker chart = new BarChartMaker(title, title, "Preference Number", "Percentage of Students", prefCount,prefCount2,1, normalize,false);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
@@ -130,7 +130,7 @@ public class BarChartMaker extends ApplicationFrame
    public static void makeBarChartSemPrefs(double[] prefCount, double[] prefCount2, double[] actualPrefCount, String title)
    {
 	  boolean normalize = true;
-      BarChartMaker chart = new BarChartMaker(title, title, "Preference Number", "Percentage of Students", prefCount, prefCount2, actualPrefCount, 1, normalize);
+      BarChartMaker chart = new BarChartMaker(title, title, "Preference Number", "Percentage of Students", prefCount, prefCount2, actualPrefCount, 1, normalize,false);
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
       chart.setVisible( true ); 
@@ -141,11 +141,12 @@ public class BarChartMaker extends ApplicationFrame
 	  BarChartMaker chart;
 	  if(normalize)
 	  {
-	      chart = new BarChartMaker("Distribution of Satisfaction Scores", "Percentage of Students with Each Satisfaction Score", "Satisfaction Score", "Percentage of Students",satCount,satCount2,Constants.MIN_SAT_LINEAR,normalize);
+		  boolean satScores = true;
+	      chart = new BarChartMaker("Distribution of Satisfaction Scores", "Percentage of Students with Each Satisfaction Score", "Satisfaction Score", "Percentage of Students",satCount,satCount2,Constants.MIN_SAT_LINEAR,normalize,satScores);
 	  }
 	  else
 	  {
-		  chart = new BarChartMaker("Distribution of Satisfaction Scores", "Number of Students with Each Satisfaction Score", "Satisfaction Score", "Number of Students",satCount,satCount2,Constants.MIN_SAT_LINEAR,normalize);
+		  chart = new BarChartMaker("Distribution of Satisfaction Scores", "Number of Students with Each Satisfaction Score", "Satisfaction Score", "Number of Students",satCount,satCount2,Constants.MIN_SAT_LINEAR,normalize,false);
 	  }
       chart.pack( );        
       RefineryUtilities.centerFrameOnScreen( chart );        
