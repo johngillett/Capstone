@@ -1,3 +1,5 @@
+import java.awt.Font;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel; 
 import org.jfree.chart.JFreeChart;
@@ -33,7 +35,19 @@ public class BarChartMaker extends ApplicationFrame
       ChartPanel chartPanel = new ChartPanel( barChart );        
       chartPanel.setPreferredSize(new java.awt.Dimension( 1500 , 1000 ) );        
       setContentPane( chartPanel ); 
+
+      //changing legend
+      //((AbstractRenderer) plot.getRenderer()).setBaseLegendShape(new Rectangle(30,30));
+      barChart.getLegend().setItemFont(new Font("SansSerif", Font.BOLD, 17));
+
+      //changing plot label sizes
       
+      final CategoryPlot plot1 = (CategoryPlot) barChart.getPlot( );
+      
+      Font font3 = new Font("SansSerif", Font.BOLD, 17); 
+      plot1.getDomainAxis().setLabelFont(font3);
+      plot1.getRangeAxis().setLabelFont(font3);
+
       //normalize bar charts to be out of 1
       if(normalize & !satScores)
       {
@@ -59,6 +73,18 @@ public class BarChartMaker extends ApplicationFrame
       ChartPanel chartPanel = new ChartPanel( barChart );        
       chartPanel.setPreferredSize(new java.awt.Dimension( 1500 , 1000 ) );        
       setContentPane( chartPanel ); 
+      
+      //changing legend
+      //((AbstractRenderer) plot.getRenderer()).setBaseLegendShape(new Rectangle(30,30));
+      barChart.getLegend().setItemFont(new Font("SansSerif", Font.BOLD, 17));
+
+      //changing plot label sizes
+      
+      final CategoryPlot plot1 = (CategoryPlot) barChart.getPlot( );
+      
+      Font font3 = new Font("SansSerif", Font.BOLD, 17); 
+      plot1.getDomainAxis().setLabelFont(font3);
+      plot1.getRangeAxis().setLabelFont(font3);
       
       //normalize bar charts to be out of 1
       if(normalize)

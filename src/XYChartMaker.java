@@ -1,4 +1,6 @@
-import java.awt.Color; 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.BasicStroke; 
 import org.jfree.chart.ChartPanel; 
 import org.jfree.chart.JFreeChart;
@@ -12,7 +14,8 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation; 
-import org.jfree.data.xy.XYSeriesCollection; 
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.renderer.AbstractRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 /**
@@ -41,6 +44,15 @@ public class XYChartMaker extends ApplicationFrame
  
       final XYPlot plot = xylineChart.getXYPlot( );
       
+      //changing legend
+      //((AbstractRenderer) plot.getRenderer()).setBaseLegendShape(new Rectangle(30,30));
+      xylineChart.getLegend().setItemFont(new Font("SansSerif", Font.BOLD, 17));
+      
+      //changing plot label sizes
+      Font font3 = new Font("SansSerif", Font.BOLD, 17); 
+      plot.getDomainAxis().setLabelFont(font3);
+      plot.getRangeAxis().setLabelFont(font3);
+      
       setContentPane( chartPanel ); 
       
       ValueAxis yAxis1 = plot.getRangeAxis();
@@ -48,6 +60,9 @@ public class XYChartMaker extends ApplicationFrame
     	  yAxis1.setRange(10500,12000);
       else
     	  yAxis1.setRange(2600, 5000);
+      
+      
+
    }
    
    private XYDataset createDataset(int[] count,boolean doingSem)
