@@ -33,7 +33,7 @@ public class BarChartMaker extends ApplicationFrame
          true, true, false);
          
       ChartPanel chartPanel = new ChartPanel( barChart );        
-      chartPanel.setPreferredSize(new java.awt.Dimension( 1500 , 1000 ) );        
+      chartPanel.setPreferredSize(new java.awt.Dimension(  2000 , 1500) );        
       setContentPane( chartPanel ); 
 
       //changing legend
@@ -71,7 +71,7 @@ public class BarChartMaker extends ApplicationFrame
          true, true, false);
          
       ChartPanel chartPanel = new ChartPanel( barChart );        
-      chartPanel.setPreferredSize(new java.awt.Dimension( 1500 , 1000 ) );        
+      chartPanel.setPreferredSize(new java.awt.Dimension(  2000 , 1500 ) );        
       setContentPane( chartPanel ); 
       
       //changing legend

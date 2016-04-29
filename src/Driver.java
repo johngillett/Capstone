@@ -178,7 +178,7 @@ import java.util.HashMap;
 		getGraphs();
 		getAlgTrackerGraph();
 		
-		//printStudents();
+		printStudents();
 		//printCourses();
 		//printFreshmenCourseCountTotal();
 		
@@ -345,7 +345,7 @@ import java.util.HashMap;
 		
 		int numStudsWithoutFullCourseLoad = 0;
 
-		//System.out.println("Students without full course load: ");
+		System.out.println("Students without full course load: ");
 		for(HashMap.Entry<Integer, Student> c : students.entrySet()){
 			Student stud = c.getValue();
 			

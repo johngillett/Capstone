@@ -40,7 +40,7 @@ public class XYChartMaker extends ApplicationFrame
       
       
       ChartPanel chartPanel = new ChartPanel( xylineChart );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 1500 , 1000 ) );
+      chartPanel.setPreferredSize( new java.awt.Dimension( 2000 , 1500 ) );
  
       final XYPlot plot = xylineChart.getXYPlot( );
       
