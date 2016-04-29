@@ -40,12 +40,12 @@ public class ResultsWriter {
 						if(!(stud.advisingCourse.getID().charAt(0)=='S')){
 							System.out.println("!!!!!!!!!! Student " + stud.id + " has " + stud.advisingCourse.getID());
 						}
-						writer.write("\tAdvising/Sem:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+stud.advisingCourse.schedToString());
+						writer.write("\tAdvising/Sem:\t\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
 
 					}
 					else
 					{
-						writer.write("\tAdvising:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
+						writer.write("\tAdvising:\t\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
 						
 						if(stud.advisingCourse.hasLab)
 						{
@@ -89,9 +89,9 @@ public class ResultsWriter {
 					if(!c.isSeminar)
 					{
 						if(!c.isLab)
-						writer.write("\t\t\t\tPref #"+stud.getPrefNumber(c.getID())+"\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
+						writer.write("\t\t\tPref #"+stud.getPrefNumber(c.getID())+"\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
 						else
-						writer.write("\t\t\t\t\t\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
+						writer.write("\t\t\t\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
 						
 						writer.newLine();
 					}
