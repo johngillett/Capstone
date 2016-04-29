@@ -26,7 +26,7 @@ public class ResultsWriter {
 			
 			for(HashMap.Entry<Integer, Student> entry : studs.entrySet()){
 				Student stud = entry.getValue();
-				writer.write(stud.id+"'s Schedule: ");
+				writer.write(stud.id+"'s Schedule: Overall Score:"+stud.satisfactionScore);
 				writer.newLine();
 				
 				if(!stud.hasAdvisingCourse)
@@ -40,12 +40,32 @@ public class ResultsWriter {
 						if(!(stud.advisingCourse.getID().charAt(0)=='S')){
 							System.out.println("!!!!!!!!!! Student " + stud.id + " has " + stud.advisingCourse.getID());
 						}
-						writer.write("\tAdvising/Sem:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
+						writer.write("\tAdvising/Sem:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+stud.advisingCourse.schedToString());
 
 					}
 					else
+					{
 						writer.write("\tAdvising:\t" +stud.advisingCourse.getID()+stud.advisingCourse.getSectionID()+": "+stud.advisingCourse.schedToString());
-				}	
+						
+						if(stud.advisingCourse.hasLab)
+						{
+							Course toPrint = null;
+							
+							for(Course c: stud.courses)
+							{
+								if(c.isSameCourse(stud.advisingCourse) && c.isLab)
+								{
+									toPrint = c;
+									break;
+								}
+							
+							}
+							writer.newLine();
+							writer.write("\t\t\t\t"+toPrint.getID()+toPrint.getSectionID()+": "+toPrint.schedToString());
+							
+						}
+					}
+				}
 				writer.newLine();
 
 				if(!stud.advisingIsSeminar())
@@ -56,7 +76,7 @@ public class ResultsWriter {
 
 						if(c.isSeminar)
 						{
-							writer.write("\tSeminar:\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
+							writer.write("\tSeminar:\tPref #"+stud.getSemPrefNumber(c.getID())+"\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
 							writer.newLine();
 						}
 					}
@@ -68,7 +88,11 @@ public class ResultsWriter {
 
 					if(!c.isSeminar)
 					{
-						writer.write("\t\t\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
+						if(!c.isLab)
+						writer.write("\t\t\t\tPref #"+stud.getPrefNumber(c.getID())+"\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
+						else
+						writer.write("\t\t\t\t\t\t"+c.getID()+c.getSectionID()+": "+c.schedToString());
+						
 						writer.newLine();
 					}
 				}

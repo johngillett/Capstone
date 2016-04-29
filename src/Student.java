@@ -167,9 +167,17 @@ public class Student{
 				if(noConflicts)
 				{	
 					foundLab = true;
+					
+					enrollInCourse(courseToCheck);
+					courseToCheck.addStudent(this);
+					
+					
 					enrollInCourse(lab);
 					lab.addStudent(this);
-					break;
+					
+					
+					return true;
+					
 				}
 				
 				
@@ -182,10 +190,9 @@ public class Student{
 				return false;
 			}
 		}
-		
-		//System.out.println("everything went as planned...");
-		courseToCheck.addStudent(this);
 		enrollInCourse(courseToCheck);
+		courseToCheck.addStudent(this);
+		//System.out.println("everything went as planned...");
 		return true;
 	}
 	
@@ -527,6 +534,24 @@ public class Student{
 		return toReturn;
 	}
 
+	//Returns the preference number of the given course, if the student does not list it as a preference returns 
+	public int getSemPrefNumber(String courseID) {
+		// TODO Auto-generated method stub
+		int toReturn = Constants.NUM_PREFS+1;
+		int curIndex = 1;
+		
+		for(String id: this.semPrefs)
+		{
+			if(courseID.equals(id))
+			{
+				toReturn = curIndex;
+				break;
+			}
+			curIndex++;
+		}
+		return toReturn;
+	}
+	
 	//returns the preference number of the least preferred course the student is enrolled in. 9 if they are missing at least one course. 
 	public int getLastEnrolledPrefNumber()
 	{
@@ -641,9 +666,7 @@ public class Student{
 	
 	private void updateSatisfactionScore()
 	{
-
 		int newScore = 0;
-		
 		
 		for(int i = 0; i < prefs.length; i++)
 		{
@@ -651,6 +674,9 @@ public class Student{
 			{
 				if(co.isLab)
 					continue;
+				
+				if(this.hasAdvisingCourse && co.isSameCourse(this.advisingCourse))
+						continue;
 				
 				if(co.isSameCourse(regPrefs[i]))	
 				{
