@@ -175,8 +175,8 @@ import java.util.HashMap;
 		
 		//printCourseData();
 		
-		getGraphs();
-		getAlgTrackerGraph();
+		//getGraphs();
+		//getAlgTrackerGraph();
 		
 		printStudents();
 		//printCourses();
@@ -184,6 +184,8 @@ import java.util.HashMap;
 		
 		//printSatisfactionScoreInfo();
 
+		System.out.println("Number of students with perfect schedule: "+getNumOfPerfectlyScheduledStudents());
+		
 		ResultsWriter.writeResults(students);
 		ResultsWriter.writeCourseResults(courses);
 		
@@ -721,7 +723,9 @@ import java.util.HashMap;
 		System.out.println("Current Actual Satisfaction Score: "+score);
 	}
 	
-	
+	/**
+	 * Construct list of students where their advising course is also their seminar. 
+	 */
 	private static void setStudentsWithAdAsSem(){
 		int count = 0;
 		studsWithAdAsSem = new HashMap<Integer,Student>();
@@ -791,4 +795,26 @@ import java.util.HashMap;
 		return studs;
 	}
 	
+	private static int getNumOfPerfectlyScheduledStudents()
+	{
+		int toReturn = 0;
+		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
+		{
+			Integer id = entry.getKey();
+			Student stud = entry.getValue();	
+			
+			if(stud.satisfactionScore == 4 && !stud.advisingIsSeminar())
+				toReturn++;
+			
+			if(stud.satisfactionScore == 6 && stud.advisingIsSeminar())
+			{
+				toReturn++;
+			}
+			
+		}
+		
+		return toReturn;
+	}
+		
+		
 }
