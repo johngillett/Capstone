@@ -188,6 +188,7 @@ import java.util.HashMap;
 		
 		ResultsWriter.writeResults(students);
 		ResultsWriter.writeCourseResults(courses);
+		System.out.println("Results have been written to resultingCourses.txt and resultingSchedule.txt");
 		
 	}
 	
@@ -347,7 +348,7 @@ import java.util.HashMap;
 		
 		int numStudsWithoutFullCourseLoad = 0;
 
-		System.out.println("Students without full course load: ");
+		//System.out.println("Students without full course load: ");
 		for(HashMap.Entry<Integer, Student> c : students.entrySet()){
 			Student stud = c.getValue();
 			
@@ -478,6 +479,10 @@ import java.util.HashMap;
 		
 	}
 	
+	
+	/**
+	 * Calculates Total Satisfaction Score of all students
+	 */
 	public static int getTotalSatScore()
 	{
 		int score = 0;
@@ -737,6 +742,10 @@ import java.util.HashMap;
 		}	
 	}
 	
+	
+	/**
+	 * Constructs and Returns HashMap of all students whose advising course is not also their seminar. 
+	 */
 	private static HashMap<Integer,Student> getStudentsWithoutAdAsSem(){
 		HashMap<Integer,Student> studs = new HashMap<Integer,Student>();
 		//go through current students
@@ -751,7 +760,11 @@ import java.util.HashMap;
 		}	
 		return studs;
 	}
-
+	
+	
+	/**
+	 * Constructs and Returns a HashMap of all students without an advising course
+	 */
 	private static HashMap<Integer, Student> getStudentsWithoutAd(){
 		HashMap<Integer,Student> studs = new HashMap<Integer,Student>();
 		
@@ -767,6 +780,10 @@ import java.util.HashMap;
 		}
 		return studs;
 	}
+	
+	/**
+	 * Constructs and Returns a HashMap of all students requiring placement of 3 courses
+	 */
 	private static HashMap<Integer, Student> getStudentsWith3CoursesToPlace(){
 		
 		//first get students without advising courses
@@ -782,6 +799,9 @@ import java.util.HashMap;
 		return studs;
 	}
 	
+	/**
+	 * Constructs and Returns a HashMap of all students requiring placement of 3 courses
+	 */
 	private static HashMap<Integer, Student> getStudentsWith2CoursesToPlace(){
 		HashMap<Integer,Student> studs = new HashMap<Integer,Student>();
 		HashMap<Integer,Student> studsToIgnore = getStudentsWith3CoursesToPlace();
@@ -795,6 +815,9 @@ import java.util.HashMap;
 		return studs;
 	}
 	
+	/**
+	 * Finds the number of students who have perfect schedules (Enrolled in only top preferences)
+	 */
 	private static int getNumOfPerfectlyScheduledStudents()
 	{
 		int toReturn = 0;

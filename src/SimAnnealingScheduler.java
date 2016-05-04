@@ -353,15 +353,9 @@ public class SimAnnealingScheduler {
 		
 		double r = rand.nextDouble();
 		
-		//this equals 1 when the net change is 0, which means the change will always be made. What should we do about this? Did I do the equation right?
+		//this equals 1 when the net change is 0, which means the change will always be made.
 		double prob = Math.pow(Math.E,-1*(netChange/temp));
 		
-		//if(netChange == 0)
-		//	return false; // skip every time
-		//	return r < .15f; //skip 85% of the time
-		
-		//System.out.println("Probability of making change anyway: "+prob);
-
 		return r < prob;	
 	}
 	
@@ -382,10 +376,6 @@ public class SimAnnealingScheduler {
 		int netChange = stud1To - stud1From;
 		
 		netChange += (stud2To - stud2From);
-		
-		//if(netChange < 0)
-		//System.out.println("Checking if swapping stud1 from pref num: "+stud1From+" to "+stud1To+ " and stud2 from pref num: "+stud2From+" to "+stud2To+" NEt change: "+netChange);
-		//System.out.println("Net Change will be: "+netChange);
 		
 		return netChange;
 	}
