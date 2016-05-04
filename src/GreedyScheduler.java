@@ -93,38 +93,6 @@ public class GreedyScheduler {
 		
 		
 	}
-	
-	//this greedy choice yields suboptimal results
-	//greedyScheduleByStudent
-//	public static void greedyScheduleByStudent(ArrayList<Student> students)
-//	{
-//		
-//
-//		for(Student st: students)
-//		{
-//		Course[] prefs = st.prefs;
-//			
-//		
-//			int numAdded = 0;
-//			
-//			for(int i = 0; i < prefs.length;i++)
-//			{
-//				
-//				if(prefs[i].hasRoom() && st.addIfFitsInSchedule(prefs[i])) //&& schedule is compatible
-//				{
-//					prefs[i].addStudent(st);
-//					st.enrollInCourse(prefs[i]);
-//					numAdded++;
-//					
-//				}
-//				
-//				if(numAdded == Constants.STUD_COURSE_LIMIT)
-//					break;
-//				
-//			}
-//				
-//		}
-//	}
 		
 		
 	/**
