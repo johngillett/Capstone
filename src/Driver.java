@@ -335,7 +335,7 @@ import java.util.HashMap;
 			int count = c.getValue();
 			totalCount += count;
 		}	
-		//System.out.println("The total number is " + totalCount);
+		System.out.println("The total number is " + totalCount);
 	}
 	
 	/**
@@ -515,7 +515,6 @@ import java.util.HashMap;
 			for(int i = 1; i < prefCount.length; i++)
 			{
 				for(HashMap.Entry<Integer, Student> entry : studsToCheck.entrySet()){
-					Integer id = entry.getKey();
 					Student stu = entry.getValue();
 					String prefID;
 
@@ -586,7 +585,6 @@ import java.util.HashMap;
 		for(int i = 1; i < prefCount.length; i++)
 		{
 			for(HashMap.Entry<Integer, Student> entry : studsToCheck.entrySet()){
-				Integer id = entry.getKey();
 				Student stu = entry.getValue();
 				String prefID;
 
@@ -732,7 +730,6 @@ import java.util.HashMap;
 	 * Construct list of students where their advising course is also their seminar. 
 	 */
 	private static void setStudentsWithAdAsSem(){
-		int count = 0;
 		studsWithAdAsSem = new HashMap<Integer,Student>();
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
 		{
@@ -823,7 +820,6 @@ import java.util.HashMap;
 		int toReturn = 0;
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
 		{
-			Integer id = entry.getKey();
 			Student stud = entry.getValue();	
 			
 			if(stud.satisfactionScore == 4 && !stud.advisingIsSeminar())

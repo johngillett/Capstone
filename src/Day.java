@@ -1,5 +1,3 @@
-import java.io.Serializable;
-
 /**
  * This class represents one day (M, T, W, Th, F) 
  * with a given start and end time
