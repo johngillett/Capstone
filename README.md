@@ -23,9 +23,24 @@ The following files are the input data files our data reads:
 *freshmen_advising.txt
 
 The following files are the output data files made by our program:
-*
-*
+*resultingSchedule.txt
+*resulingCourses.txt
 
 ###Generating Graphs
 To be able to generate graphs summarizing the results of our program, make sure to have JFreeChart installed. Directions on installation can be found at http://www.tutorialspoint.com/jfreechart/jfreechart_installation.htm. If you are using Eclipse to compile and run code, make sure to add the jars to the buildpath of the project as well.
 
+###Using Our Project
+The main method is located in Driver, most aspects of the project can be manipulated from there. 
+The "PrintOutDataInfo" method has multiple useful output methods called inside, commenting/uncommenting these methods is an easy way to modify what results are outputted. 
+
+Our project currently uses data from Fall 2015, and generates regular course preference lists for students. To run our project with an updated set of courses and students you would need to replace the following files with their respective updated information:
+*courses 
+*courses_with_advising
+*freshman_counts (A list of all courses and the number of freshmen in each, for preference generation)
+*freshmen (list of students by ID with each enrolled course)
+*freshmen_advising (List of students by ID with each of their assigned advising courses)
+*seminar_prefs (List of Seminars by Course ID)
+
+Since we worked with incomplete data anyone attempting to implement this as a real solution would need to modify/write code to support reading in student's regular course preferences. 
+
+Student Generation can be modified in numerous ways. By default they are simply parsed from "standardStudentRegularPrefs.txt" inside the method "getStandardPrefs". By commenting out this and uncommenting "generatePopPrefs" a new set of prefernces can be generated and used if desired. These results are outputted as "currentStudentRegularPrefs.txt" and through renaming can be used as a standard set like by default. 
