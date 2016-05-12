@@ -3,6 +3,7 @@ import java.util.HashMap;
 
 public class ResultsTester {
 
+	//Double checks student's schedules, making sure there are no conflicts
 	public static void verifySchedules(HashMap<Integer,Student> students){
 	
 	boolean noConflicts = true;
@@ -25,7 +26,7 @@ public class ResultsTester {
 	
 	}
 	
-	
+	//Double checks a student's list of courses, making sure none conflict with each other. 
 	private static boolean schedConflictFree(ArrayList<Course> courses)
 	{				
 		for(int x = 0; x < courses.size(); x ++)

@@ -38,19 +38,6 @@ public class StudentGenerator {
 				}
 			}
 			
-			//for(Course c : advisingCourses)
-/*			{
-				if(c.hasRoom()) 
-				{
-					System.out.println("Course size for " + c.getID() + " is " + c.curSize + " out of " +  c.maxSize);
-
-					//System.out.println("we're in");
-					stu.addIfFitsInSchedule(c);
-					//c.addStudent(stu);
-					continue stuLoop;
-				}
-			}*/
-			//System.out.print(" NO! ");
 		}
 		
 		return students;

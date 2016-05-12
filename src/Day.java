@@ -13,6 +13,7 @@ public class Day{
 	int startTime;
 	int endTime;
 	
+	//Constructor
 	public Day(Slot day, int st, int end)
 	{
 		this.day = day;
@@ -25,6 +26,7 @@ public class Day{
 		return this.day + ": "+this.startTime+"-"+this.endTime;
 	}
 	
+	//Determines if two scheduled days conflict with each other
 	public static boolean isConflictFree(Day day1, Day day2)
 	{
 
@@ -40,25 +42,8 @@ public class Day{
 		if((day1.startTime == day2.startTime) || (day2.endTime == day2.endTime))
 			return false;
 		
-		
-		//if((d1.startTime < d2.endTime && d1.startTime > d2.startTime) || (d1.endTime > d2.startTime && d1.endTime < d2.endTime))
-		
 		if(!((day1.startTime < day2.startTime && day1.endTime < day2.startTime ) || (day2.startTime < day1.startTime && day2.endTime < day1.startTime)))
 			return false;
-		
-		//4 POSSIBLE CONFLICTS:
-		//if(day2.startTime < day1.endTime && day2.endTime > day1.endTime)
-		//	return false;
-		
-		//if(day1.startTime < day2.endTime && day1.endTime > day2.endTime)
-		//	return false;
-		
-		//if(day1.startTime < day2.startTime && day1.endTime > day2.endTime)
-		//	return false;
-		
-		//if(day2.startTime < day1.startTime && day2.endTime > day1.endTime)
-		//	return false;
-		
 		
 		
 		return false;

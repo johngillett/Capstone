@@ -45,7 +45,6 @@ public class SimAnnealingScheduler {
 		temp = Constants.INIT_TEMP_VAL;
 		
 		ScheduleBiased();
-		//ScheduleRecursively(studentsHeap,totalSatScore,1);
 		
 		return bestSol;
 	}
@@ -173,7 +172,6 @@ public class SimAnnealingScheduler {
 								//System.out.println("Sending "+studToCheck.id +" from pref "+toRepFromPrefPos+" to "+toRepPrefPos+" and student "+studInCourse.id+" from "+toBeRepPrefPos+" to "+repToPrefPos);
 								
 								//replaces stud2 with stud1 in Course
-								//replaceStudentInCourse(Student stud1, int stud1From, Student stud2, int stud2To, Course course)
 								replaceStudentInCourse(studToCheck,stu1PrefLeaving,studInCourse,stu2PrefEntering,pref);
 								continue mLoop;
 								}
@@ -300,7 +298,6 @@ public class SimAnnealingScheduler {
 								//System.out.println("Sending "+studToCheck.id +" from pref "+toRepFromPrefPos+" to "+toRepPrefPos+" and student "+studInCourse.id+" from "+toBeRepPrefPos+" to "+repToPrefPos);
 								
 								//replaces stud2 with stud1 in Course
-								//replaceStudentInCourse(Student stud1, int stud1From, Student stud2, int stud2To, Course course)
 								replaceStudentInCourse(studToCheck,stu1PrefLeaving,studInCourse,stu2PrefEntering,pref);
 								continue mLoop;
 								}
@@ -485,6 +482,7 @@ public class SimAnnealingScheduler {
 		return toReturn;
 	}
 	
+	//Returns a PriorityQueue of all students based on their Satisfaction Score
 	private static PriorityQueue constructMaxHeapOfAllStudents()
 	{
 	//Construct heap of students
@@ -506,6 +504,7 @@ public class SimAnnealingScheduler {
 			return studentsHeap;
 	}
 	
+	//Returns an ArrayList of all students made from the Student Hashmap
 	private static ArrayList<Student> constructArrayListOfAllStudents()
 	{
 		ArrayList<Student> toReturn = new ArrayList<Student>(); 
@@ -519,6 +518,7 @@ public class SimAnnealingScheduler {
 		
 	}
 	
+	//Returns an ArrayList of students enrolled in a given course
 	private static ArrayList<Student> constructArrayListFromCourse(Course section)
 	{
 		ArrayList<Student> toReturn = new ArrayList<Student>(); 
@@ -538,7 +538,7 @@ public class SimAnnealingScheduler {
 		return toReturn;
 	}
 	
-	
+	//Returns a random student from an ArrayList
 	private static Student removeRandomStudent(ArrayList<Student> studs)
 	{
 		Student toReturn;

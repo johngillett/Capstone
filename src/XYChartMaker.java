@@ -117,7 +117,8 @@ public class XYChartMaker extends ApplicationFrame
       dataset.addSeries(maxSeries);
       return dataset; 
    }
-
+	
+	//Creates Graph that represents progress of Greedy and Simulated Annealing Schedulers
    public static void makeAlgTrackerChart(int[] satCount, boolean doingSem)
    {
 	  if(!doingSem)

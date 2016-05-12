@@ -42,6 +42,7 @@ public class Course{
 	boolean isSeminar;
 	boolean isAdvising;
 	
+	//Constructor
 	public Course(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar, boolean isAdvising)
 	{
 		this.title = title;
@@ -72,12 +73,13 @@ public class Course{
 		this.isAdvising = isAdvising;
 	}
 	
-
+	//Course can fit more students
 	public boolean hasRoom()
 	{
 		return curSize < maxSize;
 	}
 	
+	//Gives this course a Lab
 	public void addLab(Course c)
 	{
 		for(Course l : this.labs)
@@ -95,6 +97,7 @@ public class Course{
 		hasLab = true;
 	}
 
+	//Prints out all Labs connected to this Course
 	public void printLabs()
 	{
 		for(Course c: labs)
@@ -103,12 +106,14 @@ public class Course{
 		}
 	}
 	
+	//Enroll student in Course
 	public void addStudent(Student stud)
 	{		
 		students.add(stud);	
 		curSize++;	
 	}
 	
+	//Unenroll student from Course
 	public void removeStudent(Student stud)
 	{
 		students.remove(stud);
@@ -120,7 +125,7 @@ public class Course{
 		return this.title;
 	}
 	
-	
+	//Returns if this course has a schedule conflict or not with another given course
 	private boolean isCompatible(Course course)
 	{
 		for(Day dayCourse1 : schedule)
@@ -149,21 +154,25 @@ public class Course{
 			
 	}
 	
+	//Determines if this Course is the same as another (Not Section specific)
 	public boolean isSameCourse(Course c)
 	{
 		return this.dept.equals(c.dept) && this.courseNum == c.courseNum;		
 	}
 	
+	//Determines if this Course is the same as another (Not Section specific)
 	public boolean isSameCourse(String dept, int cN)
 	{
 		return this.dept.equals(dept) && this.courseNum == cN;
 	}
 	
+	//Determines if this Course is the same as another (Not Section specific)
 	public boolean isSameCourse(String id)
 	{
 		return id.equals(this.dept+this.courseNum);
 	}
 	
+	//Determines if this Course is the same section as another
 	public boolean isSameSection(String sectID)
 	{
 		return this.sectionID.equals(sectID);
@@ -179,6 +188,7 @@ public class Course{
 		return this.sectionID;
 	}
 	
+	//Adds a scheduled meeting time to this Course
 	public void addMeetingTime(ArrayList<Day> d)
 	{
 		d1Loop:
@@ -211,8 +221,6 @@ public class Course{
 		return this.labs;
 	}
 	
-	//This toString method doesn't account for 
-	//possibly different start and end times on different days
 	public String toString()
 	{
 		String toReturn = this.dept +this.courseNum +this.sectionID+", ";
@@ -228,6 +236,7 @@ public class Course{
 		
 	}
 
+	//Returns this courses schedule as a string
 	public String schedToString()
 	{
 		String toReturn = "";
@@ -238,10 +247,11 @@ public class Course{
 		return toReturn;
 		
 	}
-
-	public boolean hasStudent(Student stud2) 
+	
+	//Returns true if a given student is enrolled in this course
+	public boolean hasStudent(Student stud) 
 	{
-		return this.students.contains(stud2);
+		return this.students.contains(stud);
 	}
 	
 	public boolean isSeminar()
@@ -254,16 +264,17 @@ public class Course{
 		return this.isAdvising;
 	}
 	
+	//Adds a course that shouldn't be given to a student that also has this course
 	public void addToConflictingCourses(String courseID){
 		this.conflictingCourses.add(courseID);
 	}
 	
+	//Determines if a student shouldn't be enrolled in this and courseID.
 	public boolean courseConflicts(String courseID){
-		
 		
 		for(String c : this.conflictingCourses){
 			if(courseID.equals(c)){
-				//System.out.println("FOUND A COURSE CONFLICT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				//System.out.println("FOUND A COURSE CONFLICT");
 				return true;
 			}
 		}

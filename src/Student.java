@@ -99,11 +99,9 @@ public class Student{
 	updateSatisfactionScore();
 	}
 	
-	//checks if course has no conflicts with student's schedule
+	//checks if course has no conflicts with student's schedule, and immediately enrolls them if so
 	public boolean addIfFitsInSchedule(Course courseToCheck)
 	{	
-		//System.out.println(courseToCheck);
-		//System.out.println(this);
 		
 		//can't enroll in a course that would conflict with another course
 		for(Course course : courses){
@@ -136,17 +134,6 @@ public class Student{
 				}
 					
 				boolean noConflicts = true;	
-				
-				//Make sure lab doesn't conflict with its main course
-//				for(Day d1 : courseToCheck.schedule){
-//					for(Day d2 : lab.schedule){
-//						if(!Day.isConflictFree(d1, d2))
-//						{
-//							noConflicts = false;
-//							break;
-//						}
-//					}
-//				}
 				
 				for(Day day1 : schedule)
 				{
@@ -196,6 +183,7 @@ public class Student{
 		return true;
 	}
 	
+	//Removes the student from a given course
 	public void unenroll(Course course) {
 		// TODO Auto-generated method stub
 		
@@ -227,6 +215,7 @@ public class Student{
 		//System.out.println("\tEnded with: "+this.schedule.toString());
 	}
 	
+	//Unenrolls the student from a course indicated by its preference number
 	public void unenrollFromPrefCourse(int prefNum) {
 		// TODO Auto-generated method stub
 		
@@ -272,18 +261,6 @@ public class Student{
 					continue;
 			
 				boolean noConflicts = true;	
-			
-				//Make sure lab doesn't conflict with its main course
-//				for(Day d1 : courseToCheck.schedule){
-//					for(Day d2 : lab.schedule){
-//						if(!Day.isConflictFree(d1, d2))
-//						{
-//							noConflicts = false;
-//							break;
-//						}
-//					}
-//				}
-				
 				
 				for(Day day1 : schedule)
 				{
@@ -320,6 +297,7 @@ public class Student{
 		return true;
 	}
 	
+	//Returns if a student is enrolled in a given course
 	public boolean hasCourse(String courseID)
 	{
 		for(Course course : courses)
@@ -341,65 +319,7 @@ public class Student{
 		return classCount;
 	}
 	
-//	public Course[] getRemainingCompPrefs(HashMap<String,ArrayList<Course>> hashCourses)
-//	{
-//		ArrayList<Course> toBuild = new ArrayList<Course>();
-//		
-//		String idToSkip = "";
-//		
-//			//if they have a full courseload, then we need to ignore their least preferred course
-//	if(this.getClassCount() >= Constants.STUD_COURSE_LIMIT)
-//	{
-//
-//		Course[] ourCourses = new Course[this.courses.size()];
-//		ourCourses = this.courses.toArray(ourCourses);
-//		
-//		outerLoop:
-//		for(int i = prefs.length-1; i >= 0;i--)
-//		{
-//			if(Student.isNullPrerence(prefs[i]) || !this.courseNotLocked(prefs[i]))
-//				continue;
-//			
-//			for(Course c : ourCourses)
-//			{
-//				//if(prefs[i].equals(c.getID()) && this.courseNotLocked(prefs[i]))
-//				if(prefs[i].equals(c.getID()))
-//				{
-//				IgnorePrefCourse(i+1);
-//				idToSkip = prefs[i];
-//				break outerLoop;
-//				}
-//			}
-//			
-//		}
-//		
-//	}
-//
-//		//finding non-enrolled preferred courses that are compatible with their schedule
-//		for(String id : this.prefs)
-//		{
-//			if(this.hasCourse(id) || idToSkip == id)
-//				continue;
-//			
-//			ArrayList<Course> curPrefSections = hashCourses.get(id);
-//			
-//			for(Course c : curPrefSections)
-//			{
-//				if(fitsInSchedule(c))
-//				{
-//					toBuild.add(c);
-//				}	
-//			}	
-//		}
-//		
-//		Course[] toReturn = new Course[toBuild.size()];
-//		toReturn =toBuild.toArray(toReturn);
-//		
-//		stopIgnoringCourse();
-//		
-//		return toReturn;
-//	}
-	
+	//Returns an array of all the remaining courses a student could theoretically be enrolled into, imagining that they aren't enrolled in their least preferred course
 	public Course[] getRemainingCompPrefs(HashMap<String,ArrayList<Course>> hashCourses)
 	{
 		ArrayList<Course> toBuild = new ArrayList<Course>();
@@ -580,6 +500,7 @@ public class Student{
 		return Constants.NUM_PREFS+1;
 	}
 	
+	//Temporarily unenrolls a student from a course so schedule checking with other courses can be done
 	public void IgnorePrefCourse(int toMask) {
 		// TODO Auto-generated method stub
 		Course[] toCheck = new Course[courses.size()];
@@ -601,6 +522,7 @@ public class Student{
 		
 	}
 
+	//Re-enrolls students in courses we were previously ignoring
 	public void stopIgnoringCourse()
 	{
 		for(Course c : toIgnore)
@@ -615,7 +537,7 @@ public class Student{
 	}
 
 	
-
+	//Returns a student's preferred courses in a String
 	public String prefsToString(boolean doingSeminar)
 	{
 		String toReturn = "";
@@ -633,7 +555,8 @@ public class Student{
 		return toReturn;
 		
 	}
-
+	
+	//Returns if a given course is locked, i.e. cannot be removed 
 	public boolean courseNotLocked(String id)
 	{
 		if(id.equals(Constants.NULL_PREF))
@@ -651,7 +574,7 @@ public class Student{
 		return true;
 	}
 	
-	
+	//Locks in a course as a final decision
 	public void lockCourse(String id)
 	{
 		lockedCourses.add(id);
@@ -663,7 +586,7 @@ public class Student{
 		return name.equals(Constants.NULL_PREF);
 	}
 	
-	
+	//Re-calculates this student's satisfaction score
 	private void updateSatisfactionScore()
 	{
 		int newScore = 0;

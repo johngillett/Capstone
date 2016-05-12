@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class ResultsWriter {
 
+	//Writes out the list of students into a txt file for easy viewing
 	public static void writeResults(HashMap<Integer,Student> studs)
 	{
 		File f;
@@ -113,9 +114,10 @@ public class ResultsWriter {
 
 	}
 
+	//Writes out all courses into a txt file for easy viewing
 	public static void writeCourseResults(HashMap<String,ArrayList<Course>> courses)
 	{
-File f;
+	File f;
 		
 		f = new File("resultingCourses.txt");
 			

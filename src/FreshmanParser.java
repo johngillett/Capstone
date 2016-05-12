@@ -31,9 +31,6 @@ public class FreshmanParser {
 		//skip first line
 		bufRead.readLine();	
 		
-		//number of students with advising courses
-		//int numAdvisees = 0;
-		
 			//Line Format:
 			//0	   1  
 			//ID   Class
@@ -77,67 +74,10 @@ public class FreshmanParser {
 		    			currStudent.setActualSeminar(courseID);
 		    		}
 		    		
-//				    ArrayList<Course> possibleCourses = courses.get(courseID);
-//				    //for all sections
-//				    for(Course courseSec : possibleCourses)
-//				    {
-//				    	if(!courseSec.hasRoom()) continue;
-//				    	//if we found the section the student is in
-//				    	if(courseSec.getSectionID().equals(section))
-//				    	{
-//				    		if (courseSec.isAdvising())
-//				    		{
-//				    			//System.out.println(courseSec.getTitle() + " is " + data[0] + "'s advising course");
-//				    			Student currStudent = freshmen.get(id);
-//				    			//if(!currStudent.hasCourse(courseSec.getID()))
-//				    			if(!currStudent.hasAdvisingCourse())
-//				    			{
-//				  
-//				    				boolean flag = currStudent.addIfFitsInSchedule(courseSec);
-//				    				if(!flag) {
-//				    					System.out.println(flag);
-//				    					//System.out.println(courseSec.toString());
-//				    				}
-//				    				//courseSec.addStudent(currStudent);
-//				    				currStudent.hasAdvisingCourse = true;
-//				    				currStudent.lockCourse(courseSec.getID());
-//				    				//System.out.println("student " + data[0] + " has an advising course: " + currStudent.hasAdvisingCourse());
-//				    				//numAdvisees ++;
-//				    			}
-//				    		}
-//				    	}
-//				    }
 			    }
 
 			    			   	
 			}
-			
-		//System.out.println("The number of students in an advising course is " + numAdvisees);
-		
-		//finding students without an advising course
-		//for now, remove these students
-//		int numStu = 0;
-//		ArrayList<Integer> freshmenToRemove = new ArrayList<Integer>();
-//		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
-//			Student stud = c.getValue();
-//			int studID = c.getKey();
-//			if(stud.getClassCount() == 0){
-//				numStu++;
-//				freshmenToRemove.add(studID);
-//				//System.out.println(stud);
-//				//freshmen.remove(studID);
-//				//System.out.println("does the hashmap contain student "+ stud.id + " ?: " + freshmen.containsKey(studID));
-//			}
-//		}
-//		
-//		for(Integer studID : freshmenToRemove)
-//		{
-//			//System.out.println("Student " + studID + " is getting deleted");
-//			freshmen.remove(studID);
-//			
-//		}
-		//System.out.println("There " + numStu + " students without advising classes");
-			
 		
 		bufRead.close();
 		input.close();
@@ -150,32 +90,6 @@ public class FreshmanParser {
 		return freshmen;
 	}
 	
-	public static void getStudWithoutAdvising(){
-		//finding students without an advising course
-		//for now, remove these students
-//		int numStu = 0;
-//		ArrayList<Integer> freshmenToRemove = new ArrayList<Integer>();
-//		for(HashMap.Entry<Integer, Student> c : freshmen.entrySet()){
-//			Student stud = c.getValue();
-//			int studID = c.getKey();
-//			if(stud.getClassCount() == 0){
-//				numStu++;
-//				freshmenToRemove.add(studID);
-//				//System.out.println(stud);
-//				//freshmen.remove(studID);
-//				//System.out.println("does the hashmap contain student "+ stud.id + " ?: " + freshmen.containsKey(studID));
-//			}
-//		}
-//		
-//		for(Integer studID : freshmenToRemove)
-//		{
-//			//System.out.println("Student " + studID + " is getting deleted");
-//			freshmen.remove(studID);
-//			
-//		}
-		//System.out.println("There " + numStu + " students without advising classes");
-			
-	}
 	
 	public static void setAdvisingCourses(HashMap<Integer,Student> students, HashMap<String, ArrayList<Course>> courses){
 		try {			

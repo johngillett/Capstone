@@ -13,15 +13,21 @@ import java.util.HashMap;
 	public class Driver
 	{
 		
+	//Course Data Structures
 	static ArrayList<Course> courseList;
 	static HashMap<String,ArrayList<Course>> courses;
 	static ArrayList<Course> advisingCourses;
 	static ArrayList<String> seminarCourses;
 	static ArrayList<String> regularCourses;
+	
+	//Student Data Structures
 	static HashMap<Integer, Student> students;
 	static HashMap<String, Integer> freshmenCourseCounts;
-	static boolean doingSeminar;
 	static HashMap<Integer,Student> studsWithAdAsSem;
+	
+	//Whether we're scheduling Seminars or Regular Courses
+	static boolean doingSeminar;
+	
 	//greedy results
 	static double[] prefCountReg2Greedy;
 	static double[] prefCountReg3Greedy;
@@ -173,10 +179,10 @@ import java.util.HashMap;
 
 		//printSeminarInfo();
 		
-		//printCourseData();
+		printCourseData();
 		
-		//getGraphs();
-		//getAlgTrackerGraph();
+		getGraphs();
+		getAlgTrackerGraph();
 		
 		printStudents();
 		//printCourses();
@@ -319,6 +325,8 @@ import java.util.HashMap;
 		
 	}
 	
+	
+	//Double checks for any errors in the resulting Solution
 	static void VerifyResults()
 	{
 		ResultsTester.verifySchedules(students);
@@ -409,9 +417,6 @@ import java.util.HashMap;
 	{
 		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
 			ArrayList<Course> sections = entry.getValue();
-			
-//			if(!sections.get(0).isSeminar)
-//				continue;
 			
 			for(Course section : sections){
 				if(section.isSeminar()) System.out.println(section);
@@ -528,13 +533,6 @@ import java.util.HashMap;
 
 			}
 			
-			//debugging
-//			int sum = 0;
-//			for(int i = 0; i < prefCount.length; i++){
-//				sum += prefCount[i];
-//			}
-//			System.out.println("Total number of students is " + students.size() +
-//					", Total number of those in seminars is " + sum);
 		}
 
 		else{

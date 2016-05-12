@@ -168,9 +168,6 @@ public class CourseParser {
 
 			   	//if(isAdvising) System.out.println(title+ " is an advising course");
 			   	
-			   	//if(isSeminar)
-			   		//numSSIs++;
-			   	
 			    //Add the course!
 			   	//(String title, String dep, String sectionID, int cN, ArrayList<Day> schedule, int min, int max, int curSize, boolean isSeminar, boolean isAdvising)
 			    Course toAdd = new Course(title,dep,sectID,cNum,schedule,0,maxSize, curSize,isSeminar,isAdvising);
@@ -361,20 +358,7 @@ public class CourseParser {
 		} 
 	}
 	
-//	public static boolean courseConflicts(String course1, String course2)
-//	{
-//		for(ArrayList<String> list : conflictingCourses){
-//			for(String c1 : list){
-//				if(c1.equals(course1)){
-//					for(String c2 : list){
-//						if(c2.equals(course2)) return true;
-//					}
-//				}
-//			}
-//		}
-//	return false;
-//	}
-	
+	//Sets up Courses that should not be taken together
 	public static void setConflictingCourses(HashMap<String,ArrayList<Course>> courses){
 		for(ArrayList<String> list : conflictingCourses){
 			for(String c1 : list){

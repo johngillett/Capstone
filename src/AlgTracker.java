@@ -18,7 +18,7 @@ public class AlgTracker {
 	private static int simCounter;
 	private static int greedyCounter;
 	
-
+	//Initializes AlgTracker
 	public static void init()
 	{
 		greedyCounter = 0;
@@ -30,6 +30,7 @@ public class AlgTracker {
 		greedyList = new ArrayList<Integer>();
 	}
 	
+	//Records every TRACK_FIDELITY entries 
 	public static void addGreedyEntry(int entry)
 	{
 		greedyCounter++;	
@@ -41,6 +42,7 @@ public class AlgTracker {
 		greedyCounter = 0;
 	}
 	
+	//Records every TRACK_FIDELITY entries 
 	public static void addSimAnnealEntry(int entry)
 	{
 		

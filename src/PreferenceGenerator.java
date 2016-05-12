@@ -197,8 +197,7 @@ public class PreferenceGenerator {
 					toChange.semPrefs = newprefs;
 				else
 					toChange.regPrefs = newprefs;
-				//toChange.prefs = newprefs;
-				
+			
 				//System.out.println(studID+toChange.prefsToString());
 			}
 			
@@ -337,6 +336,7 @@ public class PreferenceGenerator {
 		
 	}
 	
+	//Removes Students who did not submit a list of preferences. 
 	public static void deleteStudsWithoutPrefs(HashMap<Integer,Student> students)
 	{
 		//remove students who didn't input their preferences
@@ -363,15 +363,7 @@ public class PreferenceGenerator {
 		for(Integer studID : studsToRemove){
 			students.remove(studID);
 		}
-		
-		//check students
-//		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
-//		{
-//			Student student = entry.getValue();
-//			int studID = entry.getKey();
-//			System.out.println(studID + ": " + student.prefsToString(true));
-//		
-//		}
+
 	}
 	
 	/**

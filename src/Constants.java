@@ -62,7 +62,6 @@ public class Constants
 	static final int TRACK_FIDELITY = 1;
 
 	//Min & max total possible scores
-	//static final int LINEAR_OBJ_THRESHOLD = (int) (((NUM_PREFS * 4)-4) * ((double)NUM_STUDENTS/2.5f)); // multiplied by # students
 	static final int LINEAR_OBJ_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)*MIN_SAT_LINEAR;
 	
 	static final int LINEAR_OBJ_SEM_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_SEM_ADVISING + (NUM_STUDENTS - NUM_STUDENTS_AD_AS_SEM) * MIN_SAT_LINEAR_SEM;
@@ -71,13 +70,11 @@ public class Constants
 	
 	static final int LINEAR_OBJ_MAX_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MAX_SAT_LINEAR_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM-NUM_STUDENTS_NO_ADVISING)*MAX_SAT_LINEAR + (NUM_STUDENTS_NO_ADVISING * MAX_SAT_LINEAR_NOADVISING);
 	
-	//TO CALCULATE
-	//static final int LINEAR_OBJ_SEM_MAX_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MAX_SAT_LINEAR_SEM_ADVISING + (NUM_STUDENTS - NUM_STUDENTS_AD_AS_SEM) * MIN_SAT_LINEAR_SEM;
-
 	//Simulated Annealing
 	static final float INIT_TEMP_VAL = 1f;
 	static final float TEMP_SCALE_FACTOR = .9f;
 
+	//Stop condition
 	static final float MIN_TEMP = 0.01f;
 
 	static final int ITERS_BEFORE_TEMP_SCALE = 1000;
