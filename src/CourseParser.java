@@ -26,7 +26,7 @@ public class CourseParser {
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		
 		try {			
-		FileReader input = new FileReader("courses_with_advising.txt");
+		FileReader input = new FileReader("courses.txt");
 		BufferedReader bufRead = new BufferedReader(input);
 		String nextLine = null;
 	

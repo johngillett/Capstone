@@ -78,19 +78,19 @@ public class XYChartMaker extends ApplicationFrame
        if(Constants.SAT.equals(Constants.SAT_SCALE.Geometric))
        {
     	   max = 0;
-    	   obj = Constants.GEOMETRIC_OBJ_THRESHOLD;
+    	   obj = Constants.GEOMETRIC_OBJ_MIN;
        }
        
        else
        {
     	   if(doingSem){
-    		   obj = Constants.TOT_SAT_TO_SEM_MOD + Constants.LINEAR_OBJ_SEM_THRESHOLD;
-    		   max = Constants.LINEAR_OBJ_MAX_THRESHOLD;
+    		   obj = Constants.TOT_SAT_TO_SEM_MOD + Constants.LINEAR_OBJ_SEM_MIN;
+    		   max = Constants.LINEAR_OBJ_MAX;
     	   }
 
     	   else{
-    		   obj = Constants.LINEAR_OBJ_THRESHOLD;
-    		   max = Constants.LINEAR_OBJ_MAX_THRESHOLD;
+    		   obj = Constants.LINEAR_OBJ_MIN;
+    		   max = Constants.LINEAR_OBJ_MAX;
     	   }
        }
 

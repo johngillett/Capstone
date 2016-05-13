@@ -9,7 +9,7 @@
 public class Constants 
 {
 
-	//Basic info
+	//Basic info derived from Fall 2015 data - must be updated if new files are used
 	static final int NUM_STUDENTS = 646;
 	
 	static final int NUM_STUDENTS_AD_AS_SEM = 172;
@@ -48,35 +48,34 @@ public class Constants
 	static final int MAX_SAT_LINEAR_SEM = NUM_PREFS+1; //don't get a seminar
 	static final int MAX_SAT_LINEAR_SEM_ADVISING = 0;  //advising is seminar
 	
+	//Used to scale the "Progression of our Algorithm on Seminars" graph 
 	static final int TOT_SAT_TO_SEM_MOD = (NUM_STUDENTS_AD_AS_SEM *(3*(NUM_PREFS+1))) + ((NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)* (2*(NUM_PREFS+1)));
 	
 	//Geometric scaling
 	static final int MIN_SAT_GEOMETRIC = 2 + 2 + 4;
 	static final int MIN_SAT_GEOMETRIC_ADVISING = 2 + 4 + 8;
 	static final int MAX_SAT_GEOMETRIC = (int) Math.pow(2,(NUM_PREFS+1))*STUD_COURSE_LIMIT;
-	
-	
-	static final float POP_SCALE_FACTOR = 0f;
-	
+		
 	//Algorithm Tracker
 	static final int TRACK_FIDELITY = 1;
 
 	//Min & max total possible scores
-	static final int LINEAR_OBJ_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)*MIN_SAT_LINEAR;
+	static final int LINEAR_OBJ_MIN = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)*MIN_SAT_LINEAR;
 	
-	static final int LINEAR_OBJ_SEM_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_SEM_ADVISING + (NUM_STUDENTS - NUM_STUDENTS_AD_AS_SEM) * MIN_SAT_LINEAR_SEM;
+	static final int LINEAR_OBJ_SEM_MIN = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_LINEAR_SEM_ADVISING + (NUM_STUDENTS - NUM_STUDENTS_AD_AS_SEM) * MIN_SAT_LINEAR_SEM;
+		
+	static final int LINEAR_OBJ_MAX = NUM_STUDENTS_AD_AS_SEM*MAX_SAT_LINEAR_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM-NUM_STUDENTS_NO_ADVISING)*MAX_SAT_LINEAR + (NUM_STUDENTS_NO_ADVISING * MAX_SAT_LINEAR_NOADVISING);
 	
-	static final int GEOMETRIC_OBJ_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_GEOMETRIC_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)*MIN_SAT_GEOMETRIC;
-	
-	static final int LINEAR_OBJ_MAX_THRESHOLD = NUM_STUDENTS_AD_AS_SEM*MAX_SAT_LINEAR_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM-NUM_STUDENTS_NO_ADVISING)*MAX_SAT_LINEAR + (NUM_STUDENTS_NO_ADVISING * MAX_SAT_LINEAR_NOADVISING);
+	static final int GEOMETRIC_OBJ_MIN = NUM_STUDENTS_AD_AS_SEM*MIN_SAT_GEOMETRIC_ADVISING+ (NUM_STUDENTS -NUM_STUDENTS_AD_AS_SEM)*MIN_SAT_GEOMETRIC;
+
+	//GEOMETRIC_OBJ_MAX would be infeasibly large to show on a plot
 	
 	//Simulated Annealing
 	static final float INIT_TEMP_VAL = 1f;
-	static final float TEMP_SCALE_FACTOR = .9f;
-
-	//Stop condition
-	static final float MIN_TEMP = 0.01f;
-
 	static final int ITERS_BEFORE_TEMP_SCALE = 1000;
+	static final float TEMP_SCALE_FACTOR = .9f;
+	static final float MIN_TEMP = 0.01f; //Stop condition
+
+	
 	
 }

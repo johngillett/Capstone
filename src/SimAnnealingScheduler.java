@@ -22,32 +22,6 @@ public class SimAnnealingScheduler {
 	
 	private static Random rand;
 	
-	/**
-	 * Schedules using simulated annealing, but always tries to make the best possible swap
-	 * of students in each iteration of the algorithm
-	 * 
-	 * @param inStudents the students we are scheduling
-	 * @param inCourses the courses the students can be scheduled into
-	 * @return the solution, i.e. the courses and students properly scheduled with a low total sat. score
-	 */
-	public static Solution ScheduleBiased(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
-	{
-		courses = inCourses;
-		studentsMap = inStudents;
-		
-		rand = new Random();
-		
-		int totalSatScore = Driver.getTotalSatScore();
-		
-		//Create initial best score
-		bestSol = new Solution(inCourses,inStudents,totalSatScore);
-		
-		temp = Constants.INIT_TEMP_VAL;
-		
-		ScheduleBiased();
-		
-		return bestSol;
-	}
 	
 	/**
 	 * Schedules using simulated annealing, always choosing a random swap of students
@@ -57,7 +31,7 @@ public class SimAnnealingScheduler {
 	 * @param inCourses the courses the students can be scheduled into
 	 * @return the solution, i.e. the courses and students properly scheduled with a low total sat. score
 	 */
-	public static Solution ScheduleUnbiased(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
+	public static Solution Schedule(HashMap<Integer,Student> inStudents,HashMap<String,ArrayList<Course>> inCourses)
 	{
 		courses = inCourses;
 		studentsMap = inStudents;
@@ -70,131 +44,28 @@ public class SimAnnealingScheduler {
 		bestSol = new Solution(inCourses,inStudents,totalSatScore);
 		
 		if(Constants.SAT == Constants.SAT_SCALE.Linear)
-			System.out.println("Starting with a score of "+bestSol.getScore()+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD);
+			System.out.println("Starting with a total satisfaction score of "+bestSol.getScore()+", aiming for "+Constants.LINEAR_OBJ_MIN);
 			else
-			System.out.println("Starting with a score of "+bestSol.getScore()+", aiming for "+Constants.GEOMETRIC_OBJ_THRESHOLD);
+			System.out.println("Starting with a total satisfaction score of "+bestSol.getScore()+", aiming for "+Constants.GEOMETRIC_OBJ_MIN);
 				
+		
+		System.out.println("Will display total satisfaction score every "+Constants.ITERS_BEFORE_TEMP_SCALE+" iterations.");
 		
 		temp = Constants.INIT_TEMP_VAL;
 		
-		ScheduleUnbiased();
+		SimAnnealing();
 		
-		System.out.println("Started with: "+totalSatScore+", ended up with "+bestSol.getScore());
+		System.out.println("Started with a total satisfaction score of "+totalSatScore+", ended up with "+bestSol.getScore());
 		
 		return bestSol;
 	}
 	
-	    //Heuristic Approach (less random) method
-		/**
-		 * Helper method for biased simulated annealing
-		 */
-		private static void ScheduleBiased()
-		{
-	        PriorityQueue students;// = constructMaxHeapOfAllStudents();
-			
-	        int currTotalSatScore = bestSol.getScore();
-	        
-	        //mainCondition:
-			while(!conditionIsMet())
-			{
-				students = constructMaxHeapOfAllStudents();
-				
-				mLoop:
-				for(int m = 0; m < Constants.ITERS_BEFORE_TEMP_SCALE; m++)
-				{
-					//System.out.println("Starting out with a score of "+currTotalSatScore+", aiming for "+Constants.LINEAR_OBJ_THRESHOLD+"!");
-					
-					if(students.isEmpty())
-						break;
-					
-					Student studToCheck = students.topElement();
-					students.pop();
-				
-					while(!students.isEmpty())
-					{
-					
-						//Get Array of all course sections from Student's pref List that are compatible and not enrolled & ignoring the 4th course if there is one 
-						Course[] prefs = studToCheck.getRemainingCompPrefs(courses);	
-						
-						if(prefs == null)
-						{
-							System.out.println("No other possible choices!");
-							studToCheck = students.topElement();
-							System.out.println("switching to: "+studToCheck.id);
-							students.pop();
-							continue;
-						}
-						
-						prefLoop:
-						for(Course pref : prefs)
-						{
-							
-							//Get students in order of satisfaction score 
-							PriorityQueue studentsHeap = constructStudentHeapFromCourse(pref);
-							
-							//Course may be filled with non-freshmen
-							if(studentsHeap.isEmpty())
-							{
-								//System.out.println("Skip!");
-								continue;
-							}
-							
-							Student studInCourse = studentsHeap.topElement();
-							studentsHeap.pop();
-							
-							while(!studentsHeap.isEmpty())
-							{
-									
-								//The preference number of the course we'd be swapping the student into 
-								int stu1PrefEntering = studToCheck.getPrefNumber(pref.getID());
-								//the preference number of the course we would be taking toRep from to make the swap. 9 if he doesn't have a full course load 
-								int stu1PrefLeaving = studToCheck.getLastEnrolledPrefNumber();
-								
-								//the preference number of the course we'd be taking this student out of 
-								int stu2PrefLeaving = studInCourse.getPrefNumber(pref.getID());
-								//The preference number of the course we can schedule the replaced student into if we make the swap, 9 if there is none.
-								int stu2PrefEntering = getNextPreferredCourseAfterPotentialSwap(studInCourse,stu2PrefLeaving);
-								
-								
-								int netChange = netChangeFromReplacingStudent(stu1PrefLeaving,stu1PrefEntering,stu2PrefLeaving,stu2PrefEntering);
-								
-								//If the change was good or our temperature allows it 
-								if(netChange < 0 || makeChangeAnyway(netChange)) 
-								{
-								currTotalSatScore += netChange;	
-								
-								//System.out.println("Made net change: "+netChange+", new score:"+currTotalSatScore);	
-								
-								//Update Best Solution if necessary
-								if(currTotalSatScore < bestSol.getScore())
-									bestSol = new Solution(courses,studentsMap,currTotalSatScore);
-								
-								//System.out.println("Sending "+studToCheck.id +" from pref "+toRepFromPrefPos+" to "+toRepPrefPos+" and student "+studInCourse.id+" from "+toBeRepPrefPos+" to "+repToPrefPos);
-								
-								//replaces stud2 with stud1 in Course
-								replaceStudentInCourse(studToCheck,stu1PrefLeaving,studInCourse,stu2PrefEntering,pref);
-								continue mLoop;
-								}
-								
-								studInCourse = studentsHeap.topElement();
-								studentsHeap.pop();
-							}
-						}
-						studToCheck = students.topElement();
-						students.pop();
-					}
-				}
-				temp *= Constants.TEMP_SCALE_FACTOR;
-				System.out.println("\tNew Temperature: "+temp);
-			}
-			return;
-		}
 	
 		/**
 		 * Helper method for unbiased simulated annealing
 		 * randomly chooses students to replace in order to lower the total score
 		 */
-		private static void ScheduleUnbiased()
+		private static void SimAnnealing()
 		{
 	        PriorityQueue students;// = constructMaxHeapOfAllStudents();
 			
@@ -332,12 +203,12 @@ public class SimAnnealingScheduler {
 		
 		if(Constants.SAT == Constants.SAT_SCALE.Linear)
 		{
-			if(bestSol.getScore() < Constants.LINEAR_OBJ_THRESHOLD)
+			if(bestSol.getScore() < Constants.LINEAR_OBJ_MIN)
 				return true;
 		}
 		else
 		{
-			if(bestSol.getScore() < Constants.GEOMETRIC_OBJ_THRESHOLD)
+			if(bestSol.getScore() < Constants.GEOMETRIC_OBJ_MIN)
 				return true;
 		}
 		

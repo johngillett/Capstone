@@ -40,6 +40,8 @@ import java.util.HashMap;
 	static float semSchedTime;
 	static float regSchedTime;
 	
+	static Solution sol;
+	
 	public static void main(String[] args) {
 		
 		//Setup
@@ -48,153 +50,20 @@ import java.util.HashMap;
 		
 		//Schedule using just greedy 
 		runGreedy();
-		//PrintOutDataInfo();
+		printStudentStats();
 		
+		
+		System.out.println("FINISHED GREEDY.\n");
 		//Reschedule using simulated annealing (with greedy)
 		SetupCourses();
 		GenerateStudents();
 		RunSchedulingProcess();
-
+		printStudentStats();
+		
 		//Results
-		PrintOutDataInfo();
+		outputGraphs();
 		VerifyResults();
-		
-	}
-	
-	/**
-	 * Runs just the greedy algorithm in order to compare results
-	 * with simulated annealing
-	 */
-	private static void runGreedy()
-	{
-		AlgTracker.init();
-		
-		long startTime = System.currentTimeMillis();
-		
-		//Set to Seminar mode
-		setStudentPrefsToSeminar();
-		
-		printSeminarInfo();
-		
-		//Preliminary Seminar Greedy Schedule
-		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
-		printSeminarInfo();
-		
-		greedyTotalSemSat = getTotalSatScore();//-Constants.TOT_SAT_TO_SEM_MOD;
-		
-		System.out.println("Switching to Regular Courses.");
-		//Lock Current Placed courses
-		lockAllStudentSeminarCourses();
-		setStudentPrefsToRegular();
-		
-		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
-		
-		long endTime = System.currentTimeMillis();
-		
-		float resTime = (float)(endTime - startTime)/1000;
-		
-		System.out.println("Greedy Scheduler ran in "+resTime+" seconds.");
-		
-		
-		//store results of greedy to graph later
-		double[] satCount = getLinearSatCount(students);
-		satPerGreedy = getLinearSatPer(satCount);
-		
-		setStudentPrefsToSeminar();
-		HashMap<Integer,Student> studsToCheck = getStudentsWithoutAdAsSem();
-		prefCountSemGreedy = getPrefCount(studsToCheck);
-		
-		setStudentPrefsToRegular();
-		//get students with 3 courses to schedule
-		HashMap<Integer,Student> studs3 = getStudentsWith3CoursesToPlace();
-		prefCountReg3Greedy = getPrefCount(studs3);
-		
-		//get students with 2 courses to schedule
-		HashMap<Integer,Student> studs2 = getStudentsWith2CoursesToPlace();
-		prefCountReg2Greedy = getPrefCount(studs2);
-		
-		greedyTotalSat = getTotalSatScore();
-	}
-
-	/**
-	 * Schedules students into their seminar preferences
-	 * and then schedules students into their remaining courses
-	 */
-	private static void RunSchedulingProcess()
-	{
-		AlgTracker.init();
-		
-		long startTime = System.currentTimeMillis();
-		
-		long semStartTime = System.currentTimeMillis();
-		
-		//Set to Seminar mode
-		setStudentPrefsToSeminar();
-		
-		printSeminarInfo();
-		
-		//Preliminary Seminar Greedy Schedule
-		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
-		printSeminarInfo();
-		
-		//Simulated Annealing:
-		Solution sol = SimAnnealingScheduler.ScheduleUnbiased(students, courses);
-		
-		printSeminarInfo();
-		
-		long semEndTime = System.currentTimeMillis();
-		
-		
-		semSchedTime = (float)(semEndTime - semStartTime)/1000;
-		
-		System.out.println("Switching to Regular Courses.");
-		//Lock Current Placed courses
-		lockAllStudentSeminarCourses();
-		setStudentPrefsToRegular();
-		
-		long regStartTime = System.currentTimeMillis();
-		
-		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
-			
-		sol = SimAnnealingScheduler.ScheduleUnbiased(students, courses);
-		
-		long endTime = System.currentTimeMillis();
-		
-		float resTime = (float)(endTime - startTime)/1000;
-		
-		long regEndTime = System.currentTimeMillis();
-		
-		regSchedTime = (float)(regEndTime - regStartTime)/1000;
-		
-		System.out.println("Scheduler ran in "+resTime+" seconds. Seminars took "+semSchedTime+" seconds, regulars took "+regSchedTime+ " seconds");
-		
-		
-	}
-	
-	/**
-	 * Prints out results of the scheduling process
-	 */
-	private static void PrintOutDataInfo()
-	{
-
-		//printSeminarInfo();
-		
-		printCourseData();
-		
-		getGraphs();
-		getAlgTrackerGraph();
-		
-		printStudents();
-		//printCourses();
-		//printFreshmenCourseCountTotal();
-		
-		//printSatisfactionScoreInfo();
-
-		System.out.println("Number of students with perfect schedule: "+getNumOfPerfectlyScheduledStudents());
-		
-		ResultsWriter.writeResults(students);
-		ResultsWriter.writeCourseResults(courses);
-		System.out.println("Results have been written to resultingCourses.txt and resultingSchedule.txt");
+		writeResults();
 		
 	}
 	
@@ -225,12 +94,18 @@ import java.util.HashMap;
 	 */
 	private static void GenerateStudents()
 	{
-		//Generate students
+		System.out.println("Generating Students...");
+		//GENERATE STUDENTS
 		students = FreshmanParser.parseFreshmen(courses);
+		
+		//Create students from scratch:
 		//students = StudentGenerator.generateStudents(advisingCourses);
+		
 		//get advising courses
 		FreshmanParser.setAdvisingCourses(students, courses);
 		
+		//ESTABLISH PREFERENCES
+		System.out.println("Establishing student preferences...");
 		//Generate Seminar Preferences
 		setStudentPrefsToSeminar();
 		//PreferenceGenerator.getRealSemPrefs(students, seminarCourses);
@@ -244,11 +119,139 @@ import java.util.HashMap;
 		//PreferenceGenerator.generateRanPrefs(students, regularCourses, doingSeminar);
 		PreferenceGenerator.getStandardPrefs(students);
 
+		
+		
 		//Find out how many students initially have advising as seminar
 		setStudentsWithAdAsSem();
 		System.out.println("The number of students with advising as seminar: " + studsWithAdAsSem.size());
-
+		System.out.println("Finished generating students.");
+		System.out.println();
 	}
+	
+	/**
+	 * Runs just the greedy algorithm in order to compare results
+	 * with simulated annealing
+	 */
+	private static void runGreedy()
+	{
+		System.out.println("Beginning Greedy Algorithm...");
+		AlgTracker.init();
+		
+		long startTime = System.currentTimeMillis();
+		
+		//Set to Seminar mode
+		setStudentPrefsToSeminar();
+		
+		//Preliminary Seminar Greedy Schedule
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
+		printNumStudInSeminars();
+		
+		greedyTotalSemSat = getTotalSatScore();//-Constants.TOT_SAT_TO_SEM_MOD;
+		
+		//Lock Current Placed courses
+		lockAllStudentSeminarCourses();
+		setStudentPrefsToRegular();
+		
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
+		
+		long endTime = System.currentTimeMillis();
+		
+		float resTime = (float)(endTime - startTime)/1000;
+		
+		System.out.println("Greedy Scheduler ran in "+resTime+" seconds.");
+		System.out.println();
+		
+		//store results of greedy to graph later
+		double[] satCount = getLinearSatCount(students);
+		satPerGreedy = getLinearSatPer(satCount);
+		
+		setStudentPrefsToSeminar();
+		HashMap<Integer,Student> studsToCheck = getStudentsWithoutAdAsSem();
+		System.out.println("Seminar Placements:");
+		prefCountSemGreedy = getPrefCount(studsToCheck);
+		
+		setStudentPrefsToRegular();
+		//get students with 3 courses to schedule
+		HashMap<Integer,Student> studs3 = getStudentsWith3CoursesToPlace();
+		System.out.println("Regular Placements for Students with 3 courses to schedule:");
+		prefCountReg3Greedy = getPrefCount(studs3);
+		
+		//get students with 2 courses to schedule
+		HashMap<Integer,Student> studs2 = getStudentsWith2CoursesToPlace();
+		System.out.println("Regular Placements for Students with 2 courses to schedule:");
+		prefCountReg2Greedy = getPrefCount(studs2);
+		
+		greedyTotalSat = getTotalSatScore();
+	}
+
+	/**
+	 * Schedules students into their seminar preferences
+	 * and then schedules students into their remaining courses
+	 */
+	private static void RunSchedulingProcess()
+	{
+		System.out.println("Beginning simulated annealing algorithm...");
+		AlgTracker.init();
+		
+		long startTime = System.currentTimeMillis();
+		
+		long semStartTime = System.currentTimeMillis();
+		
+		//Set to Seminar mode
+		setStudentPrefsToSeminar();
+		
+		printNumStudInSeminars();
+		
+		//Preliminary Seminar Greedy Schedule
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
+		printNumStudInSeminars();
+		
+		//Simulated Annealing:
+		sol = SimAnnealingScheduler.Schedule(students, courses);
+		
+		printNumStudInSeminars();
+		
+		long semEndTime = System.currentTimeMillis();
+		
+		
+		semSchedTime = (float)(semEndTime - semStartTime)/1000;
+		
+		//Lock Current Placed courses
+		lockAllStudentSeminarCourses();
+		setStudentPrefsToRegular();
+		
+		long regStartTime = System.currentTimeMillis();
+		
+		GreedyScheduler.greedyScheduleByPref(students, courses,doingSeminar);
+			
+		sol = SimAnnealingScheduler.Schedule(students, courses);
+		
+		long endTime = System.currentTimeMillis();
+		
+		float resTime = (float)(endTime - startTime)/1000;
+		
+		long regEndTime = System.currentTimeMillis();
+		
+		regSchedTime = (float)(regEndTime - regStartTime)/1000;
+		
+		System.out.println("Scheduler ran in "+resTime+" seconds. Seminars took "+semSchedTime+" seconds, regulars took "+regSchedTime+ " seconds");
+		System.out.println("");
+		
+	}
+	
+	/**
+	 * Prints out results of the scheduling process
+	 */
+	private static void outputGraphs()
+	{			
+		getGraphs();
+		getAlgTrackerGraph();
+		
+	}
+	
+	////////////////
+	//HELPER METHODS
+	////////////////
 	
 	/**
 	 * Determines all courses that are advising courses
@@ -287,6 +290,7 @@ import java.util.HashMap;
 		//get seminar placements
 		setStudentPrefsToSeminar();
 		HashMap<Integer,Student> studsToCheck = getStudentsWithoutAdAsSem();
+		System.out.println("Seminar Placements:");
 		double[] prefCountSem = getPrefCount(studsToCheck);
 		double[] actualSemCount = getActualSemCount(studsToCheck);
 		String title = "Seminar Preference Placements";
@@ -295,12 +299,14 @@ import java.util.HashMap;
 		setStudentPrefsToRegular();
 		//get students with 3 courses to schedule
 		HashMap<Integer,Student> studs3 = getStudentsWith3CoursesToPlace();
+		System.out.println("Regular Placements for Students with 3 courses to schedule:");
 		double[] prefCountReg3 = getPrefCount(studs3);
 		String title3 = "Regular Preference Placements for Students With 3 Courses to Schedule";
 		BarChartMaker.makeBarChartPrefs(prefCountReg3,prefCountReg3Greedy,title3); 
 
 		//get students with 2 courses to schedule
 		HashMap<Integer,Student> studs2 = getStudentsWith2CoursesToPlace();
+		System.out.println("Regular Placements for Students with 2 courses to schedule:");
 		double[] prefCountReg2 = getPrefCount(studs2);
 		String title2 = "Regular Preference Placements for Students With 2 Courses to Schedule";
 		BarChartMaker.makeBarChartPrefs(prefCountReg2,prefCountReg2Greedy,title2); 
@@ -315,14 +321,8 @@ import java.util.HashMap;
 	{
 		int[] algTrackerSimRegResults = AlgTracker.getSimAnnealRegArray();
 		int[] algTrackerSimSemResults = AlgTracker.getSimAnnealSemArray();
-		//BarChartMaker.makeAlgTrackerChart(algTrackerResults);
 		XYChartMaker.makeAlgTrackerChart(algTrackerSimRegResults,false);
 		XYChartMaker.makeAlgTrackerChart(algTrackerSimSemResults,true);
-		
-		
-		//int[] algTrackerGreedResults = AlgTracker.getGreedyArray();
-		//XYChartMaker.makeAlgTrackerChart(algTrackerGreedResults);
-		
 	}
 	
 	
@@ -330,27 +330,15 @@ import java.util.HashMap;
 	static void VerifyResults()
 	{
 		ResultsTester.verifySchedules(students);
+		verifySatisfactionScore();
 	}
-	
-	/**
-	 * Prints out the number of freshmen counted in the 
-	 * HashMap where (k -> v) is (course -> num of freshmen)
-	 */
-	static void printFreshmenCourseCountTotal()
-	{
-		int totalCount = 0;
-		for(HashMap.Entry<String, Integer> c : freshmenCourseCounts.entrySet()){
-			int count = c.getValue();
-			totalCount += count;
-		}	
-		System.out.println("The total number is " + totalCount);
-	}
+
 	
 	/**
 	 * Prints average satisfaction score and number of students without a full course load
 	 * Can also print each student's info
 	 */
-	static void printStudents()
+	static void printStudentStats()
 	{	
 		double avgScore = 0;
 		
@@ -373,13 +361,14 @@ import java.util.HashMap;
 		
 		System.out.println("Number of students without full course load: "+numStudsWithoutFullCourseLoad);
 		System.out.println("Average Score: "+avgScore);
+		System.out.println("Number of students with perfect schedule: "+getNumOfPerfectlyScheduledStudents()+"\n");
 			
 	}
 	
 	/**
 	 * Displays the number of students that have a seminar course
 	 */
-	static void printSeminarInfo()
+	static void printNumStudInSeminars()
 	{
 		
 		int count = 0;
@@ -452,24 +441,6 @@ import java.util.HashMap;
 		
 	}
 	
-	/**
-	 * Prints out the total number of freshmen enrolled in
-	 * the courses. Should be around 652*4, not counting labs
-	 */
-	static void printCourseData()
-	{
-		int totStudents = 0;
-		for(HashMap.Entry<String, ArrayList<Course>> entry : courses.entrySet()){
-			ArrayList<Course> sections = entry.getValue();
-			
-			for(Course section : sections)
-				totStudents += section.curSize;
-			
-		}
-		
-		System.out.println("Found "+totStudents+" in courses");
-		
-	}
 	
 	/**
 	 * Prints how many freshmen are in each course
@@ -559,8 +530,17 @@ import java.util.HashMap;
 		//Optional printing of info
 		for(int i = 0; i <prefCount.length; i++)
 		{
-			System.out.println("There are " + prefCount[i] + " students in their preference " + (i+1) + " class.");
+			if(doingSeminar && i == 0)
+				continue;
+			
+			int index = i;
+			
+			if(!doingSeminar)
+				index = i + 1;
+			
+			System.out.println("There are " + prefCount[i] + " students in their preference " + (index) + " class.");
 		}
+		System.out.println("");
 		
 		//normalize out of 1
 		double[] normalizedPrefCount = new double[prefCount.length];
@@ -664,6 +644,7 @@ import java.util.HashMap;
 	 */
 	static void setStudentPrefsToSeminar()
 	{
+		System.out.println("Switching to Seminar Courses.");
 		doingSeminar = true;
 		
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
@@ -677,6 +658,7 @@ import java.util.HashMap;
 	 */
 	static void setStudentPrefsToRegular()
 	{
+		System.out.println("Switching to Regular Courses.");
 		doingSeminar = false;
 		
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet()){
@@ -712,7 +694,7 @@ import java.util.HashMap;
 	 * Helper method to check that we know the actual
 	 * total satisfaction score
 	 */
-	private static void printSatisfactionScoreInfo()
+	private static void verifySatisfactionScore()
 	{
 		int score = 0;
 		for(HashMap.Entry<Integer, Student> entry : students.entrySet())
@@ -721,7 +703,10 @@ import java.util.HashMap;
 				score += stud.satisfactionScore;	
 		}		
 		
-		System.out.println("Current Actual Satisfaction Score: "+score);
+		if(sol.getScore() == score)
+			System.out.println("Double checked Accuracy of Satisfaction Score, no inconsistencies found.");
+		else
+			System.out.println("Inconsistency found in Satisfaction Score!");
 	}
 	
 	/**
@@ -831,6 +816,12 @@ import java.util.HashMap;
 		}
 		
 		return toReturn;
+	}
+	
+	private static void writeResults(){
+		ResultsWriter.writeResults(students);
+		ResultsWriter.writeCourseResults(courses);
+		System.out.println("Results have been written to resultingCourses.txt and resultingSchedule.txt");
 	}
 		
 		
