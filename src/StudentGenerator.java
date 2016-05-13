@@ -15,7 +15,6 @@ public class StudentGenerator {
 		HashMap<Integer,Student> students = new HashMap<Integer, Student>();
 		Random rand = new Random();
 		
-		stuLoop:
 		for(int i = 0; i < Constants.NUM_STUDENTS;i++)
 		{
 			String[] prefs = new String[Constants.NUM_PREFS];

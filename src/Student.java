@@ -254,7 +254,6 @@ public class Student{
 			
 			boolean foundLab = false;
 			
-			labLoop:
 			for(Course lab : labs)
 			{
 				if(!lab.hasRoom())

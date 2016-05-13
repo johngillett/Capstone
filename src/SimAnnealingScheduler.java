@@ -102,7 +102,6 @@ public class SimAnnealingScheduler {
 							continue;
 						}
 						
-						prefLoop:
 						for(Course pref : prefs)
 						{
 							
@@ -338,20 +337,6 @@ public class SimAnnealingScheduler {
 		return toReturn;
 	}
 		
-
-	//returns a min priority queue of all students in a course
-	private static PriorityQueue constructStudentHeapFromCourse(Course section)
-	{
-		//declare Min Q
-		PriorityQueue toReturn = new PriorityQueue(false); 
-		
-		for(Student stud : section.students)
-			toReturn.push(stud.satisfactionScore, stud);
-		
-		//if(toReturn.isEmpty())
-		//	System.out.println("No students found in course: "+section.toString());
-		return toReturn;
-	}
 	
 	//Returns a PriorityQueue of all students based on their Satisfaction Score
 	private static PriorityQueue constructMaxHeapOfAllStudents()
@@ -373,20 +358,6 @@ public class SimAnnealingScheduler {
 			}
 			
 			return studentsHeap;
-	}
-	
-	//Returns an ArrayList of all students made from the Student Hashmap
-	private static ArrayList<Student> constructArrayListOfAllStudents()
-	{
-		ArrayList<Student> toReturn = new ArrayList<Student>(); 
-		for(HashMap.Entry<Integer, Student> entry : studentsMap.entrySet())
-		{
-				Student stud = entry.getValue();
-				toReturn.add(stud);
-		}
-		
-		return toReturn;
-		
 	}
 	
 	//Returns an ArrayList of students enrolled in a given course
