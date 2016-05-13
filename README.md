@@ -48,3 +48,21 @@ We also used the input data to generate student preference lists for regular cou
 Regular preferences can be generated in a number of ways. By default, they are simply parsed from *standardStudentRegularPrefs.txt* inside the method *getStandardPrefs*. 
 
 By commenting out *getStandardPrefs* and uncommenting *generatePopPrefs*, a new set of preferences can be generated and used if desired. These results are outputted as *currentStudentRegularPrefs.txt*. By renaming this file to *standardStudentRegularPrefs.txt*, it can be used as the default set of regular preferences.
+
+#####Constants
+
+The Constants class is where many of the settings and values for the scheduling process are stored. Through modification of these values you can change the way the scheduling process works.
+
+General Constants:
+
+* STUD_COURSE_LIMIT is the number of courses each student should ideally be placed in. No student will be enrolled in more than this number of courses.
+* SAT_SCALE can be set to Linear or Geometric. This simply changes the way student's satisfaction scores are calculated. 
+* POP_SCALE_FACTOR is the multiplier used for modifying the popularity of each course while generating regular course preferences. When the value is 0, the default values are unaffected. When the value is .1, for example, the more popular courses have their popularity value scaled up by .1, and the less popular courses have their values scaled down by .1. Increasing this value makes popular courses show up on student's preference lists more often, making the scheduler's job harder. 
+* TRACK_FIDELITY this is the precision of our AlgTracker graph. When the value is 1, every single iteration is recorded. When the value is for instance 20, only every 20 iterations are recorded in the graph. 
+
+Simulated Annealing Constants:
+
+* INIT_TEMP_VAL: This is the starting value of the temperature. It is arbitrary, but remember it is supposed to start high and end low. 
+* ITERS_BEFORE_TEMP_SCALE: The number of iterations Simulated goes through before reducing the temperature. The higher the value the longer the scheduler takes to run. 
+* TEMP_SCALE_FACTOR: The amount the temperature is scaled every ITERS_BEFORE_TEMP_SCALE iterations. At .9 the temperature is reduced by 10% each time. 
+* MIN_TEMP: This is the threshold Simulated Annealing checks against before stopping. Once the temperature is at or below this value, the schedule stops and returns the result.   
