@@ -43,7 +43,6 @@ public class Student{
 		this.id = id;
 		this.prefs = prefs;
 
-		//this.satisfactionScore = Integer.MAX_VALUE;
 		if(Constants.SAT == Constants.SAT_SCALE.Linear)
 		{
 			this.satisfactionScore = (Constants.NUM_PREFS+1)*Constants.STUD_COURSE_LIMIT;
@@ -427,10 +426,6 @@ public class Student{
 			toReturn += courses.get(i).getID()+courses.get(i).getSectionID()+", ";
 		
 		toReturn += " Score: "+satisfactionScore;
-
-		//toReturn += " Locked Courses: ";
-		//for(String s : this.lockedCourses)
-		//	toReturn += s+", ";
 		
 		return toReturn;
 	}

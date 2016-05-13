@@ -33,8 +33,6 @@ public class CourseParser {
 		//skip first line
 		bufRead.readLine();	
 		
-		//int  numSSIs = 0;
-		
 			//Line Format:
 			//0		     1	 2	 3	4	  5	     6	  7	  8	   9  10	11	 12	   13		14		  15     16	   17			
 			//Class Nbr,Dept,Crs,Sc,Title,Limit,Enrld,W/L,CO,Type,Units,Days,Times,Facil ID,Component,Term,Session,Advising

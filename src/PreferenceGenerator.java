@@ -97,21 +97,6 @@ public class PreferenceGenerator {
 				}
 			}
 			
-//			if(count >= averagePop)
-//			{
-//				int toAdd =(int)(count * Constants.POP_SCALE_FACTOR);
-//				count += toAdd;
-//			}
-//			else 
-//			{
-//				int toAdd =(int)(count * Constants.POP_SCALE_FACTOR);
-//				count -= toAdd;
-//				
-//				if(count < 1)
-//					count = 1;
-//				
-//			}
-			
 			averagePop += count;
 	
 			map.put(currLowerBound, id);
