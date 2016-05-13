@@ -704,7 +704,7 @@ import java.util.HashMap;
 		}		
 		
 		if(sol.getScore() == score)
-			System.out.println("Double checked Accuracy of Satisfaction Score, no inconsistencies found.");
+			System.out.println("Double checked accuracy of Satisfaction Score, no inconsistencies found.");
 		else
 			System.out.println("Inconsistency found in Satisfaction Score!");
 	}
@@ -805,10 +805,10 @@ import java.util.HashMap;
 		{
 			Student stud = entry.getValue();	
 			
-			if(stud.satisfactionScore == 4 && !stud.advisingIsSeminar())
+			if(stud.satisfactionScore == Constants.MIN_SAT_LINEAR && !stud.advisingIsSeminar())
 				toReturn++;
 			
-			if(stud.satisfactionScore == 6 && stud.advisingIsSeminar())
+			if(stud.satisfactionScore == Constants.MIN_SAT_LINEAR_ADVISING && stud.advisingIsSeminar())
 			{
 				toReturn++;
 			}

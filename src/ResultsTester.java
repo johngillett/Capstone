@@ -21,7 +21,7 @@ public class ResultsTester {
 	
 		if(noConflicts)
 		{
-		System.out.println("Double checked for conflicts in all Student's schedules, none found.");		
+		System.out.println("Double checked for conflicts in all student schedules, none found.");		
 		}
 	
 	}

@@ -19,12 +19,10 @@ We break the problem up into classes for basic objects, data parsing/generation,
 To be able to generate graphs summarizing the results of our program, make sure to have JFreeChart installed. Directions on installation can be found 
 [here](http://www.tutorialspoint.com/jfreechart/jfreechart_installation.htm). If you are using Eclipse to compile and run code, make sure to add the jars to the buildpath of the project as well.
 
-###Using Our Project
-#####Running the program
-The main method is located in Driver, so most aspects of the project can be manipulated from there. 
-The *PrintOutDataInfo* method has many useful helper methods called within it. Commenting/uncommenting these methods is an easy way to modify what results are outputted. 
+###Running the program
+The main method is located in Driver, so most aspects of the project can be manipulated from there. There are many helper methods that output data that can be commented/uncommented as necessary.
 
-#####Data Files & Format
+###Data Files & Format
 We were given Fall 2015 course and student data through Excel spreadsheets. In the process of data cleansing, we created csv text files that contained the pertinent information for our program. Some custom modifications were necessary to deal with data discrepancies, which must be kept in mind if our program is to be applied to future semesters. 
 
 The following files are the input data files our data reads. To run our project with an updated set of courses and students, you would need to replace them with their respective updated information:
@@ -41,7 +39,7 @@ The following files are the output data files made by our program:
 * resultingSchedule.txt
 * resulingCourses.txt
 
-#####Generating preferences
+###Generating preferences
 
 We also used the input data to generate student preference lists for regular courses, since these did not exist already. Anyone attempting to implement this as a real solution in the future would need to modify/write code to support reading in student's regular course preferences. This would be a similar process to how seminar preferences are read in.
 
@@ -49,17 +47,17 @@ Regular preferences can be generated in a number of ways. By default, they are s
 
 By commenting out *getStandardPrefs* and uncommenting *generatePopPrefs*, a new set of preferences can be generated and used if desired. These results are outputted as *currentStudentRegularPrefs.txt*. By renaming this file to *standardStudentRegularPrefs.txt*, it can be used as the default set of regular preferences.
 
-#####Constants
+###Constants
 
 The Constants class is where many of the settings and values for the scheduling process are stored. Through modification of these values you can change the way the scheduling process works.
 
-General Constants:
+**General Constants**:
 
 * STUD_COURSE_LIMIT is the number of courses each student should ideally be placed in. No student will be enrolled in more than this number of courses.
 * SAT_SCALE can be set to Linear or Geometric. This simply changes the way student's satisfaction scores are calculated. Our implementation defaults to linear.
 * TRACK_FIDELITY this is how often we record the value of the total satisfaction score via AlgTracker. So when the value is 1, every single iteration is recorded. When the value is instead 20, only every 20 iterations are recorded in the graph. 
 
-Simulated Annealing Constants:
+**Simulated Annealing Constants**:
 
 * INIT_TEMP_VAL: This is the starting value of the temperature. Most implementations start at 1.
 * ITERS_BEFORE_TEMP_SCALE: The number of iterations the SimAnnealingScheduler goes through before reducing the temperature. The higher the value, the longer the scheduler takes to run. 
